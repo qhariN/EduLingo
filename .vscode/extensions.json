@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "angular.ng-template",
+    "nrwl.angular-console",
+    "esbenp.prettier-vscode",
+    "firsttris.vscode-jest-runner",
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "aaron-bond.better-comments",
+    "eamodio.gitlens",
+    "wix.vscode-import-cost"
+  ]
+}
