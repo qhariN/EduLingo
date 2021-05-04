@@ -36,7 +36,7 @@
       "projectType": "application",
       "root": "apps/frontend",
       "sourceRoot": "apps/frontend/src",
-      "prefix": "edulingo",
+      "prefix": "frontend",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -47,12 +47,17 @@
             "polyfills": "apps/frontend/src/polyfills.ts",
             "tsConfig": "apps/frontend/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/frontend/src/favicon.ico",
-              "apps/frontend/src/assets"
+            "assets": ["apps/frontend/src/assets"],
+            "styles": [
+              "libs/theme/scss/loader.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "apps/frontend/src/assets/scss/main.scss"
             ],
-            "styles": ["apps/frontend/src/styles.scss"],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -87,7 +92,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "frontend:build"
+            "browserTarget": "frontend:build",
+            "proxyConfig": "apps/frontend/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -216,6 +222,31 @@
           "outputs": ["coverage/libs/utils"],
           "options": {
             "jestConfig": "libs/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "components": {
+      "projectType": "library",
+      "root": "libs/components",
+      "sourceRoot": "libs/components/src",
+      "prefix": "edulingo",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/components/src/**/*.ts",
+              "libs/components/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/components"],
+          "options": {
+            "jestConfig": "libs/components/jest.config.js",
             "passWithNoTests": true
           }
         }

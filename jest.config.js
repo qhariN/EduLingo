@@ -1,7 +1,8 @@
 module.exports = {
   projects: [
     '<rootDir>/apps/frontend',
-    '<rootDir>/apps/backend',
     '<rootDir>/libs/utils',
+    '<rootDir>/libs/components',
+    '<rootDir>/apps/backend',
   ],
 };

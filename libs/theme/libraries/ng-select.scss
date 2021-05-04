@@ -1,0 +1,98 @@
+@import '../variables.scss';
+
+ng-dropdown-panel {
+    transition: all .3s cubic-bezier(.215, .61, .355, 1) 0s, opacity .3s ease 0s, height 0s linear .35s;
+}
+
+.ng-select {
+    .ng-select-container {
+        background-color: $white;
+        border: 1px solid $border;
+        border-radius: 4px;
+        color: $gray;
+        line-height: normal;
+        min-height: 40px;
+        font-size: 14px;
+        transition: color .3s ease-in-out, border-color .3s ease-in-out, background-color .3s ease-in-out;
+        box-shadow: none;
+    }
+    .ng-clear-wrapper {
+        display: flex;
+        &:hover .ng-clear {
+            color: #ef8157;
+        }
+    }
+    &.ng-select {
+        &-focused:not(.ng-select-opened)>.ng-select-container {
+            border: 1px solid #ddd;
+            box-shadow: none;
+        }
+        &-opened>.ng-select-container {
+            border: 1px solid #9a9a9a;
+        }
+        &-multiple .ng-select-container .ng-value-container {
+            padding-top: 4px;
+            .ng-value {
+                background-color: #54514D;
+                color: #fff;
+                padding: 2px 4px;
+                border-radius: 4px;
+                margin-bottom: 4px;
+                .ng-value-icon.left {
+                    border: 0;
+                }
+                .ng-value-icon:hover {
+                    background-color: #54514D;
+                }
+            }
+        }
+        &-single .ng-select-container .ng-value-container .ng-input {
+            top: unset;
+            padding-left: 9px;
+        }
+    }
+    &.auto-grow {
+        display: flex;
+        .ng-dropdown-panel {
+          width: auto;
+        }
+    }
+    &[sm] {
+        .ng-select-container {
+            min-height: calc(1.5em + .5rem + 2px);
+            font-size: 0.875rem;
+        }
+        &.ng-select-single .ng-select-container {
+            height: calc(1.5em + .5rem + 2px);
+        }
+        .ng-dropdown-panel .ng-dropdown-panel-items {
+            .ng-option {
+                padding: 5px 15px;
+            }
+            .ng-optgroup {
+                padding: 5px 10px;
+            }
+        }
+    }
+    &.ng-select-disabled>.ng-select-container {
+        background-color: $gray-light;
+        cursor: not-allowed;
+    }
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items {
+    max-height: 246px !important;
+    .ng-option {
+        font-size: 14px;
+        padding: 10px 15px;
+        &.ng-option-marked {
+            background-color: #54514D;
+            color: #fff;
+        }
+        &.ng-option-selected,
+        &.ng-option-selected.ng-option-marked {
+            color: #54514D;
+            background-color: #F4F3EF;
+        }
+    }
+}

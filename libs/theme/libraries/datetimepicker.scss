@@ -1,0 +1,28 @@
+@import '../variables.scss';
+
+.dl-abdtp {
+    &-year-view > div.row {
+        padding-bottom: .5rem;
+    }
+    &-left-button, &-right-button {
+        border-radius: 4px !important;
+        min-width: 16.333333% !important;
+        max-width: 16.333333% !important;
+    }
+    &-view-label {
+        max-width: 67.333333% !important;
+        color: $gray !important;
+    }
+    &-now {
+        border-radius: 4px !important;
+    }
+    &-date-button {
+        border-radius: 4px !important;
+    }
+    &-selected {
+        background-color: $primary-light !important;
+        &:focus, &:hover {
+            background: $primary !important;
+        }
+    }
+}

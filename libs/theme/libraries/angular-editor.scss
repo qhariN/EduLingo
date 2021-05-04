@@ -1,0 +1,22 @@
+@import '../variables.scss';
+
+.angular-editor .angular-editor-wrapper .angular-editor-textarea {
+  outline: none;
+  border: 1px solid $border-light !important;
+  border-radius: 4px;
+  transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  &:focus {
+    border: 1px solid $form-focus !important;
+  }
+}
+
+.has-success .angular-editor .angular-editor-wrapper .angular-editor-textarea:focus {
+	border: 1px solid $success-dark !important;
+}
+
+.has-danger .angular-editor .angular-editor-wrapper {
+  .angular-editor-textarea,
+  .angular-editor-textarea:focus {
+    border: 1px solid $danger !important;
+  }
+}

@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@edulingo/utils": ["libs/utils/src/index.ts"]
+      "@edulingo/utils": ["libs/utils/src/index.ts"],
+      "@edulingo/components": ["libs/components/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

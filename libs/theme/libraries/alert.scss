@@ -1,0 +1,100 @@
+@import '../variables.scss';
+
+.alert {
+	border: 0;
+	border-radius: 4px;
+	color: $white;
+	position: relative;
+	padding-top: .9rem;
+	padding-bottom: .9rem;
+	background-color: $primary;
+	&.alert-success {
+		&.plain {
+			padding: 0.4rem 0.6rem;
+			background-color: $success;
+		}
+		span[data-notify=icon] {
+			color: $success-dark;
+		}
+	}
+	&.alert-danger {
+		&.plain {
+			padding: 0.4rem 0.6rem;
+			background-color: $danger;
+		}
+		span[data-notify=icon] {
+			color: $danger-dark;
+		}
+	}
+	&.alert-warning {
+		&.plain {
+			padding: 0.4rem 0.6rem;
+			background-color: $warning;
+		}
+		span[data-notify=icon] {
+			color: $warning-dark;
+		}
+	}
+	&.alert-info {
+		&.plain {
+			padding: 0.4rem 0.6rem;
+			background-color: $info;
+		}
+		span[data-notify=icon] {
+			color: $info-dark;
+		}
+	}
+	&.alert-primary {
+		span[data-notify=icon] {
+			color: $white;
+		}
+	}
+	&.alert-default {
+		span[data-notify=icon] {
+			color: $text-muted;
+		}
+	}
+	.close {
+		color: $white;
+		opacity: .9;
+		text-shadow: none;
+		line-height: 0;
+		outline: 0;
+		& ~ span {
+			display: block;
+			// max-width: 94%;
+		}
+	}
+	span[data-notify=icon] {
+		font-size: 24px;
+		display: block;
+		left: 19px;
+		position: absolute;
+		top: 48%;
+		margin-top: -11px;
+	}
+	button {
+		&.close {
+			position: absolute;
+			right: 10px;
+			top: 50%;
+			margin-top: -13px;
+			width: 25px;
+			height: 25px;
+			padding: 3px;
+		}
+	}
+	&.alert-with-icon {
+		padding-left: 56px;
+	}
+}
+
+.alert .close i.fa,
+.alert .close i.nc-icon {
+	font-size: 14px!important;
+}
+
+.alert .close:focus,
+.alert .close:hover {
+	opacity: 1;
+}

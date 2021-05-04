@@ -1,0 +1,50 @@
+@import '../variables.scss';
+
+.ngx-datatable {
+    &.material {
+        box-shadow: none;
+        .empty-row {
+            height: auto !important;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .datatable-body .datatable-body-row .datatable-body-cell {
+            color: $gray !important;
+            display: flex;
+            align-items: center;
+        }
+        .progress-linear .container {
+            background-color: $border !important;
+            .bar {
+                background-color: $gray !important;
+            }
+        }
+    }
+    .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {
+        font-size: 14px;
+        font-weight: 700;
+        color: $gray !important;
+    }
+    datatable-body-row datatable-body-cell .datatable-tree-button {
+        border: unset;
+        background: unset;
+        margin-right: 0.5rem;
+        color: #66615B;
+        &:disabled {
+            opacity: 0.5;
+        }
+        i.icon {
+            display: flex;
+        }
+    }
+    @media (max-width: 560px) {
+        datatable-footer .datatable-footer-inner .datatable-pager {
+            flex: unset;
+            ul>li {
+                &:first-child, &:last-child, &.pages {
+                    display: none;
+                }
+            }
+        }
+    }
+}
