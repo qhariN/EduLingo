@@ -7,8 +7,7 @@ main {
 .navbar {
   background-color: #173766;
   height: 60px;
-  width: 101.3%;
-  margin: -10px;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -50,7 +49,7 @@ h4 {
 
 .session {
   height: 90%;
-  width: 101.3%;
+  width: 100%;
   margin: 30px -10px 0 -10px;
   display: flex;
   flex-wrap: wrap;
