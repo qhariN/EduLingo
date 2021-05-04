@@ -18,9 +18,20 @@
       <div class="btn_others">
         <h4>Others</h4>
       </div>
+      <ng-container *ngIf="sAuth0.isAuthenticated$ | async; else loggedOut">
+        <button (click)="sAuth0.logout({ returnTo: document.location.origin })" class="btn btn-danger">Logout</button>
+      </ng-container>
+      <ng-template #loggedOut>
+        <button (click)="sAuth0.loginWithRedirect()" class="btn btn-success">Login</button>
+      </ng-template>
     </div>
     <div class="btn_profile">
-      <h4>Fernando</h4>
+      <ul *ngIf="sAuth0.user$ | async as user">
+        <li>{{ user.nickname }}</li>
+        <li>{{ user.email }}</li>
+        <!-- <li>{{ user | json }}</li> -->
+        <img [src]="user.picture" [alt]="user.name" class="img-thumbnail">
+      </ul>
     </div>
   </div>
   <div class="session">
