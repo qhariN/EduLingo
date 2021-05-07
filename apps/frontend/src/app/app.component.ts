@@ -13,8 +13,7 @@ export class AppComponent implements OnInit {
   constructor(@Inject(DOCUMENT) public document: Document, public sAuth0: AuthService) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      $('#loader').addClass('loaded')
-    }, 3000)
+    //* hide loader
+    $('#loader').addClass('loaded')
   }
 }
