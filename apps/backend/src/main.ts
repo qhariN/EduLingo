@@ -28,7 +28,7 @@ async function bootstrap() {
     customSiteTitle: 'Edulingo API Docs',
   };
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document, customOptions);
+  SwaggerModule.setup('', app, document, customOptions);
   
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
