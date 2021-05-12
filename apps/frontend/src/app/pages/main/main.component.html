@@ -1,0 +1,8 @@
+<div class="container">
+    <ng-container *ngIf="sAuth0.isAuthenticated$ | async; else loggedOut">
+        <button (click)="sAuth0.logout({ returnTo: document.location.origin })" class="btn btn-danger">Logout</button>
+    </ng-container>
+    <ng-template #loggedOut>
+        <button (click)="sAuth0.loginWithRedirect({ appState: { target: '/learn' } })" class="btn btn-success">Login</button>
+    </ng-template>
+</div>

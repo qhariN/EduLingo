@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@services/auth.service';
 
 @Component({
   selector: 'frontend-forbidden',
@@ -8,9 +7,9 @@ import { AuthService } from '@services/auth.service';
 })
 export class ForbiddenComponent {
 
-  constructor(private sAuth: AuthService) { }
+  constructor() { }
 
   goBack() {
-    this.sAuth.goBack()
+    //* return to /learn
   }
 }
