@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardRoutingModule } from './dashboard.routing';
-import { DashboardComponent } from './dashboard.component';
+import { LearnRoutingModule } from './learn.routing';
+import { LearnComponent } from './learn.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotimplementedComponent } from './components/notimplemented/notimplemented.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 
 @NgModule({
-  declarations: [DashboardComponent, ForbiddenComponent, NotimplementedComponent, InicioComponent],
+  declarations: [LearnComponent, ForbiddenComponent, NotimplementedComponent, InicioComponent],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
+    LearnRoutingModule,
     ReactiveFormsModule,
     FormsModule
   ]
 })
-export class DashboardModule { }
+export class LearnModule { }

@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotfoundComponent } from '@pages/notfound/notfound.component';
-import { SessionAliveUtilGuard, AuthUtilGuard } from '@nx-angular/utils';
+import { AuthGuard } from '@auth0/auth0-angular';
+import { MainComponent } from './pages/main/main.component';
+import { NotfoundComponent } from './pages/notfound/notfound.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthUtilGuard] },
+  { path: '', component: MainComponent },
+  { path: 'learn', loadChildren: () => import('./pages/learn/learn.module').then(m => m.LearnModule), canActivate: [AuthGuard] },
   { path: '**', component: NotfoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,16 +1,14 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { Component, OnInit } from '@angular/core';
 declare var $: any;
 
 @Component({
   selector: 'edulingo-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styles: []
 })
 export class AppComponent implements OnInit {
   
-  constructor(@Inject(DOCUMENT) public document: Document, public sAuth0: AuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
     //* hide loader
