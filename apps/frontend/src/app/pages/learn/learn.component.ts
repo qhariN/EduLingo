@@ -14,10 +14,9 @@ export class LearnComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription()
   year = new Date().getFullYear() //* Current year for footer
   appVersion = environment.appVersion
-
   constructor(@Inject(DOCUMENT) public document: Document, public sAuth0: AuthService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe()

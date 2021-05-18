@@ -103,19 +103,17 @@ header {
 
     .avatar {
       cursor: pointer;
-
+      
       img {
         width: 36px;
         border-radius: 50%;
       }
-
     }
-
   }
 }
 
 main {
-  max-width: 1140px;
+  max-width: 100%;
   padding: 0 24px;
   margin: 0 auto;
 }
@@ -127,11 +125,10 @@ main {
 
 }
 
-.steps{
+.steps,.cards{
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
 .topic{
@@ -200,13 +197,21 @@ main {
     -webkit-mask-image: radial-gradient(circle at 50% -6px,transparent 57px,#000 0);
     mask-image: radial-gradient(circle at 50% -6px,transparent 57px,#000 0);
     pointer-events: none;
-    position: relative;
+    position: relative; 
+  }
+
+  .card__container{
+    background-color: #ffffff;
+    border: 1px solid #E9E9E9;
+    border-radius: 20px;
     
+    pointer-events: none;
+    position: relative; 
   }
 }
 
 
-.practice {
+.practice{
   display: flex;
   align-items: stretch;
   flex-direction: column;
@@ -317,10 +322,88 @@ main {
   }
 }
 
-
 .lock{
   background-color: #F0F0F0;
   border: 1px solid #E9E9E9;
   border-radius: 20px;
-  
+}
+
+.card__container{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 70%;
+  height: 100%;
+  padding: 16px;
+  margin-bottom: 24px;
+
+  .container__title{
+    font-weight: 800;
+    font-size: 18px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .container__paragraph{
+    text-align: center;
+  }
+}
+
+.container__titles,.container__content{
+  width: 100%;
+  display: flex;
+  margin-bottom: 16px;
+
+  .title__left{
+    font-size: 18px;
+    font-weight: 900;
+    width: 50%;
+    text-align: left;
+  }
+
+  .title__right{
+    font-size: 14px;
+    font-weight: 900;
+    width: 50%;
+    text-align: right;
+    padding-top: 5px;
+    color: rgb(27, 176, 245);
+  }
+
+  .content__left{
+    width: 25%;
+  }
+
+  .content__rigth{
+    width: 75%;
+    padding: 12px 0px 0px 0px;
+
+    h5{
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .progress__div{
+      width: 100%;
+      display: flex;
+      
+      .progress__bar{
+        width: 70%;
+        height: 16px;
+        border-radius: 8px;
+        margin-top: 12px;
+        background-color:rgb(194, 192, 192);
+      }
+      .progress__status{
+        width: 30%; 
+        margin-top: 8px;
+        margin-left: 8px;
+        color:dimgray;
+      }
+    }
+
+   
+  }
+
 }

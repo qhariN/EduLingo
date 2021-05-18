@@ -27,14 +27,17 @@
         <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/aed279fcbad509208b45ca7a17f3e8dc.svg" />
         <span>6</span>
       </a>
-      <a class="avatar">
+     
+      <a class="avatar" *ngIf="sAuth0.user$ | async as user" (click)="sAuth0.logout({ returnTo: document.location.origin })">
+        <img [src]="user.picture" [alt]="user.name" class="img-thumbnail">
+      </a>
+      <a class="avatar" *ngIf="!sAuth0.user$ | async as user"  (click)="sAuth0.logout({ returnTo: document.location.origin })">
         <img src="https://s3.amazonaws.com/duolingo-images/avatar/default_2/medium" />
       </a>
     </div>
   </nav>
 </header>
 <main>
-
   <div class="double-layout">
     <div class="steps">
       <div class="topic">
@@ -107,7 +110,7 @@
                 <div class="circle">
                   <img src="./../assets/img/image.svg" />
                 </div>
-                <span class="crown">1</span>
+                <span class="crown">2</span>
               </div>
               <p class="skill__title">hamburguesa</p>
             </div>
@@ -116,7 +119,7 @@
                 <div class="circle">
                   <img src="./../assets/img/image.svg" />
                 </div>
-                <span class="crown">1</span>
+                <span class="crown">3</span>
               </div>
               <p class="skill__title">hamburguesa</p>
             </div>
@@ -127,7 +130,7 @@
                 <div class="circle">
                   <img src="./../assets/img/image.svg" />
                 </div>
-                <span class="crown">1</span>
+                <span class="crown">4</span>
               </div>
               <p class="skill__title">hamburguesa</p>
             </div>
@@ -136,9 +139,9 @@
                 <div class="circle">
                   <img src="./../assets/img/image.svg" />
                 </div>
-                <span class="crown">1</span>
+                <span class="crown">5</span>
               </div>
-              <p class="skill__title">hamburguesa</p>
+              <p class="skill__title">Hamburguesa</p>
             </div>
           </div>
         </div>
@@ -146,11 +149,35 @@
 
     </div>
     <div class="cards">
-      aa
-        <ng-container>
-            <button (click)="sAuth0.logout({ returnTo: document.location.origin })" class="btn btn-danger">Logout</button>
-        </ng-container>
+      <div class="topic">
+        <div class="topic topic--lock">
+          <div class="card__container">
+            <img src="//d35aaqx5ub95lt.cloudfront.net/images/leagues/placeholder.svg">
+            <h2 class="container__title">¡Participa en las Ligas!</h2>
+            <p class="container__paragraph">Completa 10 lecciones más para empezar a competir.</p>
+          </div>
+          <div class="card__container">
+              <div class="container__titles">
+                <div class="title__left">Progreso de EXP</div>
+                <div class="title__right">CAMBIAR META</div>
+              </div>
+              <div class="container__content">
+                <div class="content__left">
+                  <img src="//d35aaqx5ub95lt.cloudfront.net/images/chest-closed.svg" />
+                </div>
+                <div class="content__rigth">
+                    <h5>Meta diaria</h5>
+                    <div class="progress__div">
+                      <div class="progress__bar"></div>
+                      <div class="progress__status">
+                        0/20 EXP
+                      </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </main>
-<router-outlet></router-outlet>
