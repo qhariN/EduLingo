@@ -1,8 +1,10 @@
-<div class="container">
-    <ng-container *ngIf="sAuth0.isAuthenticated$ | async; else loggedOut">
-        <button (click)="sAuth0.logout({ returnTo: document.location.origin })" class="btn btn-danger">Logout</button>
-    </ng-container>
-    <ng-template #loggedOut>
-        <button (click)="sAuth0.loginWithRedirect({ appState: { target: '/learn' } })" class="btn btn-success">Login</button>
-    </ng-template>
-</div>
+<frontend-navigation-landing></frontend-navigation-landing>
+<main class="content main">
+    <div class="annotation">
+        <div class="putch">Putch</div>
+        <span class="message">The best online learning platform</span>
+    </div>
+    <h2 class="title">En <span>Edulingo</span> aprendes <br/> a tu ritmo</h2>
+    <p class="description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus eaque commodi provident, corrupti doloremque assumenda laboriosam mollitia aperiam deserunt?</p>
+    <button class="button primary-outline play">Saber mas <i class="fas fa-play"></i></button>
+</main>

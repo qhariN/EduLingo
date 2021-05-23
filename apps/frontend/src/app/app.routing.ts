@@ -6,7 +6,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'learn', loadChildren: () => import('./pages/learn/learn.module').then(m => m.LearnModule), canActivate: [AuthGuard] },
+  { path: 'learn', loadChildren: () => import('./pages/learn/learn.module').then(m => m.LearnModule)},
   { path: '**', component: NotfoundComponent }
 ];
 

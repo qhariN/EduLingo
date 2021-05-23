@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LearnRoutingModule } from './learn.routing';
@@ -13,7 +14,8 @@ import { InicioComponent } from './components/inicio/inicio.component';
     CommonModule,
     LearnRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class LearnModule { }

@@ -1,0 +1,48 @@
+:root{
+    --color-green:#43A379;
+    --color-blue-black: #03272E;
+    --color-white:#F3F5F6;
+    --color-gray-light:#E9E9E9
+}
+
+*{
+    margin: 0;
+}
+
+.content{
+    padding: 10px 40px;
+}
+
+.button{
+    cursor: pointer;
+    border:none;
+    padding: 6px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: 300ms;
+    
+}
+
+// Primary buttons [outline]
+
+.primary-outline{
+    border:2px solid var(--color-green);
+    background-color: var(--color-white);
+    color: var(--color-green);
+    &:hover{
+        background-color: var(--color-green);
+        color: var(--color-white);
+    }
+}
+
+.primary-simple{
+    border:2px solid transparent;
+    background-color: var(--color-white);
+    color: var(--color-green);
+    &:hover{
+        background-color: var(--color-green);
+        color: var(--color-white);
+    }
+}
+

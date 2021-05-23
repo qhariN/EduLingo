@@ -1,0 +1,19 @@
+<header>
+  <div class="logo"><span>Edu</span>lingo</div>
+
+  <div class="actions">
+    <ng-container *ngIf="sAuth0.isAuthenticated$ | async; else loggedOut">
+      <button (click)="sAuth0.logout({ returnTo: document.location.origin })" class="btn btn-danger">
+        Logout
+      </button>
+    </ng-container>
+    <ng-template #loggedOut>
+      <button (click)="sAuth0.loginWithRedirect({ appState: { target: '/learn' } })" class="button primary-simple">
+        Registrarse
+      </button>
+      <button (click)="sAuth0.loginWithRedirect({ appState: { target: '/learn' } })" class="button primary-outline">
+        Iniciar sesion
+      </button>
+    </ng-template>
+  </div>
+</header>
