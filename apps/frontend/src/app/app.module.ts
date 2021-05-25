@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -13,6 +14,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
+    SharedModule,
     AuthModule.forRoot({
       domain: 'wanna.auth0.com',
       clientId: 'wjEIF235s4K6W5XHeq7BCTWIDAwI4bcq',

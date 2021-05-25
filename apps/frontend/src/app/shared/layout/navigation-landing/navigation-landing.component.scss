@@ -1,0 +1,22 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 0 40px;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+}
+
+.logo{
+    font-weight: 900;
+    font-size: 1.6rem;
+    span{
+        color: var(--color-green);
+    }
+}
+.actions{
+    display: flex;
+    gap: 10px;
+}
