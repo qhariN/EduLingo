@@ -12,6 +12,7 @@ import { Option } from './model/option';
 import { Question } from './model/question';
 import { Session } from './model/session';
 import { UnitModule } from './routes/unit/unit.module';
+import { SessionModule } from './routes/session/session.module';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { UnitModule } from './routes/unit/unit.module';
       charset: 'utf8mb4'
     }),
     AuthzModule,
-    UnitModule
+    UnitModule,
+    SessionModule
   ],
   controllers: [AppController],
   providers: [AppService],

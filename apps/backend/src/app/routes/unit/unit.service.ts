@@ -9,6 +9,9 @@ export class UnitService {
     constructor(@InjectRepository(Unit) private readonly repo: Repository<Unit>) { }
 
     public async getAll() {
-        return await this.repo.createQueryBuilder('unit').leftJoinAndSelect('unit.section', 'section').leftJoinAndSelect('section.session', 'session').getMany()
+        return await this.repo.createQueryBuilder('unit')
+            .leftJoinAndSelect('unit.section', 'section')
+            .leftJoinAndSelect('section.session', 'session')
+            .getMany()
     }
 }

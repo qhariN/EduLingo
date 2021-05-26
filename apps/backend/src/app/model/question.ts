@@ -11,6 +11,9 @@ export class Question {
     @Column({ length: 500 })
     question: string
 
+    @Column({ length: 500, nullable: true })
+    text: string
+
     @Column()
     type: number //! 0 = rellenar ; 1 = ordenar
 

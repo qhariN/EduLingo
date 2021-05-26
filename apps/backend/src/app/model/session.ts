@@ -24,7 +24,7 @@ export class Session {
     @OneToMany(type => Progress, progress => progress.session)
     progress: Progress[]
 
-    @OneToMany(type => Question, question => question.question)
+    @OneToMany(type => Question, question => question.session)
     question: Question[]
 
 }

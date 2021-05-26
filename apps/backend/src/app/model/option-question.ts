@@ -11,7 +11,7 @@ export class OptionQuestion {
     @Column()
     flag_estado: number
 
-    @Column()
+    @Column({ nullable: true })
     order: number //! 0 = no available ; 1 = available
 
     @ManyToOne(type => Question, question => question.option_question)
