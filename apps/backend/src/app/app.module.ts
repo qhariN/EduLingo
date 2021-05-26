@@ -17,11 +17,11 @@ import { UnitModule } from './routes/unit/unit.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'remotemysql.com',
+      host: '152.67.50.191',
       port: 3306,
-      username: 'mISERjYnhy',
-      password: 'C6cb8PBbeD',
-      database: 'mISERjYnhy',
+      username: 'nautilus',
+      password: '#gdmk9C6Ft#L',
+      database: 'edulingo-db',
       entities: [
         User,
         Progress,
