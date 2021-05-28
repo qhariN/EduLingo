@@ -15,6 +15,9 @@ export class Session {
     @Column()
     name: string
 
+    @Column()
+    number: number
+
     @Column({ length: 300 })
     url_content: string
 
