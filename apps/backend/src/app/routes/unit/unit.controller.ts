@@ -10,4 +10,9 @@ export class UnitController {
     public async getAll() {
         return await this.service.getAll()
     }
+
+    @Get('all/user')
+    public async getAllUser() {
+        return await this.service.getAllUser()
+    }
 }
