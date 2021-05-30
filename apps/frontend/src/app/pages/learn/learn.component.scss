@@ -1,8 +1,8 @@
-
+@import '/libs/theme/variables.scss';
 
 header {
   width: 100%;
-  border-bottom: 2px solid #e5e5e5;
+  border-bottom: 2px solid $border-light;
 }
 
 .navigation {
@@ -17,7 +17,7 @@ header {
   &__logo {
     font-weight: bold;
     text-transform: uppercase;
-    color: #1cb0f6;
+    color: $primary;
     font-size: 15px;
     font-weight: 700;
   }
@@ -51,7 +51,7 @@ header {
     }
 
     .item--active {
-      color: #3c3c3c;
+      color: $primary;
     }
 
     @media (max-width: 768px) {
@@ -150,6 +150,13 @@ main {
       display: flex;
       justify-content: center;
       align-items: center;
+      &>div {
+        border-radius: 50%;
+      }
+      .crown {
+        background-color: #e5e5e5;
+        color: $text-muted;
+      }
     }
 
     img {
@@ -160,6 +167,25 @@ main {
   .complete {
     .sesion__content {
       border: 10px solid #ffc107!important;
+      &>div {
+        overflow: hidden;
+        transform: translateZ(0);
+        &:before {
+          background-image: url('https://d35aaqx5ub95lt.cloudfront.net/images/6cba8939738ae938486993d2eb07409a.svg');
+          background-size: cover;
+          content: "";
+          height: 132%;
+          left: 12%;
+          position: absolute;
+          top: -13%;
+          width: 105%;
+          z-index: -1;
+        }
+      }
+      .crown {
+        background-color: #ffc107;
+        color: $white;
+      }
     }
   }
 }

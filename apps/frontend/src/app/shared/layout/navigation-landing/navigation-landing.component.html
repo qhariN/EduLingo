@@ -3,16 +3,16 @@
 
   <div class="actions">
     <ng-container *ngIf="sAuth0.isAuthenticated$ | async; else loggedOut">
-      <button (click)="sAuth0.logout({ returnTo: document.location.origin })" class="btn btn-danger">
-        Logout
+      <button routerLink="/learn" class="button primary-outline">
+        Seguir aprendiendo
+      </button>
+      <button (click)="sAuth0.logout({ returnTo: document.location.origin })" class="button primary-simple">
+        Cerrar sesión
       </button>
     </ng-container>
     <ng-template #loggedOut>
-      <!--<button (click)="sAuth0.loginWithRedirect({ appState: { target: '/learn' } })" class="button primary-simple">
-        Registrarse
-      </button>-->
-      <button (click)="sAuth0.loginWithRedirect({ appState: { target: '/learn' } })" class="btn btn-outline-primary">
-        Iniciar sesion
+      <button (click)="sAuth0.loginWithRedirect({ appState: { target: '/learn' } })" class="button primary-outline">
+        Iniciar sesión
       </button>
     </ng-template>
   </div>
