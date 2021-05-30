@@ -5,9 +5,9 @@
     justify-content: center;
     gap:10px;
     
-    // background-image: url("./../../../assets/img/hero.jpg");
-    // background-repeat:no-repeat;
-    // background-size: cover;
+    background-image: url("../../../assets/svg/img_main.svg");
+    background-repeat:no-repeat;
+    background-position: right;
 }
 
 .annotation{
@@ -17,17 +17,17 @@
     padding: 2px;
     width: 280px;
     border-radius: 30px;
-    background-color: #D5EAE1;
+    background-color: #d4e2fa;
     font-size: .8rem;
     .putch{
-        background-color: var(--color-green);
+        background-color: #007bff!important;
         padding: 5px 10px;
         border-radius: 30px;
         color: var(--color-white);
         font-weight: bold;
     }
     .message{
-        color: var(--color-green);
+        color: #1f1e1e!important;
         font-weight: 600;
     }
 }
@@ -35,9 +35,8 @@
 .title{
     font-size: 3rem;
     font-weight: 800;
-    color: var(--color-blue-black);
     span{
-        color:var(--color-green)
+        color: #007bff!important;
     }
 }
 
