@@ -21,4 +21,8 @@ export class LearnComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe()
   }
+
+  newPractice(){
+    console.log("olademar");
+  }
 }

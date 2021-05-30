@@ -6,9 +6,10 @@ import { MainComponent } from './pages/main/main.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { AppRoutingModule } from './app.routing';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SkillComponent } from './pages/skill/skill.component';
 
 @NgModule({
-  declarations: [AppComponent, MainComponent, NotfoundComponent],
+  declarations: [AppComponent, MainComponent, NotfoundComponent, SkillComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,
