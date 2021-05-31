@@ -1,3 +1,5 @@
+import { Progress } from "./progress";
+
 export interface Session{
     id : string;
     name : string;
@@ -5,4 +7,6 @@ export interface Session{
     number : number;
     url : string;
     url_content : string;
+    progress: Progress[];
+    class?: string;
 };

@@ -1,3 +1,7 @@
+@charset 'UTF-8';
+
+@import '/libs/theme/variables.scss';
+
 .main{
     height: 100vh;
     display: flex;
@@ -15,15 +19,16 @@
     align-items: center;
     gap: 5px;
     padding: 2px;
-    width: 280px;
+    width: 320px;
     border-radius: 30px;
-    background-color: #d4e2fa;
+    background-color: $placeholder;
     font-size: .8rem;
     .putch{
-        background-color: #007bff!important;
+        background-color: $primary!important;
         padding: 5px 10px;
         border-radius: 30px;
-        color: var(--color-white);
+        margin: 4px;
+        color: $white;
         font-weight: bold;
     }
     .message{
@@ -36,7 +41,7 @@
     font-size: 3rem;
     font-weight: 800;
     span{
-        color: #007bff!important;
+        color: $primary!important;
     }
 }
 

@@ -22,7 +22,18 @@ export class LearnComponent implements OnInit, OnDestroy {
     public sAuth0: AuthService,
     public unitService: UnitService
   ) {
-    this.unitService.getUnits().subscribe((res) => {
+    this.unitService.getUnits().subscribe(res => {
+      for(let unit of res) {
+        for(let section of unit.section) {
+          for(let session of section.session) {
+            if (session.progress.length !== 0 && session.progress[0].status === 1) {
+              session.class = 'bg-warning'
+            } else {
+              session.class = this.getRandomBg()
+            }
+          }
+        }
+      }
       this.unidades = res;
     });
   }
@@ -39,5 +50,11 @@ export class LearnComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  getRandomBg() {
+    const arr = ['bg-primary', 'bg-success', 'bg-info', 'bg-danger']
+    const random = Math.floor(Math.random() * arr.length)
+    return arr[random]
   }
 }

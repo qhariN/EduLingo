@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationAdminComponent } from './layout/navigation-admin/navigation-admin.component';
 import { NavigationLandingComponent } from './layout/navigation-landing/navigation-landing.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { NavigationLandingComponent } from './layout/navigation-landing/navigati
     NavigationLandingComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports:[
     NavigationAdminComponent,
