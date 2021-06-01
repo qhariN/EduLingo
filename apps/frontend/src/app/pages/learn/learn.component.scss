@@ -1,4 +1,4 @@
-@import '/libs/theme/variables.scss';
+@import '../../../../../../libs/theme/variables.scss';
 
 header {
   width: 100%;
@@ -184,7 +184,7 @@ main {
       }
       .crown {
         background-color: #ffc107;
-        color: $white;
+        color: white;
       }
     }
   }

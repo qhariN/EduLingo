@@ -50,10 +50,8 @@
             <!--Listado de sesiones por seccion-->
             <div class="sesion m-3" *ngFor="let sesion of seccion.session;">
               <!-- Circulos de Sesion -->
-              <div [ngClass]="(sesion.progress.length > 0 && sesion.progress[0].status == 1) ? 'complete' : ''" data-toggle="popover" data-placement="bottom"
-                id="sesion_{{sesion.id}}" (mouseout)="popoverHide(sesion.id)" (mouseover)="popoverShow(sesion.id)"
-                data-trigger="focus" title="Sesion {{sesion.number}}"
-                data-content="Debes completar la sesión anterior para poder realizar esta.">
+              <div [ngClass]="(sesion.progress.length > 0 && sesion.progress[0].status == 1) ? 'complete' : null"
+                [ngbPopover]="popContent" autoClose="outside" placement="bottom" popoverClass="session_popover {{ sesion.class }}">
                 <!-- Caja alrededor del circulo de sesion-->
                 <div class="sesion__content" >
                   <!--Imagen interna del circulo de sesion-->
@@ -66,6 +64,23 @@
                 <!--Nombre debajo del circulo de sesion-->
                 <p class="text-center font-weight-bold mt-1">{{sesion.name}}</p>
               </div>
+              <!-- Popover -->
+              <ng-template #popContent>
+                <div class="session_popover_content">
+                  <div class="row">
+                    <div class="col-12">
+                      <p class="mb-0"><b>Unidad {{ unidad.number }}</b></p>
+                      <p>Sessión {{ sesion.number }}: {{ sesion.name }}</p>
+                    </div>
+                    <div class="col-12">
+                      <button class="button primary-outline transparent w-100 mb-2">Ver clase</button>
+                    </div>
+                    <div class="col-12">
+                      <button class="button btn-white w-100">Practicar</button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
             </div>
           </div>
         </div>

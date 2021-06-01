@@ -7,6 +7,7 @@ import { MainComponent } from './pages/main/main.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { AppRoutingModule } from './app.routing';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent, MainComponent, NotfoundComponent],
@@ -26,7 +27,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
           '/api'
         ]
       }
-    })
+    }),
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }

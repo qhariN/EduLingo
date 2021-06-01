@@ -5,7 +5,7 @@ import { environment } from 'apps/frontend/src/environments/environment';
 import { Subscription } from 'rxjs';
 import { Unit } from '../../models/unit';
 import { UnitService } from '../../services/unit.service';
-declare var $: any;
+
 @Component({
   selector: 'frontend-learn',
   templateUrl: './learn.component.html',
@@ -39,14 +39,6 @@ export class LearnComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {}
-
-  popoverShow(id){ 
-    $("#sesion_"+id).popover('show');
-  }
-
-  popoverHide(id){ 
-    $("#sesion_"+id).popover('hide');
-  }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

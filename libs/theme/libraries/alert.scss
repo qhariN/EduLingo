@@ -3,7 +3,7 @@
 .alert {
 	border: 0;
 	border-radius: 4px;
-	color: $white;
+	color: white;
 	position: relative;
 	padding-top: .9rem;
 	padding-bottom: .9rem;
@@ -46,7 +46,7 @@
 	}
 	&.alert-primary {
 		span[data-notify=icon] {
-			color: $white;
+			color: white;
 		}
 	}
 	&.alert-default {
@@ -55,7 +55,7 @@
 		}
 	}
 	.close {
-		color: $white;
+		color: white;
 		opacity: .9;
 		text-shadow: none;
 		line-height: 0;

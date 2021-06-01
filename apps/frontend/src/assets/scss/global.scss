@@ -1,4 +1,4 @@
-@import '/libs/theme/variables.scss';
+@import '../../../../../libs/theme/variables.scss';
 
 *{
     margin: 0;
@@ -19,8 +19,6 @@ body {
     border-radius: 10px;
     font-size: 1rem;
     font-weight: bold;
-    transition: 300ms;
-    
 }
 
 // Primary buttons [outline]
@@ -29,23 +27,91 @@ body {
     color: $primary !important;
 }
 
-.primary-outline{
-    border:2px solid $primary;
-    background-color: $white;
+.btn-white {
+    border: solid;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    border-color: transparent;
+    background-color: $white-50;
     color: $primary;
+    transform: translateZ(0);
+    &:after {
+        content: "";
+        background-color: white;
+        border-width: 0 0 4px;
+        border-color: transparent;
+        border-radius: 16px;
+        background-clip: padding-box;
+        border-style: solid;
+        position: absolute;
+        z-index: -1;
+        bottom: -4px;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
+    &:hover {
+        color: $primary-light;
+    }
+    &:active {
+        background: none;
+        border-width: 4px 0 0;
+    }
+}
+
+.primary-outline {
+    border: solid;
+    border-radius: 16px;
+    border-width: 2px 2px 4px;
+    border-color: transparent;
+    background-color: transparent;
+    color: $primary;
+    transform: translateZ(0);
+    &:after {
+        content: "";
+        background-color: transparent;
+        border-width: 2px 2px 4px;
+        border-color: $primary;
+        border-radius: 16px;
+        background-clip: padding-box;
+        border-style: solid;
+        position: absolute;
+        z-index: -1;
+        bottom: -4px;
+        left: -2px;
+        right: -2px;
+        top: -2px;
+    }
+    &.transparent {
+        color: white;
+        &:after {
+            border-color: rgba(0,0,0,.2);
+        }
+        &:hover {
+            color: white;
+            filter: opacity(80%);
+        }
+    }
     &:hover{
-        background-color: $primary;
-        color: $white;
+        color: $primary-light;
+    }
+    &:active {
+        background: none;
+        border-width: 4px 2px 2px;
+        &:after {
+            border-bottom-width: 2px;
+            bottom: -2px;
+        }
     }
 }
 
 .primary-simple{
     border:2px solid transparent;
-    background-color: $white;
+    background-color: white;
     color: $primary;
     &:hover{
         background-color: $primary;
-        color: $white;
+        color: white;
     }
 }
 
@@ -61,4 +127,92 @@ body {
 .card {
     border: 2px solid $border-light;
     border-radius: 16px;
+}
+
+.play {
+    padding: 0;
+    margin: 0;
+    width: 160px;
+    height:40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    i{
+        font-size: .8rem;
+    }
+}
+
+.session_popover {
+    border: 0;
+    border-radius: 15px;
+    .arrow {
+        &:before {
+            border-bottom-color: transparent;
+        }
+    }
+    &.bg-primary {
+        .arrow:after {
+            border-bottom-color: $primary-light;
+        }
+        .btn-white {
+            color: $primary;
+            &:hover {
+                color: $primary-light;
+            }
+        }
+    }
+    &.bg-success {
+        .arrow:after {
+            border-bottom-color: $success-ligth;
+        }
+        .btn-white {
+            color: $success-dark;
+            &:hover {
+                color: $success;
+            }
+        }
+    }
+    &.bg-info {
+        .arrow:after {
+            border-bottom-color: $info;
+        }
+        .btn-white {
+            color: $info-dark;
+            &:hover {
+                color: $info;
+            }
+        }
+    }
+    &.bg-warning {
+        .arrow:after {
+            border-bottom-color: $warning;
+        }
+        .btn-white {
+            color: $warning-dark;
+            &:hover {
+                color: $warning;
+            }
+        }
+    }
+    &.bg-danger {
+        .arrow:after {
+            border-bottom-color: $danger;
+        }
+        .btn-white {
+            color: $danger-dark;
+            &:hover {
+                color: $danger;
+            }
+        }
+    }
+    .popover-body {
+      color: white;
+      padding: 0;
+      font-size: 17px;
+      .session_popover_content {
+        width: 100%;
+        padding: 24px 16px;
+      }
+    }
 }
