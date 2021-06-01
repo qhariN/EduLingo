@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 
-@import '/libs/theme/variables.scss';
+@import '../../../../../../libs/theme/variables.scss';
 
 .main{
     height: 100vh;
@@ -28,7 +28,7 @@
         padding: 5px 10px;
         border-radius: 30px;
         margin: 4px;
-        color: $white;
+        color: white;
         font-weight: bold;
     }
     .message{
@@ -49,19 +49,4 @@
     width: 600px;
     margin-top: 10px;
     font-weight: 500;
-}
-.play{
-    padding: 0;
-    margin: 0;
-    width: 160px;
-    height:40px;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    i{
-        font-size: .8rem;
-        margin-top: 4px;
-    }
 }
