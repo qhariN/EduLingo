@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SkillService } from '../../services/skill.service';
 
-
-/**
- * tipos de preguntas
- * escucha y escribe = 1
- * escribe en español = 2
- * escribe en ingles = 3
-**/
 const DataDummy = [
   {
     question: "How are you?",
@@ -28,14 +21,14 @@ const DataDummy = [
     type: 2,
     id: 3
   },
-  { 
+  {
     question: "What is your name",
     answer: "what is your name",
     type: 1,
     id: 4
 
   },
-  { 
+  {
     question: "Good morning",
     answer: "buenos dias",
     type: 2,
@@ -65,16 +58,12 @@ export class SkillComponent implements OnInit {
 
   isCorrect(data): boolean {
     console.log(this.textByUser);
-    
+
     return this.textByUser === data.question;
   }
 
   nextQuestion(data): void {
     console.log(data.type);
-    // console.log(this.isCorrect(data))
-    // if(this.isCorrect(data)){
-    //   document.getElementById('next').click();
-    // }
 
     document.getElementById('next').click();
 
@@ -83,7 +72,5 @@ export class SkillComponent implements OnInit {
   startQuestion(): void {
     document.getElementById('next').click();
   }
-
-  
 
 }

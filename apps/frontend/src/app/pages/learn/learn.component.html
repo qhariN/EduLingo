@@ -27,11 +27,13 @@
         <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/aed279fcbad509208b45ca7a17f3e8dc.svg" />
         <span>6</span>
       </a>
-     
-      <a class="avatar" *ngIf="sAuth0.user$ | async as user" (click)="sAuth0.logout({ returnTo: document.location.origin })">
+
+      <a class="avatar" *ngIf="sAuth0.user$ | async as user"
+        (click)="sAuth0.logout({ returnTo: document.location.origin })">
         <img [src]="user.picture" [alt]="user.name" class="img-thumbnail">
       </a>
-      <a class="avatar" *ngIf="!sAuth0.user$ | async as user"  (click)="sAuth0.logout({ returnTo: document.location.origin })">
+      <a class="avatar" *ngIf="!sAuth0.user$ | async as user"
+        (click)="sAuth0.logout({ returnTo: document.location.origin })">
         <img src="https://s3.amazonaws.com/duolingo-images/avatar/default_2/medium" />
       </a>
     </div>
@@ -157,24 +159,24 @@
             <p class="container__paragraph">Completa 10 lecciones más para empezar a competir.</p>
           </div>
           <div class="card__container">
-              <div class="container__titles">
-                <div class="title__left">Progreso de EXP</div>
-                <div class="title__right">CAMBIAR META</div>
+            <div class="container__titles">
+              <div class="title__left">Progreso de EXP</div>
+              <div class="title__right">CAMBIAR META</div>
+            </div>
+            <div class="container__content">
+              <div class="content__left">
+                <img src="//d35aaqx5ub95lt.cloudfront.net/images/chest-closed.svg" />
               </div>
-              <div class="container__content">
-                <div class="content__left">
-                  <img src="//d35aaqx5ub95lt.cloudfront.net/images/chest-closed.svg" />
-                </div>
-                <div class="content__rigth">
-                    <h5>Meta diaria</h5>
-                    <div class="progress__div">
-                      <div class="progress__bar"></div>
-                      <div class="progress__status">
-                        0/20 EXP
-                      </div>
-                    </div>
+              <div class="content__rigth">
+                <h5>Meta diaria</h5>
+                <div class="progress__div">
+                  <div class="progress__bar"></div>
+                  <div class="progress__status">
+                    0/20 EXP
+                  </div>
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
