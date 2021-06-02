@@ -5,11 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './notimplemented.component.html',
   styles: []
 })
-export class NotimplementedComponent {
-
-  constructor() { }
-
-  goBack() {
-    //* return to /learn
-  }
-}
+export class NotimplementedComponent { }

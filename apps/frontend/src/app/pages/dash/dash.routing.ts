@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LearnComponent } from './learn.component';
-import { InicioComponent } from './components/inicio/inicio.component';
+import { DashComponent } from './dash.component';
+import { LearnComponent } from './components/learn/learn.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotimplementedComponent } from './components/notimplemented/notimplemented.component';
 
 const routes: Routes = [
   {
-    path: '', component: LearnComponent, children: [
-      { path: 'inicio', component: InicioComponent },
+    path: '', component: DashComponent, children: [
+      { path: 'learn', component: LearnComponent },
       { path: '403', component: ForbiddenComponent },
       { path: '**', component: NotimplementedComponent }
     ]
@@ -19,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LearnRoutingModule { }
+export class DashRoutingModule { }

@@ -1,15 +1,15 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { environment } from 'apps/frontend/src/environments/environment';
 import { Subscription } from 'rxjs';
-import { Unit } from '../../models/unit';
-import { UnitService } from '../../services/unit.service';
+import { Unit } from '../../../../models/unit';
+import { UnitService } from '../../../../services/unit.service';
 
 @Component({
   selector: 'frontend-learn',
   templateUrl: './learn.component.html',
-  styleUrls: ['./learn.component.scss'],
+  styleUrls: ['./learn.component.scss']
 })
 export class LearnComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();

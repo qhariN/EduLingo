@@ -1,23 +1,25 @@
 import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LearnRoutingModule } from './learn.routing';
-import { LearnComponent } from './learn.component';
+import { DashRoutingModule } from './dash.routing';
+import { DashComponent } from './dash.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotimplementedComponent } from './components/notimplemented/notimplemented.component';
-import { InicioComponent } from './components/inicio/inicio.component';
+import { LearnComponent } from './components/learn/learn.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [LearnComponent, ForbiddenComponent, NotimplementedComponent, InicioComponent],
+  declarations: [DashComponent, ForbiddenComponent, NotimplementedComponent, LearnComponent],
   imports: [
     CommonModule,
-    LearnRoutingModule,
+    DashRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
+    RouterModule,
     NgbModule
   ]
 })
-export class LearnModule { }
+export class DashModule { }

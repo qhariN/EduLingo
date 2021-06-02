@@ -1,0 +1,42 @@
+<header>
+  <nav class="navigation">
+    <div class="navigation__items">
+      <a class="item item--active">
+        <img src="assets/svg/learn.svg" width="40" />
+        <span>Aprender</span>
+      </a>
+      <a class="item">
+        <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/b30ce49d39c308bb3031647f31f6c3e9.svg" width="40" />
+        <span>Cuentos</span>
+      </a>
+      <a class="item">
+        <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/3a52db17e82dec8386d05d126754cefd.svg" width="40" />
+        <span>Discutir</span>
+      </a>
+      <a class="item">
+        <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/25f750f861cdffc01551d728938be59b.svg" width="40" />
+        <span>Tienda</span>
+      </a>
+      <a class="item">
+        <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/d3f3ad5d80a9a934e00054f56ec5fbe9.svg" width="40" />
+        <span>mas</span>
+      </a>
+    </div>
+    <div class="navigation__action">
+      <a class="lingots">
+        <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/aed279fcbad509208b45ca7a17f3e8dc.svg" class="rounded-circle " />
+        <span>84</span>
+      </a>
+
+      <a class="avatar" *ngIf="sAuth0.user$ | async as user"
+        (click)="sAuth0.logout({ returnTo: document.location.origin })">
+        <img [src]="user.picture" [alt]="user.name" class="img-thumbnail">
+      </a>
+      <a class="avatar" *ngIf="!sAuth0.user$ | async as user"
+        (click)="sAuth0.logout({ returnTo: document.location.origin })">
+        <img src="https://s3.amazonaws.com/duolingo-images/avatar/default_2/medium" />
+      </a>
+    </div>
+  </nav>
+</header>
+<router-outlet></router-outlet>

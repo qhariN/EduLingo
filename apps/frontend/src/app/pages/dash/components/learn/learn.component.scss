@@ -1,0 +1,87 @@
+@import '../../../../../../../../libs/theme/variables.scss';
+
+main {
+  max-width: 100%;
+  padding: 0 24px;
+  margin: 0 auto;
+}
+
+//CONFIGURACION DE UNIDADES
+.image{
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  &__complete{
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.sesion__row {
+  //Circulo con el icono y texto
+  .sesion{
+    cursor: pointer;
+    //Icono de numero del circulo
+    .crown {
+      position: absolute;
+      bottom: 0;
+      right: -10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    &__content {
+      width: 110px;
+      height: 110px;
+      border: 10px solid #e5e5e5;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &>div {
+        border-radius: 50%;
+      }
+      .crown {
+        background-color: #e5e5e5;
+        color: $text-muted;
+      }
+    }
+
+    img {
+      width: 80px;
+    }
+  }
+
+  .complete {
+    .sesion__content {
+      border: 10px solid #ffc107!important;
+      &>div {
+        overflow: hidden;
+        transform: translateZ(0);
+        &:before {
+          background-image: url('https://d35aaqx5ub95lt.cloudfront.net/images/6cba8939738ae938486993d2eb07409a.svg');
+          background-size: cover;
+          content: "";
+          height: 132%;
+          left: 12%;
+          position: absolute;
+          top: -13%;
+          width: 105%;
+          z-index: -1;
+        }
+      }
+      .crown {
+        background-color: #ffc107;
+        color: white;
+      }
+    }
+  }
+}

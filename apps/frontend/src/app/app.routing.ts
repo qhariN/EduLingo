@@ -7,7 +7,7 @@ import {SkillComponent} from './pages/skill/skill.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'learn', loadChildren: () => import('./pages/learn/learn.module').then(m => m.LearnModule), canActivate: [AuthGuard] },
+  { path: 'dash', loadChildren: () => import('./pages/dash/dash.module').then(m => m.DashModule), canActivate: [AuthGuard] },
   { path: 'skill/:unit/:session/practice', component: SkillComponent },
   { path: '**', component: NotfoundComponent }
 ];

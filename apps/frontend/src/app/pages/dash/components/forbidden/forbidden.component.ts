@@ -5,11 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './forbidden.component.html',
   styles: []
 })
-export class ForbiddenComponent {
-
-  constructor() { }
-
-  goBack() {
-    //* return to /learn
-  }
-}
+export class ForbiddenComponent { }
