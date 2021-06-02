@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LearnRoutingModule } from './learn.routing';
@@ -6,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotimplementedComponent } from './components/notimplemented/notimplemented.component';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [LearnComponent, ForbiddenComponent, NotimplementedComponent, InicioComponent],
@@ -13,7 +15,9 @@ import { InicioComponent } from './components/inicio/inicio.component';
     CommonModule,
     LearnRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedModule,
+    NgbModule
   ]
 })
 export class LearnModule { }

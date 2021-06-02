@@ -5,7 +5,7 @@ import { AuthService } from '@auth0/auth0-angular';
 @Component({
   selector: 'frontend-main',
   templateUrl: './main.component.html',
-  styles: []
+  styleUrls: ["./main.component.scss"]
 })
 export class MainComponent implements OnInit {
 

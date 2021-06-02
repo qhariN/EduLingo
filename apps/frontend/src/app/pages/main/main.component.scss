@@ -1,0 +1,52 @@
+@charset 'UTF-8';
+
+@import '../../../../../../libs/theme/variables.scss';
+
+.main{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:10px;
+    
+    background-image: url("../../../assets/svg/img_main.svg");
+    background-repeat:no-repeat;
+    background-position: right;
+}
+
+.annotation{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px;
+    width: 320px;
+    border-radius: 30px;
+    background-color: $placeholder;
+    font-size: .8rem;
+    .putch{
+        background-color: $primary!important;
+        padding: 5px 10px;
+        border-radius: 30px;
+        margin: 4px;
+        color: white;
+        font-weight: bold;
+    }
+    .message{
+        color: #1f1e1e!important;
+        font-weight: 600;
+    }
+}
+
+.title{
+    font-size: 3rem;
+    font-weight: 800;
+    span{
+        color: $primary!important;
+    }
+}
+
+.description{
+    width: 600px;
+    margin-top: 10px;
+    font-weight: 500;
+}

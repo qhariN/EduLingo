@@ -1,11 +1,11 @@
 <header>
   <nav class="navigation">
-    <div class="navigation__logo">
-      <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/85a54b84f53cfe25fc8d9ff17e5a60f3.svg" width="40" />
-      Aprender
-    </div>
     <div class="navigation__items">
       <a class="item item--active">
+        <img src="assets/svg/learn.svg" width="40" />
+        <span>Aprender</span>
+      </a>
+      <a class="item">
         <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/b30ce49d39c308bb3031647f31f6c3e9.svg" width="40" />
         <span>Cuentos</span>
       </a>
@@ -24,8 +24,8 @@
     </div>
     <div class="navigation__action">
       <a class="lingots">
-        <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/aed279fcbad509208b45ca7a17f3e8dc.svg" />
-        <span>6</span>
+        <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/aed279fcbad509208b45ca7a17f3e8dc.svg" class="rounded-circle " />
+        <span>84</span>
       </a>
 
       <a class="avatar" *ngIf="sAuth0.user$ | async as user"
@@ -39,123 +39,68 @@
     </div>
   </nav>
 </header>
-<main>
-  <div class="double-layout">
-    <div class="steps">
-      <div class="topic">
-        <div class="topic__head">
-
-          <div class="separator"></div>
-          <div class="image">
-            <img src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-complete.svg">
-          </div>
-
-        </div>
-        <div class="practice">
-          <div class="separator"></div>
-          <div class="practice__row">
-            <div class="skill" routerLink="/skill/1/best-regards/practice">
-              <div class="skill__content">
-                <div class="circle">
-                  <img src="./../assets/img/image.svg" />
+<main class="row justify-content-center mt-4 mb-4">
+  <div class="col col-md-7 col-lg-7 col-sm-12 col-xs-12">
+    <!--Listado de unidades-->
+    <div class="mt-3" *ngFor="let unidad of unidades;">
+      <!--Listado de secciones por unidad-->
+      <div class="row d-flex justify-content-center" *ngFor="let seccion of unidad.section;">
+        <div class="sesion__row">
+          <div class="d-flex justify-content-center">
+            <!--Listado de sesiones por seccion-->
+            <div class="sesion m-3" *ngFor="let sesion of seccion.session;">
+              <!-- Circulos de Sesion -->
+              <div [ngClass]="(sesion.progress.length > 0 && sesion.progress[0].status == 1) ? 'complete' : null"
+                [ngbPopover]="popContent" autoClose="outside" placement="bottom" popoverClass="session_popover {{ sesion.class }}">
+                <!-- Caja alrededor del circulo de sesion-->
+                <div class="sesion__content" >
+                  <!--Imagen interna del circulo de sesion-->
+                  <div [class]="sesion.class">
+                    <img src="./../assets/svg/{{sesion.url}}" class="rounded-circle" />
+                  </div>
+                  <!--Numero flotante de la sesion-->
+                  <span class="crown">{{sesion.number}}</span>
                 </div>
-                <span class="crown">1</span>
+                <!--Nombre debajo del circulo de sesion-->
+                <p class="text-center font-weight-bold mt-1">{{sesion.name}}</p>
               </div>
-              <p class="skill__title">hamburguesa</p>
-            </div>
-          </div>
-          <div class="practice__row">
-            <div class="skill">
-              <div class="skill__content">
-                <div class="circle">
-                  <img src="./../assets/img/image.svg" />
+              <!-- Popover -->
+              <ng-template #popContent>
+                <div class="session_popover_content">
+                  <div class="row">
+                    <div class="col-12">
+                      <p class="mb-0"><b>Unidad {{ unidad.number }}</b></p>
+                      <p>Sessión {{ sesion.number }}: {{ sesion.name }}</p>
+                    </div>
+                    <div class="col-12">
+                      <button class="button primary-outline transparent w-100 mb-2">Ver clase</button>
+                    </div>
+                    <div class="col-12">
+                      <button class="button btn-white w-100">Practicar</button>
+                    </div>
+                  </div>
                 </div>
-                <span class="crown">1</span>
-              </div>
-              <p class="skill__title">hamburguesa</p>
-            </div>
-            <div class="skill ">
-              <div class="skill__content">
-                <div class="circle">
-                  <img src="./../assets/img/image.svg" />
-                </div>
-                <span class="crown">1</span>
-              </div>
-              <p class="skill__title">hamburguesa</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="topic topic--lock">
-        <div class="topic__head">
-
-          <div class="separator"></div>
-          <div class="image">
-            <img src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-complete.svg">
-          </div>
-
-        </div>
-        <div class="practice">
-          <div class="separator"></div>
-          <div class="practice__row">
-            <div class="skill complete">
-              <div class="skill__content">
-                <div class="circle">
-                  <img src="./../assets/img/image.svg" />
-                </div>
-                <span class="crown">1</span>
-              </div>
-              <p class="skill__title">hamburguesa</p>
-            </div>
-            <div class="skill">
-              <div class="skill__content">
-                <div class="circle">
-                  <img src="./../assets/img/image.svg" />
-                </div>
-                <span class="crown">2</span>
-              </div>
-              <p class="skill__title">hamburguesa</p>
-            </div>
-            <div class="skill">
-              <div class="skill__content">
-                <div class="circle">
-                  <img src="./../assets/img/image.svg" />
-                </div>
-                <span class="crown">3</span>
-              </div>
-              <p class="skill__title">hamburguesa</p>
-            </div>
-          </div>
-          <div class="practice__row">
-            <div class="skill">
-              <div class="skill__content">
-                <div class="circle">
-                  <img src="./../assets/img/image.svg" />
-                </div>
-                <span class="crown">4</span>
-              </div>
-              <p class="skill__title">hamburguesa</p>
-            </div>
-            <div class="skill ">
-              <div class="skill__content">
-                <div class="circle">
-                  <img src="./../assets/img/image.svg" />
-                </div>
-                <span class="crown">5</span>
-              </div>
-              <p class="skill__title">Hamburguesa</p>
+              </ng-template>
             </div>
           </div>
         </div>
       </div>
-
+      <div class="text-center m-4">
+        <img *ngIf="unidad.status == 0" src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-complete.svg"
+          class="image" />
+        <img *ngIf="unidad.status == 1" src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-unlocked.svg"
+          class="image__complete" />
+        <p class="font-weight-bold mt-2">Unidad {{unidad.number}}</p>
+      </div>
     </div>
-    <div class="cards">
-      <div class="topic">
-        <div class="topic topic--lock">
-          <div class="card__container">
+  </div>
+  <div class="col col-md-4 col-lg-4 col-sm-12 col-xs-12">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12">
+        <div class="card text-center">
+          <div class="card-content p-4">
             <img src="//d35aaqx5ub95lt.cloudfront.net/images/leagues/placeholder.svg">
-            <h2 class="container__title">¡Participa en las Ligas!</h2>
+            <p class="font-weight-bold">¡Participa en las Ligas!</p>
             <p class="container__paragraph">Completa 10 lecciones más para empezar a competir.</p>
           </div>
           <div class="card__container">
