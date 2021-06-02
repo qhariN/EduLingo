@@ -1,0 +1,72 @@
+<div class="container mt-4">
+    <button type="button" class="close item" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="progress" style="border-radius: 10px;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"
+            style="width: 75%"></div>
+    </div>
+</div>
+<div class="container mt-4">
+    <div id="carouselExampleControls" class="carousel slide" data-interval="false">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="text-center mt-5">
+                    <h1>Empecemos!</h1>
+                </div>
+                <br>
+                <br>
+                <br>
+                <button class="btn btn-success float-right" (click)="startQuestion()">Iniciar</button>
+
+            </div>
+            <div *ngFor="let item of dataSkill.question; let i = index;" class="carousel-item">
+                <div *ngIf="expression">
+
+                </div>
+                <div class="text-center mt-5">
+                    <h3>{{item.question}}</h3>
+                </div>
+                <div>
+                    <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
+                    <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="Escribe en inglés"
+                        [(ngmodel)]="textByUser"></textarea>
+                </div>
+                <button class="btn btn-light textss">Saltar</button>
+                <button class="btn btn-success float-right" (click)="nextQuestion(item)">Acceptar</button>
+
+            </div>
+            <a href="#carouselExampleControls" role="button" data-slide="prev">
+                <!-- <span class="carousel-control-prev-icon bg-info" aria-hidden="true"></span> -->
+            </a>
+            <a id="next" href="#carouselExampleControls" role="button" data-slide="next">
+                <!-- <span class="carousel-control-next-icon bg-info" aria-hidden="true"></span> -->
+            </a>
+            <!-- <div class="carousel-item" *ngFor="let item of data; let i = index;">
+                    <div class="text-center mt-5">
+                        <h3>Escribe esto en inglés</h3>
+                    </div>
+                    <div>
+                        <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
+                        <textarea name="" id="" cols="30" rows="10" class="form-control"
+                            placeholder="Escribe en inglés"></textarea>
+                    </div>
+                </div> -->
+            <!-- <div class="carousel-item">
+                <div class="text-center mt-5">
+                    <h3>Escribe esto en inglés</h3>
+                </div>
+                <div>
+                    <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
+                    <textarea name="" id="" cols="30" rows="10" class="form-control"
+                        placeholder="Escribe en inglés"></textarea>
+                </div>
+            </div> -->
+        </div>
+
+    </div>
+    <div class="col-md-12 my-2">
+
+    </div>
+    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+</div>

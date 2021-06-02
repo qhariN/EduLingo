@@ -49,4 +49,8 @@ export class LearnComponent implements OnInit, OnDestroy {
     const random = Math.floor(Math.random() * arr.length)
     return arr[random]
   }
+
+  newPractice(){
+    console.log("olademar");
+  }
 }
