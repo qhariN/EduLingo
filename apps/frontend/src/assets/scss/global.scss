@@ -1,11 +1,18 @@
 @import '../../../../../libs/theme/variables.scss';
 
-*{
+*:not(.fa, .fas, .far) {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif !important;
 }
 
 body {
     color: #3c3c3c;
+}
+
+img {
+    pointer-events: none;
 }
 
 .content{

@@ -103,3 +103,52 @@ header {
     }
   }
 }
+
+.container__titles,.container__content{
+  width: 100%;
+  display: flex;
+  .title__left{
+    font-size: 18px;
+    font-weight: 900;
+    width: 50%;
+    text-align: left;
+  }
+  .title__right{
+    font-size: 14px;
+    font-weight: 900;
+    width: 50%;
+    text-align: right;
+    padding-top: 5px;
+    color: rgb(27, 176, 245);
+  }
+  .content__left{
+    width: 25%;
+  }
+  .content__rigth{
+    width: 75%;
+    display: flex;
+    align-items: center;
+    h5{
+      font-size: 16px;
+      font-weight: 400;
+    }
+    .progress__div{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      .progress__bar{
+        width: 65%;
+        height: 14px;
+        border-radius: 8px;
+        background-color:$border;
+      }
+      .progress__status{
+        font-size: 16px;
+        width: 35%;
+        margin-left: 8px;
+        padding-top: 2px;
+        color: $text-muted;
+      }
+    }
+  }
+}
