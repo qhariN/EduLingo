@@ -4,11 +4,13 @@ import { DashComponent } from './dash.component';
 import { LearnComponent } from './components/learn/learn.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotimplementedComponent } from './components/notimplemented/notimplemented.component';
+import { TipsComponent } from './components/tips/tips.component';
 
 const routes: Routes = [
   {
     path: '', component: DashComponent, children: [
       { path: 'learn', component: LearnComponent },
+      { path: 'tips', component: TipsComponent },
       { path: '403', component: ForbiddenComponent },
       { path: '**', component: NotimplementedComponent }
     ]

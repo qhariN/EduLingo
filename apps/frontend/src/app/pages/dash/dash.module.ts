@@ -9,9 +9,12 @@ import { NotimplementedComponent } from './components/notimplemented/notimplemen
 import { LearnComponent } from './components/learn/learn.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { TipsComponent } from './components/tips/tips.component';
+import { MarkdownModule } from 'ngx-markdown';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [DashComponent, ForbiddenComponent, NotimplementedComponent, LearnComponent],
+  declarations: [DashComponent, ForbiddenComponent, NotimplementedComponent, LearnComponent, TipsComponent],
   imports: [
     CommonModule,
     DashRoutingModule,
@@ -19,7 +22,9 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     SharedModule,
     RouterModule,
-    NgbModule
+    HttpClientModule,
+    NgbModule,
+    MarkdownModule.forRoot({ loader: HttpClient })
   ]
 })
 export class DashModule { }
