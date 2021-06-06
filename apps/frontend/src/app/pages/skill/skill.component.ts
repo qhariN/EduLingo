@@ -1,40 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SkillService } from '../../services/skill.service';
-
-const DataDummy = [
-  {
-    question: "How are you?",
-    answer: "how are you?",
-    type: 1,
-    id: 1
-  },
-  {
-    question: "Yo tengo una manzana",
-    answer: "i have an apple",
-    type: 3,
-    id: 2
-
-  },
-  {
-    question: "My name is Jacob",
-    answer: "mi nombre es jacob",
-    type: 2,
-    id: 3
-  },
-  {
-    question: "What is your name",
-    answer: "what is your name",
-    type: 1,
-    id: 4
-
-  },
-  {
-    question: "Good morning",
-    answer: "buenos dias",
-    type: 2,
-    id: 5
-  }
-];
 
 @Component({
   selector: 'frontend-skill',
@@ -43,17 +9,36 @@ const DataDummy = [
 })
 export class SkillComponent implements OnInit {
 
-  data = DataDummy.slice();
+  // id de la sesion, porque el otro metodo no me funcionó :'u
+  public idsession;
+
   dataSkill: any = [];
   textByUser: string = "";
 
-  constructor(private skillService: SkillService) { }
+  // respuesta por tipo
+  resType1: number = 0;
+  resType2: number = 0;
+  resType3: number = 0;
+  resType4: number = 0;
+  restype5: number = 0;
+  restype6: number = 0;
+
+  //arrays
+  arrayType2 = [];
+
+  constructor(private skillService: SkillService, private router: Router) { }
 
   ngOnInit(): void {
-    this.skillService.getSkill().subscribe(res => {
-      this.dataSkill = res;
-      console.log(this.dataSkill);
-    });
+
+    if (this.idsession) {
+      this.skillService.getSkill(this.idsession).subscribe(res => {
+        this.dataSkill = res;
+        console.log(this.dataSkill);
+      });
+    } else {
+      this.router.navigate(['/dash/learn'])
+    }
+
   }
 
   isCorrect(data): boolean {
@@ -62,15 +47,75 @@ export class SkillComponent implements OnInit {
     return this.textByUser === data.question;
   }
 
-  nextQuestion(data): void {
-    console.log(data.type);
+  nextQuestion(data, i): void {
+    // console.log("type: " + data.type);
+    console.log(data);
+    
+    switch (data.type) {
+      case 2:
+        for (let i = 0; i < this.arrayType2.length; i++) {
+          if (this.arrayType2[i].flag_estado !== 1 || this.arrayType2[i].order !==(i+1)) {
+            console.log("ta mal");
+            break;
+          }else if (this.arrayType2.length == i+1) {
+            console.log("ta bien");
+            this.arrayType2 = [];
+            document.getElementById('next').click();
+            break;
+          }
+        }
+        break;
+      case 4:
+        if (this.resType4 == 1) {
+          console.log("ta bien");
+          this.resType4 = 0;
+          document.getElementById('next').click();
+        } else {
+          console.log("ta mal");
+        }
+        break;
+      case 5:
+        break;
+      case 6:
+        break;
+    }
+    // console.log("posicion 'i': " + i);
 
-    document.getElementById('next').click();
+    // console.log(data.option_question);
+
+    // data.option_question.forEach(element => {
+    //   console.log(element.option.url);
+    // });
+
+
+    // document.getElementById('next').click();
 
   }
 
   startQuestion(): void {
     document.getElementById('next').click();
+  }
+
+  //clic de la opcion 2
+  optionselect2(data: any): void {
+    // console.log(data);
+    this.arrayType2.push({flag_estado: data.flag_estado, order: data.order});
+    console.log(this.arrayType2);
+    
+  }
+
+  //clic de la opcion 4
+  optionselect4(data: any) {
+    console.log(data.option.name);
+    
+
+    var msg = new SpeechSynthesisUtterance();
+    msg.lang = 'en-US';
+    msg.text = data.option.name;
+    msg.volume = 100;
+    speechSynthesis.speak(msg);
+    
+    this.resType4 = data.flag_estado;
   }
 
 }

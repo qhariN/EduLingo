@@ -6,6 +6,7 @@ import { environment } from 'apps/frontend/src/environments/environment';
 import { Subscription } from 'rxjs';
 import { Unit } from '../../../../models/unit';
 import { UnitService } from '../../../../services/unit.service';
+import { SkillComponent } from '../../../skill/skill.component';
 
 @Component({
   selector: 'frontend-learn',
@@ -58,5 +59,12 @@ export class LearnComponent implements OnInit, OnDestroy {
 
   goToTips(data: any) {
     this.router.navigate(['/dash/tips'], { state: data })
+  }
+
+  goToSkill(data: any) {
+    SkillComponent.prototype.idsession = data.id
+    // console.log(data);
+    
+    this.router.navigate(['/skill'])
   }
 }

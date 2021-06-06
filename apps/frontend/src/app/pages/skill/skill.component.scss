@@ -1,3 +1,12 @@
+@import '../../../../../../libs/theme/variables.scss';
+
+
+.primary-outline {
+    &:after {
+        border-color: #e5e5e5;
+    }
+}
+
 .textss {
     text-decoration: dashed;
 
@@ -6,6 +15,27 @@
     }
 }
 
-.item {
+.item-cross {
     float:left;
 }
+
+.margin {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+//card
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  .container-card {
+    padding: 2px 16px;
+  }
+  

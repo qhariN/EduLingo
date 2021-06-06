@@ -10,8 +10,8 @@ export class SkillService {
   url: String = environment.url;
   constructor(private http: HttpClient) { }
 
-  getSkill(){
-    return this.http.get<any>(`${this.url}/session/practice/1`);
+  getSkill(idsession: number){
+    return this.http.get<any>(`${this.url}/session/practice/${idsession}`);
   }
 
 }

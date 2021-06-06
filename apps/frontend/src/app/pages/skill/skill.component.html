@@ -1,5 +1,5 @@
-<div class="container mt-4">
-    <button type="button" class="close item" aria-label="Close">
+<div class="margin mt-4">
+    <button type="button" class="close item-cross" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
     <div class="progress" style="border-radius: 10px;">
@@ -7,7 +7,7 @@
             style="width: 75%"></div>
     </div>
 </div>
-<div class="container mt-4">
+<div class="margin mt-4">
     <div id="carouselExampleControls" class="carousel slide" data-interval="false">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -17,23 +17,83 @@
                 <br>
                 <br>
                 <br>
-                <button class="btn btn-success float-right" (click)="startQuestion()">Iniciar</button>
+                <button class="button btn-success float-right" (click)="startQuestion()">Iniciar</button>
 
             </div>
-            <div *ngFor="let item of dataSkill.question; let i = index;" class="carousel-item">
-                <div *ngIf="expression">
-
+            <div *ngFor="let question of dataSkill.question; let i = index;" class="carousel-item">
+                <div *ngIf="question.type == 2">
+                    <div class="text-center mt-5">
+                        <h3>{{question.question}}</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
+                        </div>
+                        <div class="col-sm-9">
+                            <label>{{question.text}}</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="row">
+                            <div class="col-sm-4" *ngFor="let option_question of question.option_question">
+                                <div (click)="optionselect2(option_question)">{{option_question.option.name}}</div>
+                                <!-- <div class="card">
+                                    <img [src]="option_question.option.url" style="width:100%">
+                                    <div class="container">
+                                      <h4><b>John Doe</b></h4>
+                                      <p>Architect & Engineer</p>
+                                    </div>
+                                  </div> -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-center mt-5">
+                <div *ngIf="question.type == 4">
+                    <div class="text-center mt-5">
+                        <h3 class="mb-5">{{question.question}}</h3>
+                    </div>
+                    <!-- <div class="row">
+                            <div class="col-sm-3">
+                                <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
+                            </div>
+                            <div class="col-sm-9">
+                                <label>{{question.text}}</label>
+                            </div>
+                        </div> -->
+                    <div class="">
+                        <div class="row">
+                                <div class="card button" style="width: 20%; height: 20%; margin: 0 auto 0 auto;" *ngFor="let option_question of question.option_question">
+                                    <div class="cursos-pointer" (click)="optionselect4(option_question)">
+                                        <img [src]="option_question.option.url" style="width:100%">
+                                    <div class="container-card">
+                                        <p>{{option_question.option.id}}</p>
+                                        <h4><b>{{option_question.option.name}}</b></h4>
+                                    </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="question.type == 5">
+                    <div class="text-center mt-5">
+                        <h3 class="mb-5">{{question.question}}</h3>
+                    </div>
+                    <img src="../../../assets/img/audio-ico.jpg" style="width: 200px; height: 200px; display: flexbox">
+                </div>
+                <div *ngIf="question.type == 6">
+                    <label for="">c</label>
+                </div>
+                <!-- <div class="text-center mt-5">
                     <h3>{{item.question}}</h3>
                 </div>
                 <div>
                     <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
                     <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="Escribe en inglés"
                         [(ngmodel)]="textByUser"></textarea>
-                </div>
-                <button class="btn btn-light textss">Saltar</button>
-                <button class="btn btn-success float-right" (click)="nextQuestion(item)">Acceptar</button>
+                </div> -->
+                <!-- <button class="button btn-light textss">Saltar</button> -->
+                <button class="button btn-success float-right mt-2"
+                    (click)="nextQuestion(question, i)">Acceptar</button>
 
             </div>
             <a href="#carouselExampleControls" role="button" data-slide="prev">
@@ -68,5 +128,5 @@
     <div class="col-md-12 my-2">
 
     </div>
-    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    <!-- <i class="fa fa-arrow-right" aria-hidden="true"></i> -->
 </div>
