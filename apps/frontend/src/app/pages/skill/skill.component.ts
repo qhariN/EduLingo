@@ -26,6 +26,12 @@ export class SkillComponent implements OnInit {
   //arrays
   arrayType2 = [];
 
+  //checkbox de los typo pregunta 2
+  checkbox: any;
+
+  //variable de la progressbar
+  progress: number = 0;
+
   constructor(private skillService: SkillService, private router: Router) { }
 
   ngOnInit(): void {
@@ -60,6 +66,9 @@ export class SkillComponent implements OnInit {
           }else if (this.arrayType2.length == i+1) {
             console.log("ta bien");
             this.arrayType2 = [];
+            this.progress += (100 / this.dataSkill.question.length);
+            console.log(this.progress);
+            
             document.getElementById('next').click();
             break;
           }
@@ -69,6 +78,11 @@ export class SkillComponent implements OnInit {
         if (this.resType4 == 1) {
           console.log("ta bien");
           this.resType4 = 0;
+          this.checkbox.checked = false;
+          this.checkbox = null;
+          this.progress += (100 / this.dataSkill.question.length);
+          console.log(this.progress);
+          
           document.getElementById('next').click();
         } else {
           console.log("ta mal");
@@ -105,10 +119,14 @@ export class SkillComponent implements OnInit {
   }
 
   //clic de la opcion 4
-  optionselect4(data: any) {
-    console.log(data.option.name);
+  optionselect4(data: any, i:number) {
+    this.checkbox = <HTMLInputElement> document.getElementById(`${data.option.name}${i}`)
+    console.log(data.option.name + i);
     
-
+    console.log(this.checkbox.id);
+    if (`${data.option.name}${i}` == this.checkbox.id) {
+      this.checkbox.checked = true;
+    }
     var msg = new SpeechSynthesisUtterance();
     msg.lang = 'en-US';
     msg.text = data.option.name;
@@ -116,6 +134,21 @@ export class SkillComponent implements OnInit {
     speechSynthesis.speak(msg);
     
     this.resType4 = data.flag_estado;
+  }
+
+  //opcion 5
+
+  voiceOption5(data: any){
+    console.log(data.text);
+    
+    var msg = new SpeechSynthesisUtterance();
+    msg.lang = 'en-US';
+    msg.text = data.text;
+    msg.volume = 100;
+    speechSynthesis.speak(msg);
+  }
+  optionselect5(){
+
   }
 
 }
