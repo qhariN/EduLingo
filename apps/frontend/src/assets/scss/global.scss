@@ -153,6 +153,7 @@ img {
 .session_popover {
     border: 0;
     border-radius: 15px;
+    top: 20px !important;
     .arrow {
         &:before {
             border-bottom-color: transparent;
@@ -205,6 +206,31 @@ img {
     &.bg-danger {
         .arrow:after {
             border-bottom-color: $danger;
+        }
+        .btn-white {
+            color: $danger-dark;
+            &:hover {
+                color: $danger;
+            }
+        }
+    }
+    &.disabled {
+        background-color: #F7F7F7 !important;
+        border: 2px solid $border-light;
+        .popover-body, .btn-white {
+            color: #AFAFAF !important;
+        }
+        .btn-white:after {
+            background-color: #E5E5E5;
+        }
+        .arrow {
+            &:after {
+                top: 2px;
+                border-bottom-color: #f7f7f7;
+            }
+            &:before {
+                border-bottom-color: $border-light;
+            }
         }
         .btn-white {
             color: $danger-dark;
