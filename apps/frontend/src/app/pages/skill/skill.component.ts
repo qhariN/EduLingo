@@ -25,6 +25,7 @@ export class SkillComponent implements OnInit {
 
   //arrays
   arrayType2 = [];
+  arrayType3 = [];
 
   //checkbox de los typo pregunta 2
   checkbox: any;
@@ -89,6 +90,19 @@ export class SkillComponent implements OnInit {
         }
         break;
       case 5:
+        for (let i = 0; i < this.arrayType3.length; i++) {
+          if (this.arrayType3[i].flag_estado !== 1 || this.arrayType3[i].order !==(i+1)) {
+            console.log("ta mal");
+            break;
+          }else if (this.arrayType3.length == i+1) {
+            console.log("ta bien");
+            this.arrayType3 = [];
+            this.progress += (100 / this.dataSkill.question.length);
+            console.log(this.progress);
+            document.getElementById('next').click();
+            break;
+          }
+        }
         break;
       case 6:
         break;
@@ -127,27 +141,46 @@ export class SkillComponent implements OnInit {
     if (`${data.option.name}${i}` == this.checkbox.id) {
       this.checkbox.checked = true;
     }
-    var msg = new SpeechSynthesisUtterance();
-    msg.lang = 'en-US';
-    msg.text = data.option.name;
-    msg.volume = 100;
-    speechSynthesis.speak(msg);
-    
+    // var msg = new SpeechSynthesisUtterance();
+    // msg.lang = 'en-US';
+    // msg.text = data.option.name;
+    // msg.volume = 100;
+    // speechSynthesis.speak(msg);
+    this.textToVoice(data.option.name);
     this.resType4 = data.flag_estado;
   }
 
-  //opcion 5
-
-  voiceOption5(data: any){
-    console.log(data.text);
-    
+  //metodo que convierte texto a voz
+  textToVoice(text: string) {
     var msg = new SpeechSynthesisUtterance();
     msg.lang = 'en-US';
-    msg.text = data.text;
+    msg.text = text;
     msg.volume = 100;
     speechSynthesis.speak(msg);
   }
-  optionselect5(){
+
+  //opcion 5
+  voiceOption5(data: any){
+    // console.log(data.text);
+    
+    // var msg = new SpeechSynthesisUtterance();
+    // msg.lang = 'en-US';
+    // msg.text = data.text;
+    // msg.volume = 100;
+    // speechSynthesis.speak(msg);
+    this.textToVoice(data.text);
+  }
+  optionselect5(data: any){
+
+    this.arrayType3.push({flag_estado: data.flag_estado, order: data.order});
+    console.log(this.arrayType3);
+  }
+
+  //opcion 6
+  voiceOption6(data: any) {
+    this.textToVoice(data.text);
+  }
+  ptionselect6(data: any){
 
   }
 
