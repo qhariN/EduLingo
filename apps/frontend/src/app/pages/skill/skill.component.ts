@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SkillService } from '../../services/skill.service';
+declare var $: any;
 
 @Component({
   selector: 'frontend-skill',
@@ -36,7 +37,8 @@ export class SkillComponent implements OnInit {
   constructor(private skillService: SkillService, private router: Router) { }
 
   ngOnInit(): void {
-
+    //* hide loader
+    $('#loader').addClass('loaded')
     if (this.idsession) {
       this.skillService.getSkill(this.idsession).subscribe(res => {
         this.dataSkill = res;

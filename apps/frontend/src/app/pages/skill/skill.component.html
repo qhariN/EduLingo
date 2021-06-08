@@ -1,166 +1,64 @@
-<div class="margin mt-4">
-    <button type="button" class="close item-cross" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <div class="progress" style="border-radius: 10px;">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"
-            style="width: {{progress}}%"></div>
-    </div>
-</div>
-<div class="margin mt-4">
-    <div id="carouselExampleControls" class="carousel slide" data-interval="false">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="text-center mt-5">
-                    <h1>Empecemos!</h1>
-                </div>
-                <br>
-                <br>
-                <br>
-                <button class="button btn-success float-right" (click)="startQuestion()">Iniciar</button>
-
-            </div>
-            <div *ngFor="let question of dataSkill.question; let iQustion = index;" class="carousel-item">
-                <div *ngIf="question.type == 2">
-                    <div class="text-center mt-5">
-                        <h3>{{question.question}}</h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
-                        </div>
-                        <div class="col-sm-9">
-                            <label>{{question.text}}</label>
-                        </div>
-                    </div>
-                    <div class="">
-                        <div class="row">
-                            <div class="col-sm-4" *ngFor="let option_question of question.option_question">
-                                <div (click)="optionselect2(option_question)">{{option_question.option.name}}</div>
-                                <!-- <div class="card">
-                                    <img [src]="option_question.option.url" style="width:100%">
-                                    <div class="container">
-                                      <h4><b>John Doe</b></h4>
-                                      <p>Architect & Engineer</p>
-                                    </div>
-                                  </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="question.type == 4">
-                    <div class="text-center mt-5">
-                        <h3 class="mb-5">{{question.question}}</h3>
-                    </div>
-                    <!-- <div class="row">
-                            <div class="col-sm-3">
-                                <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
-                            </div>
-                            <div class="col-sm-9">
-                                <label>{{question.text}}</label>
-                            </div>
-                        </div> -->
-                    <div class="">
-                        <div class="row">
-                            <div class="card button" style="width: 20%; height: 20%; margin: 0 auto 0 auto;"
-                                *ngFor="let option_question of question.option_question; let i = index">
-                                <div class="cursos-pointer" (click)="optionselect4(option_question,iQustion)">
-                                    <img [src]="option_question.option.url" style="width:100%">
-                                    <div class="container-card">
-                                        <!-- <input class="form-check-input" type="checkbox" id="{{option_question.option.name}}"> -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="exampleRadios"
-                                                id="{{option_question.option.name}}{{iQustion}}" [value]="">
-                                            <label class="form-check-label" for="{{option_question.option.name}}">
-                                            </label>
-                                        </div>
-                                        <!-- <p>{{option_question.option.id}}</p> -->
-                                        <h4><b>{{option_question.option.name}}</b></h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="question.type == 5">
-                    <div class="text-center mt-5">
-                        <h3 class="mb-5">{{question.question}}</h3>
-                    </div>
-                    <div class="cursor-pointer" (click)="voiceOption5(question)">
-                        <img src="../../../assets/img/audio-ico.jpg"
-                            style="width: 200px; height: 200px; display: flexbox;">
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4" *ngFor="let option_question of question.option_question">
-                            <div (click)="optionselect5(option_question)">{{option_question.option.name}}</div>
-                            <!-- <div class="card">
-                                <img [src]="option_question.option.url" style="width:100%">
-                                <div class="container">
-                                  <h4><b>John Doe</b></h4>
-                                  <p>Architect & Engineer</p>
-                                </div>
-                              </div> -->
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="question.type == 6">
-                    <!-- <div class="text-center mt-5">
-                        <h3 class="mb-5">{{question.question}}</h3>
-                    </div>
-                    <div style="cursor:pointer" (click)="voiceOption6(question)">
-                        <img src="../../../assets/img/audio-ico.jpg"
-                            style="width: 200px; height: 200px; display: flexbox;">
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4" *ngFor="let option_question of question.option_question">
-                            <div (click)="optionselect6(option_question)">{{option_question.option.name}}</div>
-                        </div>
-                    </div> -->
-                </div>
-                <!-- <div class="text-center mt-5">
-                    <h3>{{item.question}}</h3>
-                </div>
-                <div>
-                    <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="Escribe en inglés"
-                        [(ngmodel)]="textByUser"></textarea>
-                </div> -->
-                <!-- <button class="button btn-light textss">Saltar</button> -->
-                <button class="button btn-success float-right mt-2"
-                    (click)="nextQuestion(question, i)">Acceptar</button>
-
-            </div>
-            <a href="#carouselExampleControls" role="button" data-slide="prev">
-                <!-- <span class="carousel-control-prev-icon bg-info" aria-hidden="true"></span> -->
-            </a>
-            <a id="next" href="#carouselExampleControls" role="button" data-slide="next">
-                <!-- <span class="carousel-control-next-icon bg-info" aria-hidden="true"></span> -->
-            </a>
-            <!-- <div class="carousel-item" *ngFor="let item of data; let i = index;">
-                    <div class="text-center mt-5">
-                        <h3>Escribe esto en inglés</h3>
-                    </div>
-                    <div>
-                        <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
-                        <textarea name="" id="" cols="30" rows="10" class="form-control"
-                            placeholder="Escribe en inglés"></textarea>
-                    </div>
-                </div> -->
-            <!-- <div class="carousel-item">
-                <div class="text-center mt-5">
-                    <h3>Escribe esto en inglés</h3>
-                </div>
-                <div>
-                    <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
-                    <textarea name="" id="" cols="30" rows="10" class="form-control"
-                        placeholder="Escribe en inglés"></textarea>
-                </div>
-            </div> -->
+<frontend-stepper-practice *ngIf="dataSkill.length !== 0" (saveclick)="null" [status]="0" [progress]="progress" linear>
+  <cdk-step *ngFor="let question of dataSkill.question; let iQustion = index;" [completed]="true">
+    <div *ngIf="question.type == 2">
+      <div class="text-center mt-5">
+        <h3>{{question.question}}</h3>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
         </div>
-
+        <div class="col-sm-9">
+          <label>{{question.text}}</label>
+        </div>
+      </div>
+      <div class="">
+        <div class="row">
+          <div class="col-sm-4" *ngFor="let option_question of question.option_question">
+            <div (click)="optionselect2(option_question)">{{option_question.option.name}}</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-md-12 my-2">
-
+    <div *ngIf="question.type == 4">
+      <div class="text-center mt-5">
+        <h3 class="mb-5">{{question.question}}</h3>
+      </div>
+      <div class="">
+        <div class="row">
+          <div class="card button" style="width: 20%; height: 20%; margin: 0 auto 0 auto;"
+            *ngFor="let option_question of question.option_question; let i = index">
+            <div class="cursos-pointer" (click)="optionselect4(option_question,iQustion)">
+              <img [src]="option_question.option.url" style="width:100%">
+              <div class="container-card">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios"
+                    id="{{option_question.option.name}}{{iQustion}}" [value]="">
+                  <label class="form-check-label" for="{{option_question.option.name}}"></label>
+                </div>
+                <h4><b>{{option_question.option.name}}</b></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- <i class="fa fa-arrow-right" aria-hidden="true"></i> -->
-</div>
+    <div *ngIf="question.type == 5">
+      <div class="text-center mt-5">
+        <h3 class="mb-5">{{question.question}}</h3>
+      </div>
+      <div class="cursor-pointer" (click)="voiceOption5(question)">
+        <img src="../../../assets/img/audio-ico.jpg"
+          style="width: 200px; height: 200px; display: flexbox;">
+      </div>
+      <div class="row">
+        <div class="col-sm-4" *ngFor="let option_question of question.option_question">
+          <div (click)="optionselect5(option_question)">{{option_question.option.name}}</div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="question.type == 6">
+      vacio xd
+    </div>
+  </cdk-step>
+</frontend-stepper-practice>

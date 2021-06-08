@@ -1,12 +1,5 @@
 @import '../../../../../../libs/theme/variables.scss';
 
-
-.primary-outline {
-    &:after {
-        border-color: #e5e5e5;
-    }
-}
-
 .textss {
     text-decoration: dashed;
 
@@ -17,11 +10,6 @@
 
 .item-cross {
     float:left;
-}
-
-.margin {
-    margin-left: 15%;
-    margin-right: 15%;
 }
 
 //card
