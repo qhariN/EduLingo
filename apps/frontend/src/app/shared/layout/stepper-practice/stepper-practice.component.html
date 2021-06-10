@@ -28,7 +28,9 @@
           <button type="button" class="button bg primary-outline transparent transparent-text" cdkStepperPrevious>SALTAR</button>
         </div>
         <div class="ml-auto">
-          <button *ngIf="selectedIndex !== steps.length - 1" [disabled]="!selected.completed" cdkStepperNext type="button" class="button bg success-solid">COMPROBAR</button>
+          <button *ngIf="selectedIndex !== steps.length - 1" [disabled]="!selected.completed" 
+          cdkStepperNext type="button" id="cdkStepperNext" class="button bg success-solid" 
+          (click)="onComprobar()">COMPROBAR</button>
           <button *ngIf="selectedIndex === steps.length - 1 && status === 0" [disabled]="!selected.completed" (click)="saveclick.emit()" type="submit" class="button bg success-solid">ENVIAR</button>
           <button *ngIf="selectedIndex === steps.length - 1 && status === 1" type="submit" class="btn btn-success">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

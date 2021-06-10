@@ -11,6 +11,7 @@
             background: $border-light;
             border-radius: 16px;
             & > div {
+                transition: width 1s;
                 position: relative;
                 background-color: $success;
                 border-radius: inherit;

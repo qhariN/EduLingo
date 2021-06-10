@@ -1,5 +1,5 @@
-<frontend-stepper-practice *ngIf="dataSkill.length !== 0" (saveclick)="null" [status]="0" [progress]="progress" linear>
-  <cdk-step *ngFor="let question of dataSkill.question; let iQustion = index;" [completed]="true">
+<frontend-stepper-practice *ngIf="dataSkill.length !== 0" (saveclick)="null" [status]="0" [progress]="progress" [data]="dataSkill" linear>
+  <cdk-step *ngFor="let question of dataSkill.question; let iQustion = index;" [completed]="completed[iQustion]">
     <div *ngIf="question.type == 2">
       <div class="text-center mt-5">
         <h3>{{question.question}}</h3>
@@ -15,7 +15,7 @@
       <div class="">
         <div class="row">
           <div class="col-sm-4" *ngFor="let option_question of question.option_question">
-            <div (click)="optionselect2(option_question)">{{option_question.option.name}}</div>
+            <div (click)="optionselect2(option_question,iQustion)">{{option_question.option.name}}</div>
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
       <div class="">
         <div class="row">
           <div class="card button" style="width: 20%; height: 20%; margin: 0 auto 0 auto;"
-            *ngFor="let option_question of question.option_question; let i = index">
+            *ngFor="let option_question of question.option_question">
             <div class="cursos-pointer" (click)="optionselect4(option_question,iQustion)">
               <img [src]="option_question.option.url" style="width:100%">
               <div class="container-card">
@@ -53,12 +53,23 @@
       </div>
       <div class="row">
         <div class="col-sm-4" *ngFor="let option_question of question.option_question">
-          <div (click)="optionselect5(option_question)">{{option_question.option.name}}</div>
+          <div (click)="optionselect5(option_question,iQustion)">{{option_question.option.name}}</div>
         </div>
       </div>
     </div>
     <div *ngIf="question.type == 6">
-      vacio xd
+      <div class="text-center mt-5">
+        <h3 class="mb-5">{{question.question}}</h3>
+      </div>
+      <div class="cursor-pointer" (click)="voiceOption5(question)">
+        <img src="../../../assets/img/audio-ico.jpg"
+          style="width: 200px; height: 200px; display: flexbox;">
+      </div>
+      <div class="row">
+        <div class="col-sm-4" *ngFor="let option_question of question.option_question">
+          <div (click)="optionselect6(option_question,iQustion)">{{option_question.option.name}}</div>
+        </div>
+      </div>
     </div>
   </cdk-step>
 </frontend-stepper-practice>
