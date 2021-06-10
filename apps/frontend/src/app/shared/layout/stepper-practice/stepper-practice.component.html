@@ -1,0 +1,43 @@
+<div class="practice-grid w-100 vh-100">
+  <div class="practice-head d-flex">
+    <div class="row w-100 justify-content-center align-items-center">
+      <div class="col-6 d-flex align-items-center mt-4">
+        <button routerLink="/dash/learn" type="button" class="close mx-3" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="practice-progressbar w-100">
+          <div [style.width.%]="progress">
+            <div><div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="practice-body">
+    <div class="row w-100 d-flex justify-content-center align-items-center">
+      <div class="col-5">
+        <!-- Content from the CdkStep is projected here -->
+        <ng-container [ngTemplateOutlet]="selected.content"></ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="practice-footer d-flex">
+    <div class="row w-100 justify-content-center align-items-center">
+      <div class="col-6 d-flex">
+        <div>
+          <button type="button" class="button bg primary-outline transparent transparent-text" cdkStepperPrevious>SALTAR</button>
+        </div>
+        <div class="ml-auto">
+          <button *ngIf="selectedIndex !== steps.length - 1" [disabled]="!selected.completed" 
+          cdkStepperNext type="button" id="cdkStepperNext" class="button bg success-solid" 
+          (click)="onComprobar()">COMPROBAR</button>
+          <button *ngIf="selectedIndex === steps.length - 1 && status === 0" [disabled]="!selected.completed" (click)="saveclick.emit()" type="submit" class="button bg success-solid">ENVIAR</button>
+          <button *ngIf="selectedIndex === steps.length - 1 && status === 1" type="submit" class="btn btn-success">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span class="sr-only">Loading...</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

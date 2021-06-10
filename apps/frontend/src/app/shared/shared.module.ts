@@ -3,19 +3,24 @@ import { CommonModule } from '@angular/common';
 import { NavigationAdminComponent } from './layout/navigation-admin/navigation-admin.component';
 import { NavigationLandingComponent } from './layout/navigation-landing/navigation-landing.component';
 import { RouterModule } from '@angular/router';
+import { StepperPracticeComponent } from './layout/stepper-practice/stepper-practice.component';
+import { CdkStepperModule } from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [
     NavigationAdminComponent,
-    NavigationLandingComponent
+    NavigationLandingComponent,
+    StepperPracticeComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    CdkStepperModule
   ],
   exports:[
     NavigationAdminComponent,
-    NavigationLandingComponent
+    NavigationLandingComponent,
+    StepperPracticeComponent
   ]
 })
 export class SharedModule { }

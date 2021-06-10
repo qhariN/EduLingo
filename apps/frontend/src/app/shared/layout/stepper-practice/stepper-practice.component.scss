@@ -1,0 +1,42 @@
+@import '../../../../../../../libs/theme/variables.scss';
+
+.practice-grid {
+    display: grid;
+    grid-gap: 0;
+    grid-template-rows: 100px 1fr 140px;
+    .practice-head {
+        grid-column: 1;
+        grid-row: 1;
+        .practice-progressbar {
+            background: $border-light;
+            border-radius: 16px;
+            & > div {
+                transition: width 1s;
+                position: relative;
+                background-color: $success;
+                border-radius: inherit;
+                height: 16px;
+                max-width: 100%;
+                > div {
+                    position: absolute;
+                    background: white;
+                    height: 30%;
+                    left: 8px;
+                    right: 8px;
+                    opacity: .2;
+                    top: 25%;
+                    border-radius: inherit;
+                }
+            }
+        }
+    }
+    .practice-body {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    .practice-footer {
+        grid-column: 1;
+        grid-row: 3;
+        border-top: 2px solid $border-light;
+    }
+}

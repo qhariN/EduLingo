@@ -7,6 +7,8 @@ import { environment } from 'apps/frontend/src/environments/environment';
 import { Subscription } from 'rxjs';
 import { Unit } from '../../../../models/unit';
 import { UnitService } from '../../../../services/unit.service';
+import { SkillComponent } from '../../../skill/skill.component';
+declare var $: any;
 
 @Component({
   selector: 'frontend-learn',
@@ -40,6 +42,8 @@ export class LearnComponent implements OnInit, OnDestroy {
         })
       }
       this.unidades = res;
+      //* hide loader
+      $('#loader').addClass('loaded')
     });
   }
 
@@ -61,5 +65,12 @@ export class LearnComponent implements OnInit, OnDestroy {
 
   goToTips(data: any) {
     this.router.navigate(['/dash/tips'], { state: data })
+  }
+
+  goToSkill(data: any) {
+    //* show loader
+    $('#loader').removeClass('loaded')
+    SkillComponent.prototype.idsession = data.id
+    this.router.navigate(['/skill'])
   }
 }

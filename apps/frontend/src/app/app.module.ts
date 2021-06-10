@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app.routing';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SkillComponent } from './pages/skill/skill.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CdkStepperModule } from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [AppComponent, MainComponent, NotfoundComponent, SkillComponent],
@@ -29,7 +30,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         ]
       }
     }),
-    NgbModule
+    NgbModule,
+    CdkStepperModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
