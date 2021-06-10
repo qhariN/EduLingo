@@ -17,7 +17,51 @@ main {
   }
 }
 
+.unit-disabled {
+  background-color: #F0F0F0;
+  color: #AFAFAF !important;
+  border: 2px solid $border-light;
+  border-radius: 20px;
+  .sesion__content img {
+    filter: grayscale(1) opacity(0.6);
+  }
+  .sesion__content > div {
+    background-color: #E5E5E5 !important;
+  }
+}
+
+.unit__content {
+  width: 110px;
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > p {
+    color: #CD7900;
+    padding-top: 25px;
+    padding-right: 4px;
+  }
+  &.disabled {
+    filter: grayscale(1);
+    & > p {
+      padding-top: unset;
+      padding-right: unset;
+    }
+  }
+}
+
 .sesion__row {
+  &.disabled {
+    .sesion p {
+      color: #AFAFAF !important;
+    }
+    .sesion__content img {
+      filter: grayscale(1) opacity(0.6);
+    }
+    .sesion__content > div {
+      background-color: #E5E5E5 !important;
+    }
+  }
   //Circulo con el icono y texto
   .sesion{
     cursor: pointer;

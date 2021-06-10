@@ -1,52 +1,87 @@
 <!--Listado de unidades-->
 <div class="mt-3" *ngFor="let unidad of unidades;">
-  <!--Listado de secciones por unidad-->
-  <div class="row d-flex justify-content-center" *ngFor="let seccion of unidad.section;">
-    <div class="sesion__row">
-      <div class="d-flex justify-content-center">
-        <!--Listado de sesiones por seccion-->
-        <div class="sesion m-3" *ngFor="let sesion of seccion.session;">
-          <!-- Circulos de Sesion -->
-          <div [ngClass]="(sesion.progress.length > 0 && sesion.progress[0].status == 1) ? 'complete' : null"
-            [ngbPopover]="popContent" autoClose="outside" placement="bottom" popoverClass="session_popover {{ sesion.class }}">
-            <!-- Caja alrededor del circulo de sesion-->
-            <div class="sesion__content" >
-              <!--Imagen interna del circulo de sesion-->
-              <div [class]="sesion.class">
-                <img src="./../assets/svg/{{sesion.url}}" class="rounded-circle" />
+  <div class="row justify-content-center">
+    <div class="col-auto px-3" [class.unit-disabled]="!unidad.status">
+      <!--Listado de secciones por unidad-->
+      <div class="row d-flex justify-content-center" *ngFor="let seccion of unidad.section; let i = index">
+        <div class="sesion__row" [class.disabled]="!seccion.active">
+          <div class="d-flex justify-content-center">
+            <!--Listado de sesiones por seccion-->
+            <div class="sesion m-3" *ngFor="let sesion of seccion.session;">
+              <!-- Circulos de Sesion -->
+              <div [ngClass]="(sesion.progress.length > 0 && sesion.progress[0].status == 1) ? 'complete' : null"
+                [ngbPopover]="unidad.status === 1? (seccion.active? popContent : popContentSDisabled) : popContentUDisabled" autoClose="outside" placement="bottom" popoverClass="session_popover {{ sesion.class }} {{ (unidad.status === 0 || !seccion.active)? 'disabled' : null }}">
+                <!-- Caja alrededor del circulo de sesion-->
+                <div class="sesion__content" >
+                  <!--Imagen interna del circulo de sesion-->
+                  <div [class]="sesion.class">
+                    <img src="./../assets/svg/{{sesion.url}}" class="rounded-circle" />
+                  </div>
+                  <!--Numero flotante de la sesion-->
+                  <span class="crown">{{sesion.number}}</span>
+                </div>
+                <!--Nombre debajo del circulo de sesion-->
+                <p class="text-center font-weight-bold mt-1">{{sesion.name}}</p>
               </div>
-              <!--Numero flotante de la sesion-->
-              <span class="crown">{{sesion.number}}</span>
+              <!-- Popover -->
+              <ng-template #popContent>
+                <div class="session_popover_content">
+                  <div class="row">
+                    <div class="col-12 pb-3">
+                      <p class="mb-0"><b>Unidad {{ unidad.number }}</b></p>
+                      <p>Sessión {{ sesion.number }}: {{ sesion.name }}</p>
+                    </div>
+                    <div class="col-12">
+                      <button class="button primary-outline transparent w-100 mb-2" (click)="goToTips(sesion)">Ver clase</button>
+                    </div>
+                    <div class="col-12">
+                      <button class="button btn-white w-100" (click)="goToSkill(sesion)">Practicar</button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template #popContentUDisabled>
+                <div class="session_popover_content">
+                  <div class="row">
+                    <div class="col-12 pb-3">
+                      <p class="mb-0 text-center">¡Aún no se ha habilitado esta unidad!</p>
+                    </div>
+                    <div class="col-12">
+                      <button class="button btn-white w-100" disabled>Cerrada</button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template #popContentSDisabled>
+                <div class="session_popover_content">
+                  <div class="row">
+                    <div class="col-12 pb-3">
+                      <p class="mb-0 text-center">¡Aún no has completado la actividad anterior!</p>
+                    </div>
+                    <div class="col-12">
+                      <button class="button btn-white w-100" disabled>Cerrada</button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
             </div>
-            <!--Nombre debajo del circulo de sesion-->
-            <p class="text-center font-weight-bold mt-1">{{sesion.name}}</p>
           </div>
-          <!-- Popover -->
-          <ng-template #popContent>
-            <div class="session_popover_content">
-              <div class="row">
-                <div class="col-12">
-                  <p class="mb-0"><b>Unidad {{ unidad.number }}</b></p>
-                  <p>Sessión {{ sesion.number }}: {{ sesion.name }}</p>
-                </div>
-                <div class="col-12">
-                  <button class="button primary-outline transparent w-100 mb-2" (click)="goToTips(sesion)">Ver clase</button>
-                </div>
-                <div class="col-12">
-                  <button class="button btn-white w-100" (click)="goToSkill(sesion)">Practicar</button>
-                </div>
-              </div>
-            </div>
-          </ng-template>
         </div>
       </div>
     </div>
   </div>
-  <div class="text-center m-4">
-    <img *ngIf="unidad.status == 0" src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-complete.svg"
-      class="image" />
-    <img *ngIf="unidad.status == 1" src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-unlocked.svg"
-      class="image__complete" />
-    <p class="font-weight-bold mt-2">Unidad {{unidad.number}}</p>
+  <div class="m-1">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <div class="unit__content" [class.disabled]="unidad.status === 0">
+          <img *ngIf="unidad.status == 1" src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-complete.svg"
+            class="image" />
+          <img *ngIf="unidad.status == 0" src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-unlocked.svg"
+            class="image__complete" />
+          <p class="font-weight-bold position-absolute align-self-center mt-1">{{ unidad.number }}</p>
+          <p class="font-weight-bold position-absolute align-self-center mt-1">{{ unidad.number }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
