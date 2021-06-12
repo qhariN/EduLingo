@@ -1,6 +1,5 @@
 import { CdkStepper } from '@angular/cdk/stepper';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SkillService } from '../../../services/skill.service'
 
 @Component({
   selector: 'frontend-stepper-practice',
@@ -10,12 +9,11 @@ import { SkillService } from '../../../services/skill.service'
 })
 export class StepperPracticeComponent extends CdkStepper {
 
-  @Output() saveclick = new EventEmitter
-  @Input() status: number
+  @Output() checkClick = new EventEmitter
+  @Output() nextClick = new EventEmitter
+  @Output() saveClick = new EventEmitter
+  @Input() status: number = 0 //! 0 = normal | 1 = correct | 2 = incorrect
+  @Input() saving: boolean
   @Input() progress: number
-  @Input() data: any
-  
-  onComprobar(){
-    this.progress += (100 / this.data.question.length);
-  }
+
 }

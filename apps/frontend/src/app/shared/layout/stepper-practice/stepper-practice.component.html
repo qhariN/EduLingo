@@ -1,7 +1,7 @@
 <div class="practice-grid w-100 vh-100">
   <div class="practice-head d-flex">
-    <div class="row w-100 justify-content-center align-items-center">
-      <div class="col-6 d-flex align-items-center mt-4">
+    <div class="row w-100 justify-content-center align-items-end">
+      <div class="col-6 d-flex align-items-center">
         <button routerLink="/dash/learn" type="button" class="close mx-3" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -14,28 +14,54 @@
     </div>
   </div>
   <div class="practice-body">
-    <div class="row w-100 d-flex justify-content-center align-items-center">
-      <div class="col-5">
+    <div class="row w-100 h-100 d-flex justify-content-center align-items-center">
+      <div class="col-4">
         <!-- Content from the CdkStep is projected here -->
         <ng-container [ngTemplateOutlet]="selected.content"></ng-container>
       </div>
     </div>
   </div>
-  <div class="practice-footer d-flex">
+  <div class="practice-footer d-flex" [class.correct]="status === 1" [class.incorrect]="status === 2">
     <div class="row w-100 justify-content-center align-items-center">
-      <div class="col-6 d-flex">
+      <div *ngIf="status === 0" class="col-6 d-flex">
         <div>
-          <button type="button" class="button bg primary-outline transparent transparent-text" cdkStepperPrevious>SALTAR</button>
+          <button *ngIf="selectedIndex !== steps.length - 1" type="button" class="button bg primary-outline transparent transparent-text" cdkStepperPrevious>SALTAR</button>
         </div>
         <div class="ml-auto">
-          <button *ngIf="selectedIndex !== steps.length - 1" [disabled]="!selected.completed" 
-          cdkStepperNext type="button" id="cdkStepperNext" class="button bg success-solid" 
-          (click)="onComprobar()">COMPROBAR</button>
-          <button *ngIf="selectedIndex === steps.length - 1 && status === 0" [disabled]="!selected.completed" (click)="saveclick.emit()" type="submit" class="button bg success-solid">ENVIAR</button>
-          <button *ngIf="selectedIndex === steps.length - 1 && status === 1" type="submit" class="btn btn-success">
+          <button *ngIf="selectedIndex !== steps.length - 1" [disabled]="!selected.completed" (click)="checkClick.emit(selectedIndex)" type="button" id="cdkStepperNext" class="button bg success-solid">COMPROBAR</button>
+          <button *ngIf="selectedIndex === steps.length - 1 && !saving" [disabled]="!selected.completed" (click)="saveClick.emit()" type="submit" class="button bg success-solid">ENVIAR</button>
+          <button *ngIf="selectedIndex === steps.length - 1 && saving" type="submit" class="btn btn-success">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span class="sr-only">Loading...</span>
           </button>
+        </div>
+      </div>
+      <div *ngIf="status === 1" class="col-6 d-flex">
+        <div class="indicator">
+          <i class="fas fa-check fa-3x"></i>
+        </div>
+        <div class="d-flex align-items-center ml-3">
+          <div>
+            <h5 class="font-weight-bold">¡Excelente!</h5>
+            <p>respuesta correcta</p>
+          </div>
+        </div>
+        <div class="ml-auto d-flex align-items-center">
+          <button (click)="nextClick.emit()" type="button" id="cdkStepperNext" cdkStepperNext class="button bg success-solid">CONTINUAR</button>
+        </div>
+      </div>
+      <div *ngIf="status === 2" class="col-6 d-flex">
+        <div class="indicator">
+          <i class="fas fa-times fa-3x"></i>
+        </div>
+        <div class="d-flex align-items-center ml-3">
+          <div>
+            <h5 class="font-weight-bold">¡Oops!</h5>
+            <p>respuesta incorrecta</p>
+          </div>
+        </div>
+        <div class="ml-auto d-flex align-items-center">
+          <button (click)="nextClick.emit()" type="button" id="cdkStepperNext" cdkStepperNext class="button bg danger-solid">CONTINUAR</button>
         </div>
       </div>
     </div>

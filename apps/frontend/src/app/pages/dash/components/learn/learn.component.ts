@@ -2,7 +2,6 @@ import { DOCUMENT } from '@angular/common';
 import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
-import { Session } from 'apps/frontend/src/app/models/session';
 import { environment } from 'apps/frontend/src/environments/environment';
 import { Subscription } from 'rxjs';
 import { Unit } from '../../../../models/unit';
@@ -70,7 +69,7 @@ export class LearnComponent implements OnInit, OnDestroy {
   goToSkill(data: any) {
     //* show loader
     $('#loader').removeClass('loaded')
-    SkillComponent.prototype.idsession = data.id
+    SkillComponent.prototype.idSession = data.id
     this.router.navigate(['/skill'])
   }
 }

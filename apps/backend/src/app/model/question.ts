@@ -17,6 +17,9 @@ export class Question {
     @Column()
     type: number //! 0 = rellenar ; 1 = ordenar
 
+    @Column({ length: 300, nullable: true })
+    img_url: string
+
     @ManyToOne(type => Session, session => session.question)
     session: Session
 

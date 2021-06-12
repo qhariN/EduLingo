@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { OptionQuestion, Skill } from '../../models/skill';
 import { SkillService } from '../../services/skill.service';
 declare var $: any;
 
@@ -8,198 +11,78 @@ declare var $: any;
   templateUrl: './skill.component.html',
   styleUrls: ['./skill.component.scss']
 })
-export class SkillComponent implements OnInit {
+export class SkillComponent implements OnInit, OnDestroy {
 
-  // id de la sesion, porque el otro metodo no me funcionó :'u
-  public idsession;
+  idSession: number = 1
+  subscriptions: Subscription = new Subscription()
+  questionsForm: FormArray
+  skillData: Skill
+  status: number = 0 //! 0 = normal | 1 = correct | 2 = incorrect
+  saving: boolean = false
+  progress: number = 0 //! 0% - 100%
 
-  dataSkill: any = [];
-  textByUser: string = "";
-
-  // respuesta por tipo
-  resType1: number = 0;
-  resType2: number = 0;
-  resType3: number = 0;
-  resType4: number = 0;
-  resType5: number = 0;
-  resType6: number = 0;
-
-  //arrays
-  arrayType2 = [];
-  arrayType3 = [];
-
-  //checkbox de los typo pregunta 2
-  checkbox: any;
-
-  //variable de la progressbar
-  progress: number = 0;
-
-  //variable para la validacion de las preguntas
-  completed = [];
-
-  constructor(public skillService: SkillService, private router: Router) { }
+  constructor(public skillService: SkillService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.questionsForm = this.fb.array([])
     //* hide loader
     $('#loader').addClass('loaded')
-    if (this.idsession) {
-      this.skillService.getSkill(this.idsession).subscribe(res => {
-        this.dataSkill = res;
-        this.dataSkill.question.forEach(() => this.completed.push(false));
-      });
+    if (this.idSession) {
+      //* generate array form
+      this.subscriptions.add(this.skillService.getSkill(this.idSession).subscribe(res => {
+        this.skillData = res
+        for (let iQuestion in this.skillData.question) {
+          this.questionsForm.push(this.fb.array([]))
+          for (let option of this.skillData.question[iQuestion].option_question) {
+            if (option.flag_estado === 1) (this.questionsForm.get(iQuestion) as FormArray).push(
+              this.fb.control(null, [Validators.required])
+            )
+          }
+        }
+      }))
     } else {
       this.router.navigate(['/dash/learn'])
     }
   }
 
-  // nextQuestion(data, i) {
-  //   // console.log("type: " + data.type);
-  //   console.log(data);
-
-  //   switch (data.type) {
-  //     case 2:
-  //       for (let i = 0; i < this.arrayType2.length; i++) {
-  //         if (this.arrayType2[i].flag_estado !== 1 || this.arrayType2[i].order !== (i + 1)) {
-  //           console.log("ta mal");
-  //           break;
-  //         } else if (this.arrayType2.length == i + 1) {
-  //           console.log("ta bien");
-  //           this.arrayType2 = [];
-  //           this.progress += (100 / this.dataSkill.question.length);
-  //           console.log(this.progress);
-
-  //           document.getElementById('next').click();
-  //           // this.completed = true;
-  //           break;
-  //         }
-  //       }
-  //       break;
-  //     case 4:
-  //       if (this.resType4 == 1) {
-  //         console.log("ta bien");
-  //         this.resType4 = 0;
-  //         this.checkbox.checked = false;
-  //         this.checkbox = null;
-  //         this.progress += (100 / this.dataSkill.question.length);
-  //         console.log(this.progress);
-
-  //         document.getElementById('next').click();
-  //       } else {
-  //         console.log("ta mal");
-  //       }
-  //       break;
-  //     case 5:
-  //       for (let i = 0; i < this.arrayType3.length; i++) {
-  //         if (this.arrayType3[i].flag_estado !== 1 || this.arrayType3[i].order !== (i + 1)) {
-  //           console.log("ta mal");
-  //           break;
-  //         } else if (this.arrayType3.length == i + 1) {
-  //           console.log("ta bien");
-  //           this.arrayType3 = [];
-  //           this.progress += (100 / this.dataSkill.question.length);
-  //           console.log(this.progress);
-  //           document.getElementById('next').click();
-  //           break;
-  //         }
-  //       }
-  //       break;
-  //     case 6:
-  //       break;
-  //   }
-  // }
-
-  startQuestion(): void {
-    document.getElementById('next').click();
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe()
   }
 
-  arrayEquals(a, b) {
-    return  a.length === b.length &&
-      a.every((val, index) => val === b[index]);
+  getQuestionForm(index: string): FormArray {
+    return this.questionsForm.get(index.toString()) as FormArray
   }
 
-  //clic de la opcion 2
-  optionselect2(data: any, index: number): void {
-    this.arrayType2.push({ flag_estado: data.flag_estado, order: data.order });
-
-    let options = this.dataSkill.question[index].option_question.slice();
-    let newOptions = []
-
-    options = options.filter(data => data.flag_estado == 1);
-    options = options.sort((a, b) => a.order - b.order);
-    options.forEach(e => newOptions.push({ flag_estado: e.flag_estado, order: e.order }));
-
-    if (JSON.stringify(newOptions) == JSON.stringify(this.arrayType2)) {
-      console.log("ta bien");
-      this.completed[index] = true;
-      this.arrayType2 = [];
-    } else {
-      console.log("ta mal");
-    }
-
+  checkResponse(index: string) {
+    this.status = 1 //* correct
+    this.getQuestionForm(index).controls.forEach((val, i) => {
+      let control = (val.value as OptionQuestion)
+      if (control.flag_estado === 0 && control.order !== i + 1)  {
+        this.status = 2 //* incorrect
+      }
+    })
+    //* play sound
+    let audio = new Audio()
+    this.status === 1? audio.src = '../../../assets/mp3/correct.mp3' : audio.src = '../../../assets/mp3/incorrect.mp3'
+    audio.load()
+    audio.play()
   }
 
-  //clic de la opcion 4
-  optionselect4(data: any, index: number) {
-    this.checkbox = <HTMLInputElement>document.getElementById(`${data.option.name}${index}`)
-    this.textToVoice(data.option.name);
-
-    if (`${data.option.name}${index}` == this.checkbox.id) {
-      this.checkbox.checked = true;
-    }
-
-    this.resType4 = data.flag_estado;
-
-    if (this.resType4 === 1) {
-      this.completed[index] = true;
-    }
+  nextStep() {
+    this.status = 0
+    let count = 0
+    this.questionsForm.controls.forEach(element => {
+      if (element.valid) count++
+    })
+    this.progress = (100 / this.questionsForm.controls.length) * count
   }
 
-  //metodo que convierte texto a voz
+  //* método que convierte texto a voz
   textToVoice(text: string) {
-    var msg = new SpeechSynthesisUtterance();
+    let msg = new SpeechSynthesisUtterance();
     msg.lang = 'en-US';
     msg.text = text;
     msg.volume = 100;
     speechSynthesis.speak(msg);
   }
-
-  //opcion 5
-  voiceOption5(data: any, index: number) {
-    this.textToVoice(data.text);
-  }
-  optionselect5(data: any, index: number) {
-    this.arrayType3.push({ flag_estado: data.flag_estado, order: data.order });
-
-    let options = this.dataSkill.question[index].option_question.slice();
-    let newOptions = []
-
-    options = options.filter(data => data.flag_estado == 1);
-    //ordenar el array de objetos de mayor a menor segun "order"
-    options = options.sort((a, b) => a.order - b.order);
-    options.forEach(e => newOptions.push({ flag_estado: e.flag_estado, order: e.order }));
-
-    if (JSON.stringify(newOptions) == JSON.stringify(this.arrayType3)) {
-      console.log("ta bien");
-      this.completed[index] = true;
-      this.arrayType3 = [];
-    } else {
-      console.log("ta mal");
-    }
-  }
-
-  //opcion 6
-  voiceOption6(data: any) {
-    this.textToVoice(data.text);
-  }
-  optionselect6(data: any, index: number) {
-    this.resType6 = data.flag_estado;
-
-    if (this.resType6 === 1) {
-      console.log("ta bien");
-      this.completed[index] = true;
-    }else{
-      console.log("ta mal");
-    }
-  }
-
 }

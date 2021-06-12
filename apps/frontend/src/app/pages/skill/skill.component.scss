@@ -1,29 +1,21 @@
 @import '../../../../../../libs/theme/variables.scss';
 
-.textss {
-    text-decoration: dashed;
-
-    color {
-        color-text: blue;
+.card-button {
+    cursor: pointer;
+    .card-body {
+        padding: 1.75rem 1.5rem;
+    }
+    &:hover {
+        background-color: #F7F7F7;
     }
 }
 
-.item-cross {
-    float:left;
+input[type="radio"], input[type="checkbox"] {
+    display: none;
 }
 
-//card
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 40%;
-  }
-  
-  .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
-  
-  .container-card {
-    padding: 2px 16px;
-  }
-  
+input[type="radio"]:checked + .card-button {
+    border-color: $primary-light;
+    color: $primary;
+    background-color: RGBA(58, 85, 125, 0.1);
+}

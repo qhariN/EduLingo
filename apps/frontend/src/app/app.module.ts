@@ -10,6 +10,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SkillComponent } from './pages/skill/skill.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CdkStepperModule } from '@angular/cdk/stepper';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, MainComponent, NotfoundComponent, SkillComponent],
@@ -31,7 +32,9 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
       }
     }),
     NgbModule,
-    CdkStepperModule
+    CdkStepperModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
