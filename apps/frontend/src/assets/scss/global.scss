@@ -173,6 +173,50 @@ img {
     }
 }
 
+.info-solid {
+    border: solid;
+    border-radius: 16px;
+    border-width: 0px 0px 4px;
+    border-color: transparent;
+    background-color: $info;
+    color: white;
+    transform: translateZ(0);
+    min-width: 150px;
+    &:after {
+        content: "";
+        background-color: $info-light;
+        border-width: 0px 0px 4px;
+        border-color: transparent;
+        border-radius: 16px;
+        background-clip: padding-box;
+        border-style: solid;
+        position: absolute;
+        z-index: -1;
+        bottom: -4px;
+        left: 0px;
+        right: 0px;
+        top: 0px;
+    }
+    &:hover {
+        color: $white-90;
+    }
+    &:active {
+        background: none;
+        border-width: 4px 0px 0px;
+        &:after {
+            border-bottom-width: 2px;
+            bottom: -2px;
+        }
+    }
+    &:disabled {
+        color: #AFAFAF !important;
+        background-color: $border !important;
+        &:after {
+            background-color: #E5E5E5;
+        }
+    }
+}
+
 .danger-solid {
     border: solid;
     border-radius: 16px;

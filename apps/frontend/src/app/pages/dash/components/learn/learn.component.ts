@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
+import { Session } from 'apps/frontend/src/app/models/session';
 import { environment } from 'apps/frontend/src/environments/environment';
 import { Subscription } from 'rxjs';
 import { Unit } from '../../../../models/unit';
@@ -58,15 +59,11 @@ export class LearnComponent implements OnInit, OnDestroy {
     return arr[random]
   }
 
-  newPractice(){
-    console.log("olademar");
-  }
-
-  goToTips(data: any) {
+  goToTips(data: Session) {
     this.router.navigate(['/dash/tips'], { state: data })
   }
 
-  goToSkill(data: any) {
+  goToSkill(data: Session) {
     //* show loader
     $('#loader').removeClass('loaded')
     SkillComponent.prototype.idSession = data.id

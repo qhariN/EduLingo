@@ -25,6 +25,7 @@ export interface OptionQuestion {
     flag_estado: number
     order:       number
     option:      Option
+    check:       boolean    //* used for checkbox
 
 }
 

@@ -33,6 +33,9 @@
     .practice-body {
         grid-column: 1;
         grid-row: 2;
+        &.disable {
+            pointer-events: none;
+        }
     }
     .practice-footer {
         grid-column: 1;

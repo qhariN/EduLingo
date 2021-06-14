@@ -7,7 +7,8 @@ import { Unit } from '../models/unit';
   providedIn: 'root',
 })
 export class UnitService {
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) { }
 
   getUnits(): Observable<Unit[]> {
     return this.http.get<Unit[]>('https://edulingo-staging.herokuapp.com/api/unit/all/user');
