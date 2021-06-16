@@ -2,6 +2,7 @@
 
 .card-text {
     width: auto;
+    min-height: 68px;
     cursor: pointer;
     user-select: none;
     text-align: center;
@@ -10,6 +11,11 @@
         i {
             color: $info-dark;
         }
+    }
+    &.card-response {
+        min-height: 68px;
+        border: 2px solid $info;
+        background-color: RGBA(23, 162, 184, 0.1);
     }
 }
 
@@ -57,8 +63,20 @@ input[type="radio"]:checked + .card-button {
     background-color: RGBA(58, 85, 125, 0.1);
 }
 
-.form-row.input {
-    min-height: 64px;
-    border-top: 2px solid $border-light;
-    border-bottom: 2px solid $border-light;
+div {
+    &.input {
+        min-width: 100px;
+        min-height: 64px;
+        border-bottom: 2px solid $border-light;
+    }
+    &.inputs {
+        min-height: 64px;
+        border-top: 2px solid $border-light;
+        border-bottom: 2px solid $border-light;
+    }
+}
+
+.question-img {
+    width: 180px;
+    height: 180px;
 }

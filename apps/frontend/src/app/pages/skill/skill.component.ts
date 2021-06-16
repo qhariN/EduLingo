@@ -13,7 +13,7 @@ declare var $: any;
 })
 export class SkillComponent implements OnInit, OnDestroy {
 
-  idSession: number = 1
+  idSession: number
   subscriptions: Subscription = new Subscription()
   questionsForm: FormArray
   skillData: Skill
@@ -77,10 +77,6 @@ export class SkillComponent implements OnInit, OnDestroy {
     this.status = 1 //* correct
     let question = this.skillData.question[iQuestion] as Question
     switch (question.type) {
-      case 1:
-        
-        break
-
       case 2:
       case 5:
         if (this.getQuestionForm(iQuestion).value.length !== question.option_question.filter(v => v.flag_estado === 1).length) {
@@ -93,10 +89,8 @@ export class SkillComponent implements OnInit, OnDestroy {
         }
         break
 
+      case 1:
       case 3:
-        
-        break
-
       case 4:
       case 6:
         let value4 = this.getQuestionForm(iQuestion).value as OptionQuestion

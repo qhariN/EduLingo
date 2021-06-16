@@ -11,6 +11,7 @@ import { SkillComponent } from './pages/skill/skill.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent, MainComponent, NotfoundComponent, SkillComponent],
@@ -27,7 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       httpInterceptor: {
         //* list of endpoints where Auth0 SDK will send auth header
         allowedList: [
-          '/api'
+          `${environment.url}/*`
         ]
       }
     }),
