@@ -59,18 +59,14 @@ export class LearnComponent implements OnInit, OnDestroy {
     return arr[random]
   }
 
-  newPractice(){
-    console.log("olademar");
-  }
-
-  goToTips(data: any) {
+  goToTips(data: Session) {
     this.router.navigate(['/dash/tips'], { state: data })
   }
 
-  goToSkill(data: any) {
+  goToSkill(data: Session) {
     //* show loader
     $('#loader').removeClass('loaded')
-    SkillComponent.prototype.idsession = data.id
+    SkillComponent.prototype.idSession = data.id
     this.router.navigate(['/skill'])
   }
 }

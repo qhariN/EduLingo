@@ -33,10 +33,32 @@
     .practice-body {
         grid-column: 1;
         grid-row: 2;
+        &.disable {
+            pointer-events: none;
+        }
     }
     .practice-footer {
         grid-column: 1;
         grid-row: 3;
         border-top: 2px solid $border-light;
+    }
+    .indicator {
+        width: 80px;
+        height: 80px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .correct {
+        border-color: RGBA(40, 167, 69, 0.1);
+        background-color: RGBA(40, 167, 69, 0.2);
+        color: $success;
+    }
+    .incorrect {
+        border-color: RGBA(225, 83, 97, 0.1);
+        background-color: RGBA(225, 83, 97, 0.2);
+        color: $danger;
     }
 }

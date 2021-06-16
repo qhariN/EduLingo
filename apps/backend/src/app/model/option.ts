@@ -7,7 +7,6 @@ export class Option {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Index({ unique: true })
     @Column()
     name: string
 

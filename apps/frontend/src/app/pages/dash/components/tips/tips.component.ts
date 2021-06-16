@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Session } from 'apps/frontend/src/app/models/session';
-
+declare var $: any;
 
 @Component({
   selector: 'frontend-tips',
   templateUrl: './tips.component.html',
   styleUrls: ['./tips.component.scss']
 })
-export class TipsComponent implements OnInit {
+export class TipsComponent {
 
   session: Session
 
@@ -20,7 +20,9 @@ export class TipsComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    console.log(this.session)
+  exitTip() {
+    //* show loader
+    $('#loader').removeClass('loaded')
+    this.router.navigate(['/dash/learn'])
   }
 }

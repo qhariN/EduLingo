@@ -1,75 +1,169 @@
-<frontend-stepper-practice *ngIf="dataSkill.length !== 0" (saveclick)="null" [status]="0" [progress]="progress" [data]="dataSkill" linear>
-  <cdk-step *ngFor="let question of dataSkill.question; let iQustion = index;" [completed]="completed[iQustion]">
-    <div *ngIf="question.type == 2">
-      <div class="text-center mt-5">
-        <h3>{{question.question}}</h3>
+<frontend-stepper-practice *ngIf="skillData && skillData.question.length !== 0" (checkClick)="checkResponse($event)"
+  (nextClick)="nextStep()" [status]="status" [saving]="saving" [progress]="progress" linear>
+  <cdk-step *ngFor="let question of skillData.question; let i = index;" [completed]="getQuestionForm(i).valid">
+    <!-- Question type 1 -->
+    <div *ngIf="question.type === 1">
+      <h3 class="font-weight-bold mb-4">{{ question.question }}</h3>
+      <div class="d-flex justify-content-center align-items-center my-4">
+        <img class="question-img mr-5" [src]="question.img_url">
+        <ng-container *ngFor="let text of question.text.split('|')">
+          <h6 *ngIf="text !== '_'; else input">{{ text }}</h6>
+          <ng-template #input>
+            <div class="input mx-2">
+              <div *ngIf="getQuestionForm(i).value" class="text-center py-1">
+                <label (click)="getQuestionForm(i).setValue(null)">
+                  <div class="card card-button card-button-sm w-100">
+                    <div class="card-body">{{ getQuestionForm(i).value.option.name }}</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
       </div>
-      <div class="row">
-        <div class="col-sm-3">
-          <img src="../../../assets/img/studying.png" style="width: 200px; height: 200px">
-        </div>
-        <div class="col-sm-9">
-          <label>{{question.text}}</label>
-        </div>
+      <div class="form-row justify-content-center">
+        <ng-container *ngFor="let option_question of question.option_question">
+          <div *ngIf="!option_question.check" class="col-auto my-1">
+            <label>
+              <input type="radio" [formControl]="getQuestionForm(i)" (click)="textToVoice(option_question.option.name)" [value]="option_question">
+              <div class="card card-button card-button-sm w-100">
+                <div class="card-body">{{ option_question.option.name }}</div>
+              </div>
+            </label>
+          </div>
+        </ng-container>
       </div>
-      <div class="">
-        <div class="row">
-          <div class="col-sm-4" *ngFor="let option_question of question.option_question">
-            <div (click)="optionselect2(option_question,iQustion)">{{option_question.option.name}}</div>
+    </div>
+    <!-- Question type 2 & 5 -->
+    <div *ngIf="question.type === 2 || question.type === 5">
+      <h3 class="font-weight-bold mb-4">{{ question.question }}</h3>
+      <div *ngIf="question.type === 2" class="row">
+        <div class="col-auto">
+          <div class="card card-text">
+            <div class="card-body d-flex align-items-center">
+              <i (click)="textToVoice(question.text)" class="fas fa-volume-up fa-2x"></i>
+              <h6 class="ml-3">{{ question.text }}</h6>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="question.type == 4">
-      <div class="text-center mt-5">
-        <h3 class="mb-5">{{question.question}}</h3>
+      <div *ngIf="question.type === 5" class="row justify-content-center">
+        <div class="col-auto">
+          <button (click)="textToVoice(question.text)" type="button" class="button button-listen info-solid">
+            <i class="fas fa-volume-up fa-3x"></i>
+          </button>
+        </div>
       </div>
-      <div class="">
-        <div class="row">
-          <div class="card button" style="width: 20%; height: 20%; margin: 0 auto 0 auto;"
-            *ngFor="let option_question of question.option_question">
-            <div class="cursos-pointer" (click)="optionselect4(option_question,iQustion)">
-              <img [src]="option_question.option.url" style="width:100%">
-              <div class="container-card">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios"
-                    id="{{option_question.option.name}}{{iQustion}}" [value]="">
-                  <label class="form-check-label" for="{{option_question.option.name}}"></label>
+      <div class="form-row inputs my-4">
+        <div *ngFor="let option_question of getQuestionForm(i).value; let ii = index;" class="col-auto my-1">
+          <label>
+            <input type="checkbox" [(ngModel)]="option_question.check" (change)="onDelCheckboxChange(i, ii)">
+            <div class="card card-button card-button-sm w-100">
+              <div class="card-body">{{ option_question.option.name }}</div>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="form-row">
+        <ng-container *ngFor="let option_question of question.option_question">
+          <div *ngIf="!option_question.check" class="col-auto my-1">
+            <label>
+              <input type="checkbox" [(ngModel)]="option_question.check" (change)="onAddCheckboxChange(i, option_question)">
+              <div class="card card-button card-button-sm w-100">
+                <div class="card-body">{{ option_question.option.name }}</div>
+              </div>
+            </label>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- Question type 3 -->
+    <div *ngIf="question.type === 3">
+      <h3 class="font-weight-bold mb-3">{{ question.question }}</h3>
+      <div class="row mb-4">
+        <div class="col-12 mb-1">
+          <div class="row">
+            <div class="col-auto">
+              <div class="card card-text">
+                <div class="card-body d-flex align-items-center">
+                  <i (click)="textToVoice(question.text)" class="fas fa-volume-up fa-2x"></i>
+                  <h6 class="ml-3">{{ question.text }}</h6>
                 </div>
-                <h4><b>{{option_question.option.name}}</b></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mt-1">
+          <div class="row justify-content-end">
+            <div class="col-auto">
+              <div class="card card-text card-response">
+                <div class="card-body d-flex align-items-center">
+                  <h6>{{ getQuestionForm(i).value? getQuestionForm(i).value.option.name : '____________' }}</h6>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="form-row justify-content-center">
+        <ng-container *ngFor="let option_question of question.option_question">
+          <div *ngIf="!option_question.check" class="col-12 my-1">
+            <label class="w-100 text-center">
+              <input type="radio" [formControl]="getQuestionForm(i)" (click)="textToVoice(option_question.option.name)" [value]="option_question">
+              <div class="card card-button card-button-sm w-100">
+                <div class="card-body">{{ option_question.option.name }}</div>
+              </div>
+            </label>
+          </div>
+        </ng-container>
+      </div>
     </div>
-    <div *ngIf="question.type == 5">
-      <div class="text-center mt-5">
-        <h3 class="mb-5">{{question.question}}</h3>
-      </div>
-      <div class="cursor-pointer" (click)="voiceOption5(question)">
-        <img src="../../../assets/img/audio-ico.jpg"
-          style="width: 200px; height: 200px; display: flexbox;">
-      </div>
-      <div class="row">
-        <div class="col-sm-4" *ngFor="let option_question of question.option_question">
-          <div (click)="optionselect5(option_question,iQustion)">{{option_question.option.name}}</div>
+    <!-- Question type 4 -->
+    <div *ngIf="question.type === 4">
+      <h3 class="font-weight-bold mb-4">{{ question.question }}</h3>
+      <div class="form-row">
+        <div *ngFor="let option_question of question.option_question" class="col-md-4">
+          <label class="w-100">
+            <input type="radio" [formControl]="getQuestionForm(i)" (click)="textToVoice(option_question.option.name)" [value]="option_question">
+            <div class="card card-button">
+              <div class="card-body">
+                <div class="mx-3">
+                  <img class="w-100" [src]="option_question.option.url">
+                </div>
+                <h6 class="mt-3">{{ option_question.option.name }}</h6>
+              </div>
+            </div>
+          </label>
         </div>
       </div>
     </div>
-    <div *ngIf="question.type == 6">
-      <div class="text-center mt-5">
-        <h3 class="mb-5">{{question.question}}</h3>
-      </div>
-      <div class="cursor-pointer" (click)="voiceOption5(question)">
-        <img src="../../../assets/img/audio-ico.jpg"
-          style="width: 200px; height: 200px; display: flexbox;">
-      </div>
-      <div class="row">
-        <div class="col-sm-4" *ngFor="let option_question of question.option_question">
-          <div (click)="optionselect6(option_question,iQustion)">{{option_question.option.name}}</div>
+    <!-- Question type 6 -->
+    <div *ngIf="question.type === 6">
+      <h3 class="font-weight-bold mb-4">{{ question.question }}</h3>
+      <div class="form-row">
+        <div class="col-auto">
+          <button (click)="textToVoice(question.text)" type="button" class="button button-listen bg info-solid mr-3">
+            <i class="fas fa-volume-up fa-4x"></i>
+          </button>
+        </div>
+        <div class="col">
+          <div class="form-row align-items-center h-100">
+            <div *ngFor="let option_question of question.option_question" class="col-6">
+              <label class="w-100">
+                <input type="radio" [formControl]="getQuestionForm(i)" (click)="textToVoice(option_question.option.name)" [value]="option_question">
+                <div class="card card-button card-button-md w-100 my-1">
+                  <div class="card-body text-center">
+                    <h6>{{ option_question.option.name }}</h6>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </cdk-step>
 </frontend-stepper-practice>
+<div *ngIf="skillData && skillData.question.length === 0">
+  hola d mar no hay nada aquí xd
+</div>
