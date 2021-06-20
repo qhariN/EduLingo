@@ -47,8 +47,9 @@
             "main": "apps/frontend/src/main.ts",
             "polyfills": "apps/frontend/src/polyfills.ts",
             "tsConfig": "apps/frontend/tsconfig.app.json",
-            "aot": true,
-            "assets": ["apps/frontend/src/assets"],
+            "assets": [
+              "apps/frontend/src/assets"
+            ],
             "styles": [
               "libs/theme/scss/loader.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -56,10 +57,16 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
-              "node_modules/marked/lib/marked.js"
-            ]
+              "node_modules/marked/lib/marked.js",
+              "node_modules/@lottiefiles/lottie-player/dist/lottie-player.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -120,7 +127,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/frontend"],
+          "outputs": [
+            "coverage/apps/frontend"
+          ],
           "options": {
             "jestConfig": "apps/frontend/jest.config.js",
             "passWithNoTests": true
@@ -149,7 +158,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/frontend-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/frontend-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -161,12 +172,16 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/backend",
             "main": "apps/backend/src/main.ts",
             "tsConfig": "apps/backend/tsconfig.app.json",
-            "assets": ["apps/backend/src/assets"]
+            "assets": [
+              "apps/backend/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -191,12 +206,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/backend/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/backend/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/backend"],
+          "outputs": [
+            "coverage/apps/backend"
+          ],
           "options": {
             "jestConfig": "apps/backend/jest.config.js",
             "passWithNoTests": true
@@ -221,7 +240,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/utils"],
+          "outputs": [
+            "coverage/libs/utils"
+          ],
           "options": {
             "jestConfig": "libs/utils/jest.config.js",
             "passWithNoTests": true
@@ -246,7 +267,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/components"],
+          "outputs": [
+            "coverage/libs/components"
+          ],
           "options": {
             "jestConfig": "libs/components/jest.config.js",
             "passWithNoTests": true

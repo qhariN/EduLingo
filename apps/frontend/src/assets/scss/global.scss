@@ -15,6 +15,10 @@ img {
     pointer-events: none;
 }
 
+a {
+    text-decoration: none;
+}
+
 .content{
     padding: 10px 40px;
 }
@@ -35,6 +39,15 @@ img {
 
 .text-primary {
     color: $primary !important;
+}
+
+.bg- {
+    &info {
+        background-color: $info!important;
+    }
+    &success {
+        background-color: $success-light!important;
+    }
 }
 
 .btn-white {
@@ -303,13 +316,13 @@ img {
     border: 0;
     border-radius: 15px;
     top: 20px !important;
-    .arrow {
+    .popover-arrow {
         &:before {
             border-bottom-color: transparent;
         }
     }
     &.bg-primary {
-        .arrow:after {
+        .popover-arrow:after {
             border-bottom-color: $primary-light;
         }
         .btn-white {
@@ -320,7 +333,7 @@ img {
         }
     }
     &.bg-success {
-        .arrow:after {
+        .popover-arrow:after {
             border-bottom-color: $success-light;
         }
         .btn-white {
@@ -331,7 +344,7 @@ img {
         }
     }
     &.bg-info {
-        .arrow:after {
+        .popover-arrow:after {
             border-bottom-color: $info;
         }
         .btn-white {
@@ -342,7 +355,7 @@ img {
         }
     }
     &.bg-warning {
-        .arrow:after {
+        .popover-arrow:after {
             border-bottom-color: $warning;
         }
         .btn-white {
@@ -353,7 +366,7 @@ img {
         }
     }
     &.bg-danger {
-        .arrow:after {
+        .popover-arrow:after {
             border-bottom-color: $danger;
         }
         .btn-white {
@@ -372,7 +385,7 @@ img {
         .btn-white:after {
             background-color: #E5E5E5;
         }
-        .arrow {
+        .popover-arrow {
             &:after {
                 top: 2px;
                 border-bottom-color: #f7f7f7;

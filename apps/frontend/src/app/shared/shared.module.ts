@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationAdminComponent } from './layout/navigation-admin/navigation-admin.component';
 import { NavigationLandingComponent } from './layout/navigation-landing/navigation-landing.component';
@@ -21,6 +21,7 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
     NavigationAdminComponent,
     NavigationLandingComponent,
     StepperPracticeComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule { }

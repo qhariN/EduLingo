@@ -1,5 +1,5 @@
 import { SharedModule } from './shared/shared.module';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
@@ -41,5 +41,6 @@ import { environment } from '../environments/environment';
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}

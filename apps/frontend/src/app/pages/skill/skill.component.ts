@@ -12,13 +12,13 @@ declare var $: any;
   styleUrls: ['./skill.component.scss']
 })
 export class SkillComponent implements OnInit, OnDestroy {
-
+  
   idSession: number
   subscriptions: Subscription = new Subscription()
   questionsForm: FormArray
   skillData: Skill
   status: number = 0 //! 0 = normal | 1 = correct | 2 = incorrect
-  saving: boolean = false
+  saved: number = null
   progress: number = 0 //! 0% - 100%
   lasStep: boolean = false
 
@@ -79,6 +79,7 @@ export class SkillComponent implements OnInit, OnDestroy {
     switch (question.type) {
       case 2:
       case 5:
+      case 7:
         if (this.getQuestionForm(iQuestion).value.length !== question.option_question.filter(v => v.flag_estado === 1).length) {
           this.status = 2 //* incorrect
         } else {
@@ -117,15 +118,58 @@ export class SkillComponent implements OnInit, OnDestroy {
 
   nextStep() {
     this.status = 0
+    //* Check if all responses are valid
     if (this.lasStep) {
-      console.log('GAAAAAAAAAAA')
+      let valid = true
+      this.questionsForm.controls.forEach((val, i) => {
+        let question = this.skillData.question[i] as Question
+        switch (question.type) {
+          case 2:
+          case 5:
+          case 7:
+            if (this.getQuestionForm(i.toString()).value.length !== question.option_question.filter(v => v.flag_estado === 1).length) {
+              valid = false
+            } else {
+              let value2 = this.getQuestionForm(i.toString()).value as OptionQuestion[]
+              value2.forEach((value, index) => {
+                if (value.flag_estado === 0 && value.order !== index + 1) valid = false
+              })
+            }
+            break
+    
+          case 1:
+          case 3:
+          case 4:
+          case 6:
+            let value4 = this.getQuestionForm(i.toString()).value as OptionQuestion
+            if (value4.flag_estado === 0) valid = false //* incorrect
+            break
+    
+          default:
+            break
+        }
+      })
+      //* Save progress or show failed message
+      if (valid) {
+        this.saved = 1
+      } else {
+        this.saved = 0
+      }
     }
   }
 
   //* método que convierte texto a voz
-  textToVoice(text: string) {
+  textToVoiceEn(text: string) {
     let msg = new SpeechSynthesisUtterance()
     msg.lang = 'en-US'
+    msg.text = text
+    msg.volume = 100
+    speechSynthesis.speak(msg)
+  }
+
+  textToVoiceEs(text: string) {
+    let msg = new SpeechSynthesisUtterance()
+    msg.lang = 'es-MX'
     msg.text = text
     msg.volume = 100
     speechSynthesis.speak(msg)
