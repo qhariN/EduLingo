@@ -12,7 +12,7 @@ declare var $: any;
   styleUrls: ['./skill.component.scss']
 })
 export class SkillComponent implements OnInit, OnDestroy {
-
+//  TODO: remove jquery, fix styles, update ml mr to ms me, update bootstrap colors
   idSession: number
   subscriptions: Subscription = new Subscription()
   questionsForm: FormArray
