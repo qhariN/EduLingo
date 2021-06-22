@@ -22,4 +22,15 @@ export class UnitService {
             .leftJoinAndSelect('session.progress', 'progress', 'progress.userId = :id', { id: _id})
             .getMany()
     }
+
+    public async getEvaluation(id: number) {
+        return await this.repo.createQueryBuilder('session')
+            .leftJoinAndSelect('session.question', 'question')
+            .leftJoinAndSelect('question.option_question', 'option_question')
+            .leftJoinAndSelect('option_question.option', 'option')
+            .orderBy('question.id', 'ASC')
+            .orderBy('option_question.id', 'ASC')
+            .where('question.id = :id',{ id: id })
+            .andWhere('session.status = 1')
+    }
 }
