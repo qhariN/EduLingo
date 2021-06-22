@@ -1,11 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import { ExtractJwt, Strategy,JwtPayload } from 'passport-jwt';
 import { passportJwtSecret } from 'jwks-rsa';
 import * as dotenv from 'dotenv';
 
 dotenv.config()
-
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
@@ -23,7 +22,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     })
   }
 
-  validate(payload: unknown): unknown {
-    return payload
+  async validate(payload: JwtPayload): Promise<any> { 
+    if (!payload) {
+      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+    }else{
+      return payload.sub.toString().split("|")[1];
+    }
   }
 }
+
+

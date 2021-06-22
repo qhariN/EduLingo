@@ -13,6 +13,7 @@ import { Question } from './model/question';
 import { Session } from './model/session';
 import { UnitModule } from './routes/unit/unit.module';
 import { SessionModule } from './routes/session/session.module';
+import { ProgressModule } from './routes/progress/progress.module';
 
 @Module({
   imports: [
@@ -39,7 +40,8 @@ import { SessionModule } from './routes/session/session.module';
     }),
     AuthzModule,
     UnitModule,
-    SessionModule
+    SessionModule,
+    ProgressModule
   ],
   controllers: [AppController],
   providers: [AppService],
