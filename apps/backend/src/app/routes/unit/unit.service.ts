@@ -15,11 +15,11 @@ export class UnitService {
             .getMany()
     }
 
-    public async getAllUser() {
+    public async getAllUser(_id: number) {
         return await this.repo.createQueryBuilder('unit')
             .leftJoinAndSelect('unit.section', 'section')
             .leftJoinAndSelect('section.session', 'session')
-            .leftJoinAndSelect('session.progress', 'progress', 'progress.userId = :id', { id: 2 })
+            .leftJoinAndSelect('session.progress', 'progress', 'progress.userId = :id', { id: _id})
             .getMany()
     }
 }

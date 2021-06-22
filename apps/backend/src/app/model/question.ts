@@ -20,6 +20,9 @@ export class Question {
     @Column({ length: 300, nullable: true })
     img_url: string
 
+    @Column()
+    status: number //! 0 = no available ; 1 = availables
+
     @ManyToOne(type => Session, session => session.question)
     session: Session
 
