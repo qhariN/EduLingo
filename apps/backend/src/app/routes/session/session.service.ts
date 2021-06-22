@@ -16,7 +16,7 @@ export class SessionService {
             .orderBy('question.id', 'ASC')
             .orderBy('option_question.id', 'ASC')
             .where('session.id = :id',{ id: id })
-            .andWhere('session.status = 1')
+            .andWhere('question.status = 1')
             .getOneOrFail()
     }
 }
