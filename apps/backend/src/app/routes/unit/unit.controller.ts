@@ -1,4 +1,4 @@
-import { Controller, Get ,UseGuards,Request} from '@nestjs/common';
+import { Controller, Get ,UseGuards,Request, Param} from '@nestjs/common';
 import { UnitService } from './unit.service';
 import { PermissionsGuard } from '../../auth/permissions.guard';
 import { AuthGuard } from '@nestjs/passport';
@@ -16,5 +16,11 @@ export class UnitController {
     @Get('all/user')
     public async getAllUser(@Request() request) {
         return await this.service.getAllUser(request.user);
+    }
+
+    @Get('evaluation/:id')
+    public async getEvaluation(@Param() params) {
+        let { id } = params
+        return await this.service.getEvaluation(id)
     }
 }

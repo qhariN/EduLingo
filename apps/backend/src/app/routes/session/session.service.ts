@@ -13,10 +13,9 @@ export class SessionService {
             .leftJoinAndSelect('session.question', 'question')
             .leftJoinAndSelect('question.option_question', 'option_question')
             .leftJoinAndSelect('option_question.option', 'option')
-            .orderBy('question.id', 'ASC')
-            .orderBy('option_question.id', 'ASC')
-            .where('session.id = :id',{ id: id })
-            .andWhere('question.status = 1')
+            .where('question.status = 1')    
+            .andWhere('session.id = :id',{ id: id })   
+            .orderBy('RAND()')
             .getOneOrFail()
     }
 }
