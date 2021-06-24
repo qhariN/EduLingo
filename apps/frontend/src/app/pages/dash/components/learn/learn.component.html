@@ -10,9 +10,11 @@
             <div class="sesion m-3" *ngFor="let sesion of seccion.session;">
               <!-- Circulos de Sesion -->
               <div [ngClass]="(sesion.progress.length > 0 && sesion.progress[0].status == 1) ? 'complete' : null"
-                [ngbPopover]="unidad.status === 1? (seccion.active? popContent : popContentSDisabled) : popContentUDisabled" autoClose="outside" placement="bottom" popoverClass="session_popover {{ sesion.class }} {{ (unidad.status === 0 || !seccion.active)? 'disabled' : null }}">
+                [ngbPopover]="unidad.status === 1? (seccion.active? popContent : popContentSDisabled) : popContentUDisabled"
+                autoClose="outside" placement="bottom"
+                popoverClass="session_popover {{ sesion.class }} {{ (unidad.status === 0 || !seccion.active)? 'disabled' : null }}">
                 <!-- Caja alrededor del circulo de sesion-->
-                <div class="sesion__content" >
+                <div class="sesion__content">
                   <!--Imagen interna del circulo de sesion-->
                   <div [class]="sesion.class">
                     <img src="assets/svg/{{sesion.url}}" class="rounded-circle" />
@@ -32,7 +34,8 @@
                       <p>Sessión {{ sesion.number }}: {{ sesion.name }}</p>
                     </div>
                     <div class="col-12">
-                      <button class="button primary-outline transparent w-100 mb-2" (click)="goToTips(sesion)">Ver clase</button>
+                      <button class="button primary-outline transparent w-100 mb-2" (click)="goToTips(sesion)">Ver
+                        clase</button>
                     </div>
                     <div class="col-12">
                       <button class="button btn-white w-100" (click)="goToSkill(sesion)">Practicar</button>
@@ -64,6 +67,7 @@
                   </div>
                 </div>
               </ng-template>
+
             </div>
           </div>
         </div>
@@ -73,7 +77,9 @@
   <div class="m-1">
     <div class="row justify-content-center">
       <div class="col-auto">
-        <div class="unit__content" [class.disabled]="unidad.status === 0">
+        <div class="unit__content pointer" [ngbPopover]="unidad.status === 1? popContentUnit: null" [class.disabled]="unidad.status === 0"
+          autoClose="outside" placement="bottom" 
+          popoverClass="session_popover bg-warning">
           <img *ngIf="unidad.status == 1" src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-complete.svg"
             class="image" />
           <img *ngIf="unidad.status == 0" src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-unlocked.svg"
@@ -84,4 +90,18 @@
       </div>
     </div>
   </div>
+  <!--* Popover unidad  -->
+  <ng-template #popContentUnit>
+    <div class="session_popover_content">
+      <div class="row">
+        <div class="col-12 pb-3 text-center">
+          <p class="mb-0"><b>¡Hora de completar la Unidad!</b></p>
+          <p>Ahora puedes decir "hola" y "adiós", presentarte, hablar sobre tu familia, pedir en un restaurante y hablar sobre preparativos de viaje simples.</p>
+        </div>
+        <div class="col-12">
+          <button class="button btn-white w-100" (click)="goToExam(unidad)">Empezar Examen</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>

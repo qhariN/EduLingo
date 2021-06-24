@@ -15,4 +15,7 @@ export class SkillService {
   getSkill(idsession: number): Observable<Skill> {
     return this.http.get<Skill>(`${environment.url}/session/practice/${idsession}`)
   }
+  postProgressSkill(item){
+    return this.http.post(`${environment.url}/progress/insert`,item)
+  }
 }

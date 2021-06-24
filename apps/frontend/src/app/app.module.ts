@@ -12,9 +12,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
+import { ExamComponent } from './pages/exam/exam.component';
 
 @NgModule({
-  declarations: [AppComponent, MainComponent, NotfoundComponent, SkillComponent],
+  declarations: [AppComponent, MainComponent, NotfoundComponent, SkillComponent, ExamComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,

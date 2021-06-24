@@ -1,0 +1,82 @@
+@import '../../../../../../libs/theme/variables.scss';
+
+.card-text {
+    width: auto;
+    min-height: 68px;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    .card-body {
+        padding: 18px 24px;
+        i {
+            color: $info-dark;
+        }
+    }
+    &.card-response {
+        min-height: 68px;
+        border: 2px solid $info;
+        background-color: RGBA(23, 162, 184, 0.1);
+    }
+}
+
+.card-button {
+    cursor: pointer;
+    user-select: none;
+    .card-body {
+        padding: 1.75rem 1.5rem;
+    }
+    &:hover {
+        background-color: #F7F7F7;
+    }
+
+    &.card-button-sm {
+        .card-body {
+            padding: 12px 16px;
+        }
+    }
+    &.card-button-md {
+        .card-body {
+            padding: 19px 1.5rem;
+        }
+    }
+}
+
+.button-listen {
+    border-radius: 25%;
+    min-width: unset;
+    padding: 23px 25px;
+    &.bg {
+        padding: 36px 34px;
+    }
+    &:after {
+        border-radius: 25%;
+    }
+}
+
+input[type="radio"], input[type="checkbox"] {
+    display: none;
+}
+
+input[type="radio"]:checked + .card-button {
+    border-color: $primary-light;
+    color: $primary;
+    background-color: RGBA(58, 85, 125, 0.1);
+}
+
+div {
+    &.input {
+        min-width: 100px;
+        min-height: 64px;
+        border-bottom: 2px solid $border-light;
+    }
+    &.inputs {
+        min-height: 64px;
+        border-top: 2px solid $border-light;
+        border-bottom: 2px solid $border-light;
+    }
+}
+
+.question-img {
+    width: 180px;
+    height: 180px;
+}
