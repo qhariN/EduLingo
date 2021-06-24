@@ -7,6 +7,7 @@ import { environment } from 'apps/frontend/src/environments/environment';
 import { Subscription } from 'rxjs';
 import { Unit } from '../../../../models/unit';
 import { UnitService } from '../../../../services/unit.service';
+import { ExamComponent } from '../../../exam/exam.component';
 import { SkillComponent } from '../../../skill/skill.component';
 declare var $: any;
 
@@ -68,5 +69,10 @@ export class LearnComponent implements OnInit, OnDestroy {
     $('#loader').removeClass('loaded')
     SkillComponent.prototype.idSession = data.id
     this.router.navigate(['/skill'])
+  }
+  goToExam(unidad){
+    $('#loader').removeClass('loaded')
+    ExamComponent.prototype.idUnit = unidad.id
+    this.router.navigate(['/exam'])
   }
 }

@@ -50,6 +50,10 @@ main {
   }
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .sesion__row {
   &.disabled {
     .sesion p {

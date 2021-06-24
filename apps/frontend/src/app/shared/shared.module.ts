@@ -5,12 +5,14 @@ import { NavigationLandingComponent } from './layout/navigation-landing/navigati
 import { RouterModule } from '@angular/router';
 import { StepperPracticeComponent } from './layout/stepper-practice/stepper-practice.component';
 import { CdkStepperModule } from '@angular/cdk/stepper';
+import { StepperExamComponent } from './layout/stepper-exam/stepper-exam.component';
 
 @NgModule({
   declarations: [
     NavigationAdminComponent,
     NavigationLandingComponent,
-    StepperPracticeComponent
+    StepperPracticeComponent,
+    StepperExamComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
   exports:[
     NavigationAdminComponent,
     NavigationLandingComponent,
-    StepperPracticeComponent
+    StepperPracticeComponent,
+    StepperExamComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

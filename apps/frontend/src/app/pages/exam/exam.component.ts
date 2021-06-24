@@ -2,37 +2,37 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { OptionQuestion, Question, Skill } from '../../models/skill';
-import { SkillService } from '../../services/skill.service';
+import { OptionQuestion, Question } from '../../models/skill';
+import { UnitService } from '../../services/unit.service';
 declare var $: any;
 
 @Component({
-  selector: 'frontend-skill',
-  templateUrl: './skill.component.html',
-  styleUrls: ['./skill.component.scss']
+  selector: 'frontend-exam',
+  templateUrl: './exam.component.html',
+  styleUrls: ['./exam.component.scss']
 })
-export class SkillComponent implements OnInit, OnDestroy {
-  
-  idSession: number
-  subscriptions: Subscription = new Subscription()
-  questionsForm: FormArray
-  skillData: Skill
+export class ExamComponent implements OnInit, OnDestroy {
+
+  idUnit: number;
   status: number = 0 //! 0 = normal | 1 = correct | 2 = incorrect
   saved: number = null
   progress: number = 0 //! 0% - 100%
   lasStep: boolean = false
+  subscriptions: Subscription = new Subscription()
+  questionData: Question[];
+  questionsForm: FormArray;
 
-  constructor(public skillService: SkillService, private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder, private unitService: UnitService) { }
 
   ngOnInit(): void {
     this.questionsForm = this.fb.array([])
     //* hide loader
     $('#loader').addClass('loaded')
-    if (this.idSession) {
+    if (this.idUnit) {
       //* generate array form
-      this.subscriptions.add(this.skillService.getSkill(this.idSession).subscribe(res => {
-        this.skillData = res
-        for (let question of this.skillData.question) {
+      this.subscriptions.add(this.unitService.getExam(this.idUnit).subscribe(res => {
+        this.questionData = res
+        for (let question of this.questionData) {
           this.questionsForm.push(this.fb.control(null, [Validators.required]))
         }
       }))
@@ -40,16 +40,14 @@ export class SkillComponent implements OnInit, OnDestroy {
       this.router.navigate(['/dash/learn'])
     }
   }
-
+  
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe()
   }
 
-  
   getQuestionForm(index: string): FormControl {
     return this.questionsForm.controls[index]
   }
-
   //* -------------------------------- type 2 & 5 ------------------------------------
 
   onAddCheckboxChange(iQuestion: string, option_question: OptionQuestion) {
@@ -75,7 +73,7 @@ export class SkillComponent implements OnInit, OnDestroy {
 
   checkResponse(iQuestion: string) {
     this.status = 1 //* correct
-    let question = this.skillData.question[iQuestion] as Question
+    let question = this.questionData[iQuestion] as Question
     switch (question.type) {
       case 2:
       case 5:
@@ -103,7 +101,7 @@ export class SkillComponent implements OnInit, OnDestroy {
     }
     //* play sound
     let audio = new Audio()
-    this.status === 1? audio.src = '../../../assets/mp3/correct.mp3' : audio.src = '../../../assets/mp3/incorrect.mp3'
+    this.status === 1 ? audio.src = '../../../assets/mp3/correct.mp3' : audio.src = '../../../assets/mp3/incorrect.mp3'
     audio.load()
     audio.play()
     //* update progress
@@ -113,7 +111,7 @@ export class SkillComponent implements OnInit, OnDestroy {
     })
     this.progress = (100 / this.questionsForm.controls.length) * count
     //* set lasStep if equal to question length
-    if (+iQuestion === this.skillData.question.length - 1) this.lasStep = true
+    if (+iQuestion === this.questionData.length - 1) this.lasStep = true
   }
 
   nextStep() {
@@ -122,7 +120,7 @@ export class SkillComponent implements OnInit, OnDestroy {
     if (this.lasStep) {
       let valid = true
       this.questionsForm.controls.forEach((val, i) => {
-        let question = this.skillData.question[i] as Question
+        let question = this.questionData[i] as Question
         switch (question.type) {
           case 2:
           case 5:
@@ -136,7 +134,7 @@ export class SkillComponent implements OnInit, OnDestroy {
               })
             }
             break
-    
+
           case 1:
           case 3:
           case 4:
@@ -144,7 +142,7 @@ export class SkillComponent implements OnInit, OnDestroy {
             let value4 = this.getQuestionForm(i.toString()).value as OptionQuestion
             if (value4.flag_estado === 0) valid = false //* incorrect
             break
-    
+
           default:
             break
         }
@@ -153,14 +151,6 @@ export class SkillComponent implements OnInit, OnDestroy {
       if (valid) {
         this.saved = 1
         //!servicio para guardar el progreso equisdé
-        let progress ={
-          session:{
-              id: this.idSession
-          }
-        }
-        this.skillService.postProgressSkill(progress).subscribe(result => {
-          console.log(result);
-        });
       } else {
         this.saved = 0
       }
@@ -183,4 +173,6 @@ export class SkillComponent implements OnInit, OnDestroy {
     msg.volume = 100
     speechSynthesis.speak(msg)
   }
+
+
 }
