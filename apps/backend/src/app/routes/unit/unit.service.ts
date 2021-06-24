@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { json } from 'express';
 import { Repository } from 'typeorm';
 import { Unit } from '../../model/unit';
 
@@ -24,13 +25,30 @@ export class UnitService {
     }
 
     public async getEvaluation(id: number) {
-        return await this.repo.createQueryBuilder('session')
-            .leftJoinAndSelect('session.question', 'question')
-            .leftJoinAndSelect('question.option_question', 'option_question')
-            .leftJoinAndSelect('option_question.option', 'option')
-            .orderBy('question.id', 'ASC')
-            .orderBy('option_question.id', 'ASC')
-            .where('question.id = :id',{ id: id })
-            .andWhere('session.status = 1')
+        
+        let questions = [];
+
+        let all = await this.repo.createQueryBuilder('unit')
+        .innerJoinAndSelect('unit.section','section')
+        .innerJoinAndSelect('section.session','session')
+        .innerJoinAndSelect('session.question', 'question')
+        .innerJoinAndSelect('question.option_question', 'option_question')
+        .innerJoinAndSelect('option_question.option', 'option')
+        .where('question.status = 1')    
+        .andWhere('unit.id = :id',{ id: id })   
+        .orderBy('RAND()')
+        .getMany();
+       
+        if(all.length > 0){
+            all[0].section.forEach(section => {
+                section.session.forEach(session => {
+                  session.question.forEach(question => {
+                     questions.push(question);
+                  });
+                });
+            });
+            questions = questions.slice(0,40);
+        }
+        return questions;
     }
 }
