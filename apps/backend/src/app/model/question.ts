@@ -24,7 +24,7 @@ export class Question {
     status: number //! 0 = no available ; 1 = availables
 
     @ManyToOne(type => Session, session => session.question)
-    session: Session
+    session?: Session
 
     @OneToMany(type => OptionQuestion, optionQuestion => optionQuestion.question)
     option_question: OptionQuestion[]

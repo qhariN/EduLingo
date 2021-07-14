@@ -10,24 +10,24 @@ export class Session {
     id: number
 
     @Column({ length: 300 })
-    url: string
+    url?: string
 
     @Column()
-    name: string
+    name?: string
 
     @Column()
-    number: number
+    number?: number
 
     @Column({ length: 300 })
-    url_content: string
+    url_content?: string
 
     @ManyToOne(type => Section, section => section.session)
-    section: Section
+    section?: Section
 
     @OneToMany(type => Progress, progress => progress.session)
-    progress: Progress[]
+    progress?: Progress[]
 
     @OneToMany(type => Question, question => question.session)
-    question: Question[]
+    question?: Question[]
 
 }

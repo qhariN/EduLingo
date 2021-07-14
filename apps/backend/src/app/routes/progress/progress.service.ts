@@ -8,7 +8,7 @@ export class ProgressService {
 
     constructor(@InjectRepository(Progress) private readonly repo: Repository<Progress>) { }
 
-    public async setProgress(progress: Progress,_id:number) {
+    public async setProgress(progress: Progress,_id:number): Promise<any> {
         return await this.repo.createQueryBuilder('progress')
             .insert()
             .into(Progress)

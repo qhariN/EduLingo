@@ -8,7 +8,7 @@ export class SessionService {
 
     constructor(@InjectRepository(Session) private readonly repo: Repository<Session>) { }
 
-    public async getPractice(id: number) {
+    public async getPractice(id: number): Promise<Session> {
         return await this.repo.createQueryBuilder('session')
             .leftJoinAndSelect('session.question', 'question')
             .leftJoinAndSelect('question.option_question', 'option_question')
