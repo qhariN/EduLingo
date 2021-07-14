@@ -9,10 +9,10 @@ export class Progress {
     id: number
 
     @Column()
-    status: number //! 0 = no available ; 1 = available
+    status?: number //! 0 = no available ; 1 = available
 
     @ManyToOne(type => User, user => user.progress)
-    user: User
+    user?: User
 
     @ManyToOne(type => Session, session => session.progress)
     session: Session

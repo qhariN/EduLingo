@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { json } from 'express';
 import { Repository } from 'typeorm';
+import { Question } from '../../model/question';
 import { Unit } from '../../model/unit';
 
 @Injectable()
@@ -9,14 +9,14 @@ export class UnitService {
 
     constructor(@InjectRepository(Unit) private readonly repo: Repository<Unit>) { }
 
-    public async getAll() {
+    public async getAll(): Promise<Unit[]> {
         return await this.repo.createQueryBuilder('unit')
             .leftJoinAndSelect('unit.section', 'section')
             .leftJoinAndSelect('section.session', 'session')
             .getMany()
     }
 
-    public async getAllUser(_id: number) {
+    public async getAllUser(_id: number): Promise<Unit[]> {
         return await this.repo.createQueryBuilder('unit')
             .leftJoinAndSelect('unit.section', 'section')
             .leftJoinAndSelect('section.session', 'session')
@@ -24,7 +24,7 @@ export class UnitService {
             .getMany()
     }
 
-    public async getEvaluation(id: number) {
+    public async getEvaluation(id: number): Promise<Question[]> {
         
         let questions = [];
 
