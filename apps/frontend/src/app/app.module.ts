@@ -13,6 +13,7 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { ExamComponent } from './pages/exam/exam.component';
+import { ModalResultsComponent } from './shared/layout/modal-results/modal-results.component';
 
 @NgModule({
   declarations: [AppComponent, MainComponent, NotfoundComponent, SkillComponent, ExamComponent],
@@ -42,6 +43,7 @@ import { ExamComponent } from './pages/exam/exam.component';
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [ModalResultsComponent]
 })
 export class AppModule {}

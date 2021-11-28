@@ -6,25 +6,27 @@ import { RouterModule } from '@angular/router';
 import { StepperPracticeComponent } from './layout/stepper-practice/stepper-practice.component';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { StepperExamComponent } from './layout/stepper-exam/stepper-exam.component';
+import { ModalResultsComponent } from './layout/modal-results/modal-results.component';
 
 @NgModule({
   declarations: [
     NavigationAdminComponent,
     NavigationLandingComponent,
     StepperPracticeComponent,
-    StepperExamComponent
+    StepperExamComponent,
+    ModalResultsComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
-    CdkStepperModule
+    CdkStepperModule,
   ],
   exports:[
     NavigationAdminComponent,
     NavigationLandingComponent,
     StepperPracticeComponent,
-    StepperExamComponent
+    StepperExamComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule { }
