@@ -1,18 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, fromEvent, interval, merge, Observable, Subject, Subscription } from 'rxjs';
 import { OptionQuestion, Question, Skill } from '../../models/skill';
 import { SkillService } from '../../services/skill.service';
+import { map, repeat, repeatWhen, takeUntil, tap} from 'rxjs/operators';
+import { StepperPracticeComponent } from '../../shared/layout/stepper-practice/stepper-practice.component';
+import {NgbModal, ModalDismissReasons, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import { ModalResultsComponent } from '../../shared/layout/modal-results/modal-results.component';
+
 declare var $: any;
 
 @Component({
   selector: 'frontend-skill',
   templateUrl: './skill.component.html',
-  styleUrls: ['./skill.component.scss']
+  styleUrls: ['./skill.component.scss'],
+  providers: [NgbModalConfig]
 })
 export class SkillComponent implements OnInit, OnDestroy {
-  
+
+
   idSession: number
   subscriptions: Subscription = new Subscription()
   questionsForm: FormArray
@@ -22,7 +29,20 @@ export class SkillComponent implements OnInit, OnDestroy {
   progress: number = 0 //! 0% - 100%
   lasStep: boolean = false
 
-  constructor(public skillService: SkillService, private router: Router, private fb: FormBuilder) { }
+  
+ //* variables para medir tiempo por pregunta
+  timerGlobal = 0;
+  behavior = new BehaviorSubject(0);
+  timer: Observable<number>;
+
+  inicio = new Subject<void>(); 
+  fin = new Subject<void>();
+
+  constructor(public skillService: SkillService, private router: Router, private fb: FormBuilder,
+    private modalService: NgbModal, config: NgbModalConfig) { 
+      //* configurar modal
+      config.backdrop = 'static'; 
+    }
 
   ngOnInit(): void {
     this.questionsForm = this.fb.array([])
@@ -36,6 +56,17 @@ export class SkillComponent implements OnInit, OnDestroy {
           this.questionsForm.push(this.fb.control(null, [Validators.required]))
         }
       }))
+
+      //* prueba de tiempo por preguntas
+      this.timer = interval(1000).pipe(
+        tap(second => this.behavior.next(second)),
+        takeUntil(this.fin),
+        repeatWhen(() => this.inicio)
+      );
+      this.timer.subscribe(data => {
+        this.timerGlobal = data;
+      });
+
     } else {
       this.router.navigate(['/dash/learn'])
     }
@@ -53,7 +84,7 @@ export class SkillComponent implements OnInit, OnDestroy {
   //* -------------------------------- type 2 & 5 ------------------------------------
 
   onAddCheckboxChange(iQuestion: string, option_question: OptionQuestion) {
-    if (!this.getQuestionForm(iQuestion).value) {
+    if (!this.getQuestionForm(iQuestion).value) { 
       let array = []
       array.push(option_question)
       this.getQuestionForm(iQuestion).setValue(array)
@@ -74,7 +105,10 @@ export class SkillComponent implements OnInit, OnDestroy {
   //* --------------------------------------------------------------------------------
 
   checkResponse(iQuestion: string) {
+    this.fin.next(); 
     this.status = 1 //* correct
+    this.getQuestionForm(iQuestion).value.time=this.timerGlobal+1;
+    this.getQuestionForm(iQuestion).value.status = 'CORRECTO';
     let question = this.skillData.question[iQuestion] as Question
     switch (question.type) {
       case 2:
@@ -82,24 +116,32 @@ export class SkillComponent implements OnInit, OnDestroy {
       case 7:
         if (this.getQuestionForm(iQuestion).value.length !== question.option_question.filter(v => v.flag_estado === 1).length) {
           this.status = 2 //* incorrect
+          this.getQuestionForm(iQuestion).value.status = 'INCORRECTO';
         } else {
           let value2 = this.getQuestionForm(iQuestion).value as OptionQuestion[]
-          value2.forEach((value, index) => {
-            if (value.flag_estado === 0 && value.order !== index + 1) this.status = 2 //* incorrect
-          })
+          for (let i = 0; i < value2.length; i++) {
+            if (value2[i].flag_estado === 0 || value2[i].order != i + 1) {
+              this.status = 2 //* incorrect
+              this.getQuestionForm(iQuestion).value.status = 'INCORRECTO';
+              break;
+            }
+          }
         }
-        break
+        break;
 
       case 1:
       case 3:
       case 4:
       case 6:
         let value4 = this.getQuestionForm(iQuestion).value as OptionQuestion
-        if (value4.flag_estado === 0) this.status = 2 //* incorrect
-        break
+        if (value4.flag_estado === 0) {
+          this.status = 2 //* incorrect
+          this.getQuestionForm(iQuestion).value.status = 'INCORRECTO';
+        } 
+        break;
 
       default:
-        break
+        break;
     }
     //* play sound
     let audio = new Audio()
@@ -117,6 +159,7 @@ export class SkillComponent implements OnInit, OnDestroy {
   }
 
   nextStep() {
+    this.inicio.next(); 
     this.status = 0
     //* Check if all responses are valid
     if (this.lasStep) {
@@ -164,6 +207,7 @@ export class SkillComponent implements OnInit, OnDestroy {
       } else {
         this.saved = 0
       }
+      this.fin.next();
     }
   }
 
@@ -183,4 +227,12 @@ export class SkillComponent implements OnInit, OnDestroy {
     msg.volume = 100
     speechSynthesis.speak(msg)
   }
+
+  openResults(){
+    ModalResultsComponent.prototype.data = this.questionsForm.value;
+    ModalResultsComponent.prototype.dataSkill = this.skillData.question;
+    this.modalService.open(ModalResultsComponent,{windowClass: 'modal-holder', centered: true, size: 'lg', backdrop: 'static'}).result.then((result) => {console.log(result);
+    });
+  }
+  
 }

@@ -23,6 +23,12 @@
           <div class="col-12 text-center"> <h4 class="fw-bold m-0">No lograste tu meta</h4>
             <h6 class="m-0 mt-2">¡Sigue esforzandote!</h6>
             <h6 class="m-0 mt-1">No te rindas</h6>
+            <br>
+            <br>
+            <br>
+            <h6>
+              <button #test type="button" (click)="checkResults.emit()" class="button bg primary-outline transparent transparent-text">Ver resultados</button>
+            </h6>
           </div>
         </div>
         <div *ngIf="saved === 1" class="row justify-content-center">
