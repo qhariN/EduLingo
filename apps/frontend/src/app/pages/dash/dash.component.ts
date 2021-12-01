@@ -25,11 +25,6 @@ export class DashComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //* show loader
     $('#loader').removeClass('loaded')
-    this.sAuth0.user$.subscribe(r => {
-      if (r.email === 'jhormantito@upeu.edu.pe') {
-        this.router.navigate(['/adm/learn'])
-      }
-    })
   }
 
   ngOnDestroy(): void {
