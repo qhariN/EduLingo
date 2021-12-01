@@ -7,14 +7,23 @@
       <h2>Resultados!</h2>
       <ul class="responsive-table">
         <li class="table-header">
-          <div class="col col-1">Pregunta</div>
-          <div class="col col-2">Estado</div>
-          <div class="col col-3">Tiempo Demorado</div>
+          <div class="col col-2 mr-2 text-center"></div>
+          <div class="col col-1 mr-2">Pregunta</div>
+          <div class="col col-3 text-center">Tu respuesta</div>
+          <div class="col col-3 text-center">Respuesta correcta</div>
+          <div class="col col-3 text-center">Tiempo Demorado</div>
         </li>
-        <li class="table-row" *ngFor="let question of dataSkill; let i = index">
-          <div class="col col-1" data-label="Job Id">{{question.question}}: {{question.text}}</div>
-          <div class="col col-2" data-label="Customer Name">{{ data[i].status }}</div>
-          <div class="col col-3" data-label="Amount">{{ data[i].time }} segundos.</div>
+        <li class="table-row" *ngFor="let question of dataSkill; let i = index" [ngClass]="{'correct': data[i].status=='CORRECTO', 'incorrect': data[i].status=='INCORRECTO','table-row': data[i].status==null}">
+          <div class="col col-2 ml-3 text-center">
+            <div class="indicator ml-3">
+                <i *ngIf="data[i].status=='CORRECTO'" class="fas fa-check fa-lg"></i>
+                <i *ngIf="data[i].status=='INCORRECTO'" class="fas fa-times fa-lg"></i>
+            </div>
+          </div>
+          <div class="col col-1 mr-2" data-label="Job Id">{{question.question}}: {{question.text}}</div>
+          <div class="col col-3 text-center"> {{getOptionChecked(data[i])}} </div>
+          <div class="col col-3 text-center" >{{getCorrectOptionByOrder(question.option_question)}}</div>
+          <div class="col col-3 text-center">{{ data[i].time }} segundos.</div>
         </li>
       </ul>
     </div>

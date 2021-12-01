@@ -53,10 +53,8 @@ export class SkillComponent implements OnInit, OnDestroy {
       this.subscriptions.add(this.skillService.getSkill(this.idSession).subscribe(res => {
         this.skillData = res
         for (let question of this.skillData.question) {
-          
           this.questionsForm.push(this.fb.control(null, [Validators.required]))
         }
-        console.log(this.questionsForm.value);
       }))
 
       //* prueba de tiempo por preguntas
@@ -80,10 +78,6 @@ export class SkillComponent implements OnInit, OnDestroy {
 
   
   getQuestionForm(index: string): FormControl {
-    // console.log("getQuestionForm");
-    
-    // console.log(this.questionsForm.controls[index].value);
-    
     return this.questionsForm.controls[index]
   }
 
@@ -111,15 +105,11 @@ export class SkillComponent implements OnInit, OnDestroy {
   //* --------------------------------------------------------------------------------
 
   checkResponse(iQuestion: string) {
-    console.log(`Pregunta ${iQuestion+1} respondido en ${this.timerGlobal+1} segundos`);
-    
     this.fin.next(); 
     this.status = 1 //* correct
     this.getQuestionForm(iQuestion).value.time=this.timerGlobal+1;
     this.getQuestionForm(iQuestion).value.status = 'CORRECTO';
     let question = this.skillData.question[iQuestion] as Question
-    console.log(question.type);
-    
     switch (question.type) {
       case 2:
       case 5:
@@ -129,15 +119,15 @@ export class SkillComponent implements OnInit, OnDestroy {
           this.getQuestionForm(iQuestion).value.status = 'INCORRECTO';
         } else {
           let value2 = this.getQuestionForm(iQuestion).value as OptionQuestion[]
-          value2.forEach((value, index) => {
-            if (value.flag_estado === 0 && value.order !== index + 1) {
+          for (let i = 0; i < value2.length; i++) {
+            if (value2[i].flag_estado === 0 || value2[i].order != i + 1) {
               this.status = 2 //* incorrect
               this.getQuestionForm(iQuestion).value.status = 'INCORRECTO';
+              break;
             }
-              
-          })
+          }
         }
-        break
+        break;
 
       case 1:
       case 3:
@@ -151,7 +141,7 @@ export class SkillComponent implements OnInit, OnDestroy {
         break;
 
       default:
-        break
+        break;
     }
     //* play sound
     let audio = new Audio()
@@ -239,9 +229,8 @@ export class SkillComponent implements OnInit, OnDestroy {
   }
 
   openResults(){
-
     ModalResultsComponent.prototype.data = this.questionsForm.value;
-    ModalResultsComponent.prototype.dataSkill = this.skillData.question
+    ModalResultsComponent.prototype.dataSkill = this.skillData.question;
     this.modalService.open(ModalResultsComponent,{windowClass: 'modal-holder', centered: true, size: 'lg', backdrop: 'static'}).result.then((result) => {console.log(result);
     });
   }
