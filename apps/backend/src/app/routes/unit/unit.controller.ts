@@ -20,7 +20,7 @@ export class UnitController {
 
     @Get('evaluation/:id')
     public async getEvaluation(@Param() params) {
-        let { id } = params
+        const { id } = params
         return await this.service.getEvaluation(id)
     }
 }

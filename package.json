@@ -49,6 +49,7 @@
     "@nestjs/swagger": "^4.8.0",
     "@nestjs/typeorm": "^7.1.5",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0-beta.1",
+    "@ng-select/ng-select": "^7.4.0",
     "@nrwl/angular": "12.3.6",
     "bootstrap": "^5.0.1",
     "compression": "^1.7.4",

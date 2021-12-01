@@ -1,0 +1,153 @@
+<!--Listado de unidades-->
+<div class="mt-3" *ngFor="let unidad of unidades;">
+  <div class="row justify-content-center">
+    <div class="col-auto px-3">
+      <!--Listado de secciones por unidad-->
+      <div class="row d-flex justify-content-center" *ngFor="let seccion of unidad.section; let i = index">
+        <div class="sesion__row">
+          <div class="d-flex justify-content-center">
+            <!--Listado de sesiones por seccion-->
+            <div class="sesion m-3" *ngFor="let sesion of seccion.session; let j = index">
+              <!-- Circulos de Sesion -->
+              <div [ngbPopover]="popContent"
+                autoClose="outside" placement="bottom"
+                popoverClass="session_popover {{ sesion.class }}">
+                <!-- Caja alrededor del circulo de sesion-->
+                <div class="sesion__content">
+                  <!--Imagen interna del circulo de sesion-->
+                  <div [class]="sesion.class">
+                    <img src="assets/svg/{{sesion.url}}" class="rounded-circle" />
+                  </div>
+                  <!--Numero flotante de la sesion-->
+                  <span class="crown">{{ (unidad.section[i - 1]? unidad.section[i - 1].nSessions : 0) + (j + 1) }}</span>
+                </div>
+                <!--Nombre debajo del circulo de sesion-->
+                <p class="text-center fw-bold mt-1 mb-0">{{sesion.name}}</p>
+              </div>
+              <!-- Popover -->
+              <ng-template #popContent>
+                <div class="session_popover_content">
+                  <div class="row">
+                    <div class="col-12 pb-3">
+                      <p class="mb-0"><b>Unidad {{ unidad.number }}</b></p>
+                      <p>Sessión {{ sesion.number }}: {{ sesion.name }}</p>
+                    </div>
+                    <div class="col-12">
+                      <button class="button primary-outline transparent w-100 mb-2" (click)="goToTips(sesion)">Editar clase</button>
+                    </div>
+                    <div class="col-12">
+                      <button class="button btn-white w-100" (click)="goToSkill(sesion)">Editar practica</button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <div class="sesion__row disabled">
+          <div class="d-flex justify-content-center">
+            <!--Listado de sesiones por seccion-->
+            <div class="sesion m-3">
+              <!-- Circulos de Sesion -->
+              <div (click)="openNewSession(unidad.number)">
+                <!-- Caja alrededor del circulo de sesion-->
+                <div class="sesion__content">
+                  <!--Imagen interna del circulo de sesion-->
+                  <div>
+                    <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/plus-512.png" class="rounded-circle" width="100" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m-1">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <div class="unit__content pointer" [ngbPopover]="unidad.status === 1? popContentUnit: null" [class.disabled]="unidad.status === 0"
+          autoClose="outside" placement="bottom" 
+          popoverClass="session_popover bg-warning">
+          <img *ngIf="unidad.status === 1" src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-complete.svg"
+            class="image" />
+          <img *ngIf="unidad.status === 0" src="//d35aaqx5ub95lt.cloudfront.net/images/checkpoint-castle-unlocked.svg"
+            class="image__complete" />
+          <p class="fw-bold position-absolute align-self-center m-0 mt-1">{{ unidad.number }}</p>
+          <p class="fw-bold position-absolute align-self-center m-0 mt-1">{{ unidad.number }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--* Popover unidad  -->
+  <ng-template #popContentUnit>
+    <div class="session_popover_content">
+      <div class="row">
+        <div class="col-12 pb-3 text-center">
+          <p class="mb-0"><b>¡Hora de completar la Unidad!</b></p>
+          <p>Ahora puedes decir "hola" y "adiós", presentarte, hablar sobre tu familia, pedir en un restaurante y hablar sobre preparativos de viaje simples.</p>
+        </div>
+        <div class="col-12">
+          <button class="button btn-white w-100" (click)="goToExam(unidad)">Empezar Examen</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="newSession" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold text-secondary" id="exampleModalLabel">Nueva sesión</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="createForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+                <input formControlName="name" type="text" class="form-control" id="exampleFormControlInput1">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Icono</label>
+                <ng-select appearance="outline" [clearable]="false" labelForId="heroId" formControlName="icon">
+                  <ng-option *ngFor="let icon of icons" [value]="icon + '.svg'">
+                      <img [src]="'assets/svg/' + icon + '.svg'" width="60px" height="60px"/>
+                      {{ icon | titlecase }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Fila</label>
+                <select formControlName="row" class="form-select">
+                  <option value="1">Sección 1</option>
+                  <option value="2">Sección 2</option>
+                  <option value="3">Sección 3</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="exampleFormControlInput4" class="form-label">Numero</label>
+                <input formControlName="number" type="number" class="form-control" id="exampleFormControlInput4">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button (click)="createSession()" [disabled]="createForm.invalid" type="button" class="button bg success-solid w-100">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>

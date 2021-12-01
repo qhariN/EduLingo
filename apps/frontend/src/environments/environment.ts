@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   appVersion: require('../../../../package.json').version + '-dev',
-  url: 'https://edulingo-staging.herokuapp.com/api'
+  url: 'http://localhost:3333/api'
 };
 
 /*

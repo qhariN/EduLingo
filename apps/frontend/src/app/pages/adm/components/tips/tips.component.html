@@ -1,0 +1,14 @@
+<div class="py-3 px-5">
+    <div class="d-flex align-items-center w-100 mb-4">
+        <button (click)="exitTip()" class="button primary-outline btn-icon">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <p class="session_name mb-1 ms-3">{{ session.name }}</p>
+        <button class="button primary-outline ms-auto">
+            Practicar
+        </button>
+    </div>
+    <div class="w-100 px-5 pt-2">
+        <markdown [src]="session.url_content"></markdown>
+    </div>
+</div>

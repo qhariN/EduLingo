@@ -1,0 +1,307 @@
+<div class="py-3 px-5">
+    <div class="d-flex align-items-center w-100 mb-4">
+        <button (click)="exitTip()" class="button primary-outline btn-icon">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <p class="session_name mb-1 ms-3">{{ session.name }}</p>
+        <button (click)="deactivateSession(session.id)" type="button" class="button bg danger-solid ms-auto" style="padding: 7px 18px;">Eliminar</button>
+    </div>
+    <div class="w-100">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <button (click)="openNewQuestion()" type="button" class="button bg success-solid ms-auto mt-2">Añadir pregunta</button>
+            </div>
+        </div>
+        <div *ngFor="let question of skillData?.question; let i = index" class="card mt-3">
+            <div class="card-header d-flex">
+                <button (click)="openModifyQuestion(question)" type="button" class="button bg info-solid" style="padding: 7px 18px;">Modificar</button>
+                <button (click)="deactivateQuestion(question.id)" type="button" class="button bg danger-solid ms-auto" style="padding: 7px 18px;">Eliminar</button>
+            </div>
+            <!-- Question type 1 -->
+            <div *ngIf="question.type === 1" class="card-body">
+                <h3 class="fw-bold mb-4">{{ question.question }}</h3>
+                <div class="d-flex justify-content-center align-items-center my-4">
+                    <img class="question-img me-5" [src]="question.img_url">
+                    <ng-container *ngFor="let text of question.text.split('|')">
+                        <h6 *ngIf="text !== '_'; else input" class="m-0">{{ text }}</h6>
+                        <ng-template #input>
+                            <div class="input mx-2">
+                                <div class="text-center py-1">
+                                    <label>
+                                        <div class="card card-button card-button-sm w-100">
+                                        <div class="card-body">{{ getCorrectOption(question.option_question).option.name }}</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </div>
+                <div class="row justify-content-center">
+                <ng-container *ngFor="let option_question of question.option_question">
+                    <div *ngIf="!option_question.check" class="col-auto my-1 p-0">
+                    <label (click)="textToVoiceEn(option_question.option.name)">
+                        <div class="card card-button card-button-sm w-100 mx-1" [class.selected]="option_question.order !== null">
+                        <div class="card-body">{{ option_question.option.name }}</div>
+                        </div>
+                    </label>
+                    </div>
+                </ng-container>
+                </div>
+            </div>
+            <!-- Question type 2 & 5 & 7 -->
+            <div *ngIf="question.type === 2 || question.type === 5 || question.type === 7" class="card-body">
+                <h3 class="fw-bold mb-4">{{ question.question }}</h3>
+                <div *ngIf="question.type === 2 || question.type === 7" class="row">
+                    <div class="col-auto">
+                        <div class="card card-text">
+                            <div class="card-body d-flex align-items-center">
+                                <i (click)="question.type === 2? textToVoiceEn(question.text) : textToVoiceEs(question.text)" class="fas fa-volume-up fa-2x"></i>
+                                <h6 class="m-0 ms-3">{{ question.text }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="question.type === 5" class="row justify-content-center">
+                    <div class="col-auto">
+                        <button (click)="textToVoiceEn(question.text)" type="button" class="button button-listen info-solid">
+                        <i class="fas fa-volume-up fa-3x"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row inputs my-4 m-0">
+                    <div *ngFor="let option_question of getCorrectOptions(question.option_question); let ii = index;" class="col-auto m-1 p-0">
+                        <label>
+                            <div class="card card-button card-button-sm w-100">
+                                <div class="card-body">{{ option_question.option.name }}</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="row m-0">
+                <ng-container *ngFor="let option_question of question.option_question">
+                    <div *ngIf="!option_question.check" class="col-auto m-1 p-0">
+                    <label>
+                        <div class="card card-button card-button-sm w-100" [class.selected]="option_question.order !== null">
+                        <div class="card-body">{{ option_question.option.name }}</div>
+                        </div>
+                    </label>
+                    </div>
+                </ng-container>
+                </div>
+            </div>
+            <!-- Question type 3 -->
+            <div *ngIf="question.type === 3" class="card-body">
+                <h3 class="fw-bold mb-3">{{ question.question }}</h3>
+                <div class="row mb-4">
+                    <div class="col-12 mb-1">
+                        <div class="row">
+                        <div class="col-auto">
+                            <div class="card card-text">
+                            <div class="card-body d-flex align-items-center">
+                                <i (click)="textToVoiceEn(question.text)" class="fas fa-volume-up fa-2x"></i>
+                                <h6 class="m-0 ms-3">{{ question.text }}</h6>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-1">
+                        <div class="row justify-content-end">
+                        <div class="col-auto">
+                            <div class="card card-text card-response">
+                            <div class="card-body d-flex align-items-center">
+                                <h6 class="m-0">{{ getCorrectOption(question.option_question).option.name }}</h6>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                <ng-container *ngFor="let option_question of question.option_question">
+                    <div *ngIf="!option_question.check" class="col-12 m-1">
+                    <label class="w-100 text-center" (click)="textToVoiceEn(option_question.option.name)">
+                        <div class="card card-button card-button-sm w-100" [class.selected]="option_question.order !== null">
+                        <div class="card-body">{{ option_question.option.name }}</div>
+                        </div>
+                    </label>
+                    </div>
+                </ng-container>
+                </div>
+            </div>
+            <!-- Question type 4 -->
+            <div *ngIf="question.type === 4" class="card-body">
+                <h3 class="fw-bold mb-4">{{ question.question }}</h3>
+                <div class="row m-0">
+                    <div *ngFor="let option_question of question.option_question" class="col-md-4 p-0">
+                        <label class="w-100" (click)="textToVoiceEn(option_question.option.name)">
+                        <div class="card card-button mx-1" [class.selected]="option_question.order !== null">
+                            <div class="card-body">
+                            <div class="mx-3">
+                                <img class="w-100" [src]="option_question.option.url">
+                            </div>
+                            <h6 class="m-0 mt-3">{{ option_question.option.name }}</h6>
+                            </div>
+                        </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Question type 6 -->
+            <div *ngIf="question.type === 6" class="card-body">
+                <h3 class="fw-bold mb-4">{{ question.question }}</h3>
+                <div class="row m-0">
+                    <div class="col-auto p-0">
+                        <button (click)="textToVoiceEn(question.text)" type="button" class="button button-listen bg info-solid me-3">
+                        <i class="fas fa-volume-up fa-4x"></i>
+                        </button>
+                    </div>
+                    <div class="col">
+                        <div class="row align-items-center h-100">
+                        <div *ngFor="let option_question of question.option_question" class="col-6 p-0">
+                            <label class="w-100" (click)="textToVoiceEn(option_question.option.name)">
+                            <div class="card card-button card-button-md w-100 m-1" [class.selected]="option_question.order !== null">
+                                <div class="card-body text-center">
+                                <h6 class="m-0">{{ option_question.option.name }}</h6>
+                                </div>
+                            </div>
+                            </label>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="newQuestion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold text-secondary" id="exampleModalLabel">Añadir pregunta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="questionForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                          <label class="form-label">Tipo de pregunta</label>
+                          <select #tipo class="form-select">
+                            <option value="1" selected>Tipo de pregunta 1</option>
+                            <option value="2">Tipo de pregunta 2</option>
+                            <option value="3">Tipo de pregunta 3</option>
+                            <option value="4">Tipo de pregunta 4</option>
+                            <option value="5">Tipo de pregunta 5</option>
+                            <option value="6">Tipo de pregunta 6</option>
+                            <option value="7">Tipo de pregunta 7</option>
+                            <option value="8">Tipo de pregunta 7</option>
+                            <option value="9">Tipo de pregunta 7</option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                          <label class="form-label">Pregunta</label>
+                          <input formControlName="pregunta" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                          <label class="form-label">Texto</label>
+                          <input formControlName="texto" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                          <label class="form-label">Opciones</label>
+                          <ng-select appearance="outline" [items]="optionsData" bindLabel="name" formControlName="opciones" [multiple]="true" [hideSelected]="true">
+                            <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                <span class="ng-value-label"><img [src]="item.url? item.url : 'https://www.i-shop.link/home/assets/images/no-image.png'" width="20px" height="20px"> {{ item.name }}</span>
+                                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item">
+                                <img [src]="item.url? item.url : 'https://www.i-shop.link/home/assets/images/no-image.png'" width="60px" height="60px"> {{ item.name }}
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                          <label class="form-label">Opciones correctas</label>
+                          <ng-select appearance="outline" [items]="questionForm.get('opciones').value" bindLabel="name" formControlName="opcionesCorrectas" [multiple]="true">
+                            <ng-template ng-label-tmp let-item="item">
+                                <img [src]="item.url? item.url : 'https://www.i-shop.link/home/assets/images/no-image.png'" width="20px" height="20px"/>
+                                <span class="px-1">{{ item.name }}</span>
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button (click)="generateNewQuestion(+tipo.value)" type="button" class="button bg success-solid w-100">Crear</button>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="modal fade" id="modifyQuestion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold text-secondary" id="exampleModalLabel">Modificar pregunta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="questionForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                      <label class="form-label">Pregunta</label>
+                      <input formControlName="pregunta" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3">
+                      <label class="form-label">Texto</label>
+                      <input formControlName="texto" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3">
+                      <label class="form-label">Opciones</label>
+                      <ng-select appearance="outline" [items]="optionsData" bindLabel="name" formControlName="opciones" [multiple]="true" [hideSelected]="true">
+                        <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                            <span class="ng-value-label"><img [src]="item.url? item.url : 'https://www.i-shop.link/home/assets/images/no-image.png'" width="20px" height="20px"> {{ item.name }}</span>
+                            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item">
+                            <img [src]="item.url? item.url : 'https://www.i-shop.link/home/assets/images/no-image.png'" width="60px" height="60px"> {{ item.name }}
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3">
+                      <label class="form-label">Opciones correctas</label>
+                      <ng-select appearance="outline" [items]="questionForm.get('opciones').value" bindLabel="name" formControlName="opcionesCorrectas" [multiple]="true">
+                        <ng-template ng-label-tmp let-item="item">
+                            <img [src]="item.url? item.url : 'https://www.i-shop.link/home/assets/images/no-image.png'" width="20px" height="20px"/>
+                            <span class="px-1">{{ item.name }}</span>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button (click)="saveQuestion()" type="button" class="button bg success-solid w-100">Guardar</button>
+        </div>
+      </div>
+    </div>
+</div>

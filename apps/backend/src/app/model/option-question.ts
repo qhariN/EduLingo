@@ -6,13 +6,16 @@ import { Question } from './question';
 export class OptionQuestion {
 
     @PrimaryGeneratedColumn()
-    id: number
+    id?: number
 
     @Column()
     flag_estado: number
 
     @Column({ nullable: true })
-    order: number //! 0 = no available ; 1 = available
+    order: number
+
+    @Column({ default: 1 })
+    status: number //! 0 = no available ; 1 = availables
 
     @ManyToOne(type => Question, question => question.option_question)
     question: Question
