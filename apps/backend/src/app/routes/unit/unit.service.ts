@@ -13,6 +13,7 @@ export class UnitService {
         return await this.repo.createQueryBuilder('unit')
             .leftJoinAndSelect('unit.section', 'section')
             .leftJoinAndSelect('section.session', 'session')
+            .where('session.status = 1')
             .getMany()
     }
 
@@ -21,6 +22,7 @@ export class UnitService {
             .leftJoinAndSelect('unit.section', 'section')
             .leftJoinAndSelect('section.session', 'session')
             .leftJoinAndSelect('session.progress', 'progress', 'progress.userId = :id', { id: _id})
+            .where('session.status = 1')
             .getMany()
     }
 
@@ -28,13 +30,13 @@ export class UnitService {
         
         let questions = [];
 
-        let all = await this.repo.createQueryBuilder('unit')
+        const all = await this.repo.createQueryBuilder('unit')
         .innerJoinAndSelect('unit.section','section')
         .innerJoinAndSelect('section.session','session')
         .innerJoinAndSelect('session.question', 'question')
         .innerJoinAndSelect('question.option_question', 'option_question')
         .innerJoinAndSelect('option_question.option', 'option')
-        .where('question.status = 1')    
+        .where('question.status = 1')
         .andWhere('unit.id = :id',{ id: id })   
         .orderBy('RAND()')
         .getMany();

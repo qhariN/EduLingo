@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'dash', loadChildren: () => import('./pages/dash/dash.module').then(m => m.DashModule), canActivate: [AuthGuard] },
   { path: 'skill', component: SkillComponent, canActivate: [AuthGuard] },
   { path: 'exam', component: ExamComponent},
+  { path: 'adm', loadChildren: () => import('./pages/adm/adm.module').then(m => m.AdmModule), canActivate: [AuthGuard] },
   { path: '**', component: NotfoundComponent }
 ];
 

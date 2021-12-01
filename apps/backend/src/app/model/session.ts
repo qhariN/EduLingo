@@ -18,8 +18,11 @@ export class Session {
     @Column()
     number?: number
 
-    @Column({ length: 300 })
+    @Column({ length: 300, nullable: true })
     url_content?: string
+
+    @Column({ default: 1 })
+    status?: number //! 0 = no available ; 1 = available
 
     @ManyToOne(type => Section, section => section.session)
     section?: Section

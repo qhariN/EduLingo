@@ -1,5 +1,24 @@
 @import '../../../../../../libs/theme/variables.scss';
 
+.primary-outline {
+    &:after {
+        border-color: #e5e5e5;
+    }
+}
+
+.btn-icon {
+    color: #afafaf;
+    &:hover {
+        color: $border-dark;
+    }
+}
+
+.session_name {
+    color: #afafaf;
+    font-size: 22px;
+    font-weight: 700;
+}
+
 .card-text {
     width: auto;
     min-height: 68px;
@@ -57,7 +76,8 @@ input[type="radio"], input[type="checkbox"] {
     display: none;
 }
 
-input[type="radio"]:checked + .card-button {
+input[type="radio"]:checked + .card-button,
+.card-button.selected {
     border-color: $primary-light;
     color: $primary;
     background-color: RGBA(58, 85, 125, 0.1);

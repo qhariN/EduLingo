@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Skill } from '../models/skill';
+import { Option, Question, Skill } from '../models/skill';
 
 
 @Injectable({
@@ -15,7 +15,32 @@ export class SkillService {
   getSkill(idsession: number): Observable<Skill> {
     return this.http.get<Skill>(`${environment.url}/session/practice/${idsession}`)
   }
-  postProgressSkill(item){
+
+  getSkillNoRand(idsession: number): Observable<Skill> {
+    return this.http.get<Skill>(`${environment.url}/session/practice/norand/${idsession}`)
+  }
+
+  deactivateSession(idsession: number) {
+    return this.http.patch(`${environment.url}/session/deactivate/${idsession}`, null)
+  }
+
+  createQuestion(question: Question) {
+    return this.http.post(`${environment.url}/session/question/create`, question)
+  }
+
+  updateQuestion(question: Question) {
+    return this.http.post(`${environment.url}/session/question/update`, question)
+  }
+
+  deactivateQuestion(idquestion: number) {
+    return this.http.patch(`${environment.url}/session/question/deactivate/${idquestion}`, null)
+  }
+
+  postProgressSkill(item) {
     return this.http.post(`${environment.url}/progress/insert`,item)
+  }
+
+  getOptions(): Observable<Option[]> {
+    return this.http.get<Option[]>(`${environment.url}/session/options`)
   }
 }

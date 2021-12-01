@@ -9,24 +9,24 @@ export class Question {
     id: number
 
     @Column({ length: 500 })
-    question: string
+    question?: string
 
     @Column({ length: 500, nullable: true })
-    text: string
+    text?: string
 
     @Column()
-    type: number
+    type?: number
 
     @Column({ length: 300, nullable: true })
-    img_url: string
+    img_url?: string
 
     @Column()
-    status: number //! 0 = no available ; 1 = availables
+    status?: number //! 0 = no available ; 1 = available
 
     @ManyToOne(type => Session, session => session.question)
     session?: Session
 
     @OneToMany(type => OptionQuestion, optionQuestion => optionQuestion.question)
-    option_question: OptionQuestion[]
+    option_question?: OptionQuestion[]
 
 }

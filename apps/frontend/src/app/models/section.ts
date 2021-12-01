@@ -1,10 +1,11 @@
 import {Session} from '../models/session';
 
-export interface Section{
+export interface Section {
 
     id:         string
-    order:      number
-    session:    Session[]
-    active:     boolean
+    order?:     number
+    session?:   Session[]
+    active?:    boolean
+    nSessions?: number
     
 }

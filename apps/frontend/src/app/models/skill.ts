@@ -1,3 +1,5 @@
+import { Session } from "./session";
+
 export interface Skill {
 
     id:          number
@@ -11,21 +13,26 @@ export interface Skill {
 
 export interface Question {
 
-    id:              number
-    question:        string
-    text:            string
-    type:            number
-    option_question: OptionQuestion[]
+    id?:               number
+    question?:        string
+    text?:            string
+    type?:            number
+    img_url?:         string
+    status?:          number
+    option_question?: OptionQuestion[]
+    session?:         Session
 
 }
 
 export interface OptionQuestion {
 
-    id:          number
+    id?:         number
     flag_estado: number
     order:       number
+    status?:     number
+    question?:   Question
     option:      Option
-    check:       boolean    //* used for checkbox
+    check?:      boolean    //* used for checkbox
 
 }
 

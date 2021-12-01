@@ -1,9 +1,6 @@
 @import '../../../../../libs/theme/variables.scss';
 
 *:not(.fa, .fas, .far) {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     font-family: 'Montserrat', sans-serif !important;
 }
 
@@ -409,5 +406,16 @@ a {
         width: 100%;
         padding: 24px 16px;
       }
+    }
+}
+
+.modal-content {
+    border: 2px solid #E3E3E3;
+    border-radius: 16px;
+    .modal-header {
+        border-bottom: 0;
+    }
+    .modal-footer {
+        border-top: 0;
     }
 }
