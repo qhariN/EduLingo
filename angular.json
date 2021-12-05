@@ -53,7 +53,8 @@
             "styles": [
               "libs/theme/scss/loader.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "apps/frontend/src/assets/scss/main.scss"
+              "apps/frontend/src/assets/scss/main.scss",
+              "node_modules/vditor/src/assets/scss/index.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

@@ -1,21 +1,20 @@
 <div class="modal-header">
-    <h4 class="modal-title"></h4>
+    <h4 class="modal-title">Resultados</h4>
     <button type="button" class="btn-close mx-3" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <div class="container">
-      <h2>Resultados!</h2>
-      <ul class="responsive-table">
-        <li class="table-header">
+    <div>
+      <ul class="responsive-table p-0">
+        <li class="table-header fw-bold text-black-50">
           <div class="col col-2 mr-2 text-center"></div>
           <div class="col col-1 mr-2">Pregunta</div>
           <div class="col col-3 text-center">Tu respuesta</div>
           <div class="col col-3 text-center">Respuesta correcta</div>
           <div class="col col-3 text-center">Tiempo Demorado</div>
         </li>
-        <li class="table-row" *ngFor="let question of dataSkill; let i = index" [ngClass]="{'correct': data[i].status=='CORRECTO', 'incorrect': data[i].status=='INCORRECTO','table-row': data[i].status==null}">
+        <li class="table-row d-flex align-items-center" *ngFor="let question of dataSkill; let i = index" [ngClass]="{'correct': data[i].status=='CORRECTO', 'incorrect': data[i].status=='INCORRECTO','table-row': data[i].status==null}">
           <div class="col col-2 ml-3 text-center">
-            <div class="indicator ml-3">
+            <div class="indicator me-3">
                 <i *ngIf="data[i].status=='CORRECTO'" class="fas fa-check fa-lg"></i>
                 <i *ngIf="data[i].status=='INCORRECTO'" class="fas fa-times fa-lg"></i>
             </div>
@@ -27,6 +26,3 @@
         </li>
       </ul>
     </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Close</button>
-  </div>

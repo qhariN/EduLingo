@@ -4,11 +4,9 @@
             <i class="fas fa-arrow-left"></i>
         </button>
         <p class="session_name mb-1 ms-3">{{ session.name }}</p>
-        <button class="button primary-outline ms-auto">
-            Practicar
-        </button>
     </div>
     <div class="w-100 px-5 pt-2">
-        <markdown [src]="session.url_content"></markdown>
+        <div id="vditor"></div>
+        <button (click)="null" type="button" class="button bg success-solid w-100 mt-4">Guardar</button>
     </div>
 </div>

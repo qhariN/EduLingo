@@ -1,15 +1,13 @@
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject, fromEvent, interval, merge, Observable, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, interval, Observable, Subject, Subscription } from 'rxjs';
 import { OptionQuestion, Question, Skill } from '../../models/skill';
 import { SkillService } from '../../services/skill.service';
-import { map, repeat, repeatWhen, takeUntil, tap} from 'rxjs/operators';
-import { StepperPracticeComponent } from '../../shared/layout/stepper-practice/stepper-practice.component';
-import {NgbModal, ModalDismissReasons, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import { repeatWhen, takeUntil, tap} from 'rxjs/operators';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import { ModalResultsComponent } from '../../shared/layout/modal-results/modal-results.component';
-
-declare var $: any;
+declare const $;
 
 @Component({
   selector: 'frontend-skill',

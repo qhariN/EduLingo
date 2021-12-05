@@ -3,6 +3,15 @@
 body {
     font-family: 'lato', sans-serif;
   }
+  .indicator {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
   .container {
     max-width: 1000px;
     margin-left: auto;
@@ -29,7 +38,7 @@ body {
       margin-bottom: 10px;
     }
     .table-header {
-      background-color: #95A5A6;
+      background-color: #eee;
       font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 0.03em;
