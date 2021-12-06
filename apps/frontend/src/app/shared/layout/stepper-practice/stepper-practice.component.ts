@@ -16,5 +16,4 @@ export class StepperPracticeComponent extends CdkStepper {
   @Input() status: number = 0 //! 0 = normal | 1 = correct | 2 = incorrect
   @Input() saved: number //! 0 = invalid | 1 = valid
   @Input() progress: number
-  @Input() time : number
 }
