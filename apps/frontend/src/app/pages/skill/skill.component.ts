@@ -28,10 +28,14 @@ export class SkillComponent implements OnInit, OnDestroy {
   saved: number = null
   progress: number = 0 //! 0% - 100%
   lasStep: boolean = false
-
+  total_writing = 0;
+  total_listening = 0;
+  total_speaking = 0; 
   
  //* variables para medir tiempo por pregunta
-  timerGlobal = 0;
+  timerGlobal = 20;
+  timeTotal = 0;
+  time = 0;
   behavior = new BehaviorSubject(0);
   timer: Observable<number>;
 
@@ -63,8 +67,13 @@ export class SkillComponent implements OnInit, OnDestroy {
         takeUntil(this.fin),
         repeatWhen(() => this.inicio)
       );
+      this.time = 0;
+
       this.timer.subscribe(data => {
-        this.timerGlobal = data;
+        this.time = this.timerGlobal + (data*(-1))
+        if(this.time <= 0){
+          this.fin.next();
+        }
       });
 
     } else {
@@ -107,42 +116,63 @@ export class SkillComponent implements OnInit, OnDestroy {
   checkResponse(iQuestion: string) {
     this.fin.next(); 
     this.status = 1 //* correct
-    this.getQuestionForm(iQuestion).value.time=this.timerGlobal+1;
+    this.getQuestionForm(iQuestion).value.time=(this.timerGlobal - this.time);
     this.getQuestionForm(iQuestion).value.status = 'CORRECTO';
+
     let question = this.skillData.question[iQuestion] as Question
+
+    let tiempo_inicial = (this.timerGlobal) * 1000;
+    let puntaje_inicial = 10;
+    let puntaje_x_tiempo_inicial = puntaje_inicial / tiempo_inicial;
+    let tiempo_final = (this.time)*1000;   
+    this.timeTotal += (this.timerGlobal - this.time);
+
     switch (question.type) {
       case 2:
+        this.total_writing += (puntaje_x_tiempo_inicial*tiempo_final);
       case 5:
+        this.total_listening += (puntaje_x_tiempo_inicial*tiempo_final);
       case 7:
+        let correct = true;
         if (this.getQuestionForm(iQuestion).value.length !== question.option_question.filter(v => v.flag_estado === 1).length) {
           this.status = 2 //* incorrect
           this.getQuestionForm(iQuestion).value.status = 'INCORRECTO';
+          correct = false;
         } else {
           let value2 = this.getQuestionForm(iQuestion).value as OptionQuestion[]
           for (let i = 0; i < value2.length; i++) {
             if (value2[i].flag_estado === 0 || value2[i].order != i + 1) {
               this.status = 2 //* incorrect
               this.getQuestionForm(iQuestion).value.status = 'INCORRECTO';
+              correct = false;
               break;
             }
           }
         }
-        break;
+        if(correct){
+          this.total_speaking += (puntaje_x_tiempo_inicial*tiempo_final);
+        }
 
+        break;
       case 1:
+        this.total_writing += (puntaje_x_tiempo_inicial*tiempo_final);
       case 3:
+        this.total_writing += (puntaje_x_tiempo_inicial*tiempo_final);
       case 4:
+        this.total_writing += (puntaje_x_tiempo_inicial*tiempo_final);
       case 6:
         let value4 = this.getQuestionForm(iQuestion).value as OptionQuestion
         if (value4.flag_estado === 0) {
           this.status = 2 //* incorrect
           this.getQuestionForm(iQuestion).value.status = 'INCORRECTO';
-        } 
+        }else{
+          this.total_listening += (puntaje_x_tiempo_inicial*tiempo_final);
+        }
         break;
-
       default:
         break;
     }
+
     //* play sound
     let audio = new Audio()
     this.status === 1? audio.src = '../../../assets/mp3/correct.mp3' : audio.src = '../../../assets/mp3/incorrect.mp3'
@@ -195,11 +225,16 @@ export class SkillComponent implements OnInit, OnDestroy {
       //* Save progress or show failed message
       if (valid) {
         this.saved = 1
+        let total_questions = this.skillData.question.length;
         //!servicio para guardar el progreso equisdé
         let progress ={
           session:{
               id: this.idSession
-          }
+          },
+          time: this.timeTotal,
+          points_writing: this.total_writing / total_questions,
+          points_listening: this.total_listening / total_questions,
+          points_speaking: this.total_speaking / total_questions
         }
         this.skillService.postProgressSkill(progress).subscribe(result => {
           console.log(result);
@@ -231,7 +266,7 @@ export class SkillComponent implements OnInit, OnDestroy {
   openResults(){
     ModalResultsComponent.prototype.data = this.questionsForm.value;
     ModalResultsComponent.prototype.dataSkill = this.skillData.question;
-    this.modalService.open(ModalResultsComponent,{windowClass: 'modal-holder', centered: true, size: 'lg', backdrop: 'static'}).result.then((result) => {console.log(result);
+    this.modalService.open(ModalResultsComponent,{windowClass: 'modal-holder', centered: true, size: 'lg', backdrop: 'static'}).result.then((result) => {
     });
   }
   

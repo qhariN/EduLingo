@@ -1,6 +1,8 @@
 <frontend-stepper-practice *ngIf="skillData && skillData.question.length !== 0" (checkClick)="checkResponse($event)"
-  (nextClick)="nextStep()" (checkResults)="openResults()" [status]="status" [saved]="saved" [progress]="progress" linear>
-  
+  (nextClick)="nextStep()" (checkResults)="openResults()" [status]="status" [saved]="saved" [progress]="progress" linear
+  (closeClick)="fin.next()"
+  [time]="time"
+  >
   <cdk-step *ngFor="let question of skillData.question; let i = index;" [completed]="getQuestionForm(i).valid">
     <!-- Question type 1 -->
     <div *ngIf="question.type === 1">

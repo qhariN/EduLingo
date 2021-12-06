@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Progress } from '../models/progress';
 import { Option, Question, Skill } from '../models/skill';
 
 
@@ -42,5 +43,9 @@ export class SkillService {
 
   getOptions(): Observable<Option[]> {
     return this.http.get<Option[]>(`${environment.url}/session/options`)
+  }
+
+  getProgress(): Observable<Progress>{
+    return this.http.get<Progress>(`${environment.url}/progress`)
   }
 }
