@@ -1,4 +1,4 @@
-import { Controller, Post, Request ,UseGuards, Body } from '@nestjs/common';
+import { Controller, Post, Get, Request ,UseGuards, Body } from '@nestjs/common';
 import { ProgressService } from './progress.service';
 import { PermissionsGuard } from '../../auth/permissions.guard';
 import { AuthGuard } from '@nestjs/passport';
@@ -13,5 +13,11 @@ export class ProgressController {
     @Post("insert")
     public async setProgress(@Body() progress : Progress,@Request() request) {
         return await this.service.setProgress(progress,request.user);
+    }
+
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Get()
+    public async getProgress(@Request() request){
+        return await this.service.getProgress(request.user);
     }
 }
