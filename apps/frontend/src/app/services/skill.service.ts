@@ -5,7 +5,6 @@ import { environment } from '../../environments/environment';
 import { Progress } from '../models/progress';
 import { Option, Question, Skill } from '../models/skill';
 
-
 @Injectable({
   providedIn: 'root'
 })

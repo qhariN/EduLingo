@@ -72,7 +72,7 @@ export class LearnComponent implements OnInit, OnDestroy {
   }
 
   goToTips(data: Session) {
-    this.router.navigate(['/dash/tips'], { state: data })
+    this.router.navigate(['/adm/tips'], { state: data })
   }
 
   goToSkill(data: Session) {
