@@ -11,6 +11,18 @@ export class Progress {
     @Column()
     status?: number //! 0 = no available ; 1 = available
 
+    @Column()
+    time?:number
+
+    @Column()
+    points_writing?:number
+
+    @Column()
+    points_listening?:number
+
+    @Column()
+    points_speaking?:number
+
     @ManyToOne(type => User, user => user.progress)
     user?: User
 

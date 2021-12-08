@@ -14,8 +14,6 @@ export class ModalResultsComponent implements OnInit {
   public data 
   public dataSkill
 
-  
-
   ngOnInit(): void {
     console.log(this.dataSkill);
   }
@@ -35,7 +33,6 @@ export class ModalResultsComponent implements OnInit {
       });
       return myOption.join(' ');
     } else {
-      console.log(options);
       return options.option.name
     }
   }

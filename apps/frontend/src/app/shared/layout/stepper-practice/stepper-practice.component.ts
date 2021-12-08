@@ -12,8 +12,8 @@ export class StepperPracticeComponent extends CdkStepper {
   @Output() checkClick = new EventEmitter
   @Output() nextClick = new EventEmitter
   @Output() checkResults = new EventEmitter
+  @Output() closeClick = new EventEmitter
   @Input() status: number = 0 //! 0 = normal | 1 = correct | 2 = incorrect
   @Input() saved: number //! 0 = invalid | 1 = valid
   @Input() progress: number
-
 }
