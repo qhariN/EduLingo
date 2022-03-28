@@ -19,10 +19,10 @@ import { ProgressModule } from './routes/progress/progress.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '152.67.50.191',
+      host: process.env.HOST,
       port: 3306,
-      username: 'nautilus',
-      password: '#gdmk9C6Ft#L',
+      username: process.env.USER,
+      password: process.env.PASS,
       database: 'edulingo-db',
       entities: [
         User,
