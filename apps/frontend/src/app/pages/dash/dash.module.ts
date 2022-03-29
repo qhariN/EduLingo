@@ -12,11 +12,9 @@ import { RouterModule } from '@angular/router';
 import { TipsComponent } from './components/tips/tips.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { RadarComponent } from './components/radar/radar.component';
-import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
-  declarations: [DashComponent, ForbiddenComponent, NotimplementedComponent, LearnComponent, TipsComponent, RadarComponent],
+  declarations: [DashComponent, ForbiddenComponent, NotimplementedComponent, LearnComponent, TipsComponent],
   imports: [
     CommonModule,
     DashRoutingModule,
@@ -25,7 +23,6 @@ import { ChartsModule } from 'ng2-charts';
     SharedModule,
     RouterModule,
     HttpClientModule,
-    ChartsModule,
     NgbModule,
     MarkdownModule.forRoot({ loader: HttpClient })
   ]
