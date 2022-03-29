@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
 declare var $: any;
 
 @Component({
@@ -10,7 +9,7 @@ declare var $: any;
 })
 export class MainComponent implements OnInit {
 
-  constructor(@Inject(DOCUMENT) public document: Document, public sAuth0: AuthService) { }
+  constructor(@Inject(DOCUMENT) public document: Document) { }
 
   ngOnInit(): void {
     //* hide loader

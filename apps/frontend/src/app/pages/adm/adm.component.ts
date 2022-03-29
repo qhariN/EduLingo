@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
 import { environment } from '../../../environments/environment';
 declare const $;
 
@@ -14,8 +13,7 @@ export class AdmComponent implements OnInit {
   appVersion = environment.appVersion
 
   constructor(
-    @Inject(DOCUMENT) public document: Document,
-    public sAuth0: AuthService
+    @Inject(DOCUMENT) public document: Document
   ) { }
 
   ngOnInit(): void {

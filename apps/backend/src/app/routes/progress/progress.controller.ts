@@ -9,13 +9,13 @@ export class ProgressController {
 
     constructor(private service: ProgressService) { }
 
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    // @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Post("insert")
     public async setProgress(@Body() progress : Progress,@Request() request) {
         return await this.service.setProgress(progress,request.user);
     }
 
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    // @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Get()
     public async getProgress(@Request() request){
         return await this.service.getProgress(request.user);

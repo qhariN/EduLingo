@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
 import { environment } from '../../../environments/environment';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -18,7 +17,6 @@ export class DashComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(DOCUMENT) public document: Document,
-    public sAuth0: AuthService,
     private router: Router
   ) { }
 

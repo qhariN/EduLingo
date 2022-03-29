@@ -28,9 +28,8 @@
         <span>84</span>
       </a>
 
-      <a class="avatar" *ngIf="sAuth0.user$ | async as user"
-        (click)="sAuth0.logout({ returnTo: document.location.origin })">
-        <img [src]="user.picture" [alt]="user.name" class="img-thumbnail">
+      <a class="avatar">
+        <img src="https://avatars.githubusercontent.com/u/27701073?v=4" alt="user" class="img-thumbnail">
       </a>
     </div>
   </nav>

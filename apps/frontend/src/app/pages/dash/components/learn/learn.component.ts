@@ -1,7 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
 import { Session } from 'apps/frontend/src/app/models/session';
 import { environment } from 'apps/frontend/src/environments/environment';
 import { Subscription } from 'rxjs';
@@ -24,7 +23,6 @@ export class LearnComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(DOCUMENT) public document: Document,
-    public sAuth0: AuthService,
     public unitService: UnitService,
     private router: Router
   ) {

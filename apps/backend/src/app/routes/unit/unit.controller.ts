@@ -12,7 +12,7 @@ export class UnitController {
         return await this.service.getAll()
     }
 
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    // @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Get('all/user')
     public async getAllUser(@Request() request) {
         return await this.service.getAllUser(request.user);

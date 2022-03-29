@@ -18,12 +18,8 @@ import { ProgressModule } from './routes/progress/progress.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.HOST,
-      port: 3306,
-      username: process.env.USER,
-      password: process.env.PASS,
-      database: 'edulingo-db',
+      type: 'sqlite',
+      database: './edulingo.db',
       entities: [
         User,
         Progress,
@@ -35,8 +31,7 @@ import { ProgressModule } from './routes/progress/progress.module';
         Session
       ],
       synchronize: false,
-      logging: ['query'],
-      charset: 'utf8mb4'
+      logging: ['query']
     }),
     AuthzModule,
     UnitModule,

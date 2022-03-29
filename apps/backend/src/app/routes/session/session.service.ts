@@ -18,7 +18,7 @@ export class SessionService {
             .where('question.status = 1')
             .andWhere('option_question.status = 1')
             .andWhere('session.id = :id',{ id: id })
-            .orderBy('RAND()')
+            .orderBy('random()')
             .getOneOrFail()
     }
 
