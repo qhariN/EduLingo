@@ -26,12 +26,6 @@
       "tags": [],
       "implicitDependencies": ["frontend"]
     },
-    "utils": {
-      "tags": []
-    },
-    "components": {
-      "tags": []
-    },
     "backend": {
       "tags": []
     }
