@@ -14,20 +14,19 @@ import { ExamComponent } from './pages/exam/exam.component';
 import { ModalResultsComponent } from './shared/layout/modal-results/modal-results.component';
 
 @NgModule({
-  declarations: [AppComponent, MainComponent, NotfoundComponent, SkillComponent, ExamComponent],
-  imports: [
-    AppRoutingModule,
-    BrowserModule,
-    HttpClientModule,
-    SharedModule,
-    NgbModule,
-    CdkStepperModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [ModalResultsComponent]
+    declarations: [AppComponent, MainComponent, NotfoundComponent, SkillComponent, ExamComponent],
+    imports: [
+        AppRoutingModule,
+        BrowserModule,
+        HttpClientModule,
+        SharedModule,
+        NgbModule,
+        CdkStepperModule,
+        FormsModule,
+        ReactiveFormsModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
