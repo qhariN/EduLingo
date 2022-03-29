@@ -1,5 +1,7 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'frontend-navigation-landing',
@@ -8,6 +10,18 @@ import { Component, Inject } from '@angular/core';
 })
 export class NavigationLandingComponent {
 
-  constructor(@Inject(DOCUMENT) public document: Document) { }
+  user: string
 
+  constructor(private sUser: UserService, private router: Router) { }
+
+  generateUser() {
+    if (!localStorage.getItem('user')) {
+      this.sUser.createUser().pipe(take(1)).subscribe((res: number) => {
+        localStorage.setItem('user', res.toString())
+        this.router.navigate(['/dash/learn'])
+      })
+    } else {
+      this.router.navigate(['/dash/learn'])
+    }
+  }
 }

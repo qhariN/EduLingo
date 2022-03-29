@@ -7,6 +7,7 @@ import { StepperPracticeComponent } from './layout/stepper-practice/stepper-prac
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { StepperExamComponent } from './layout/stepper-exam/stepper-exam.component';
 import { ModalResultsComponent } from './layout/modal-results/modal-results.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,8 @@ import { ModalResultsComponent } from './layout/modal-results/modal-results.comp
     CommonModule,
     RouterModule,
     CdkStepperModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports:[
     NavigationAdminComponent,

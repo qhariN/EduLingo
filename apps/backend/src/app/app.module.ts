@@ -14,6 +14,7 @@ import { Session } from './model/session';
 import { UnitModule } from './routes/unit/unit.module';
 import { SessionModule } from './routes/session/session.module';
 import { ProgressModule } from './routes/progress/progress.module';
+import { UserModule } from './routes/user/user.module';
 
 @Module({
   imports: [
@@ -36,7 +37,8 @@ import { ProgressModule } from './routes/progress/progress.module';
     AuthzModule,
     UnitModule,
     SessionModule,
-    ProgressModule
+    ProgressModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService],
