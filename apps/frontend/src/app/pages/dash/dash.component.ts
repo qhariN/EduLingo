@@ -2,7 +2,6 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 declare const $;
 
 @Component({
@@ -16,8 +15,7 @@ export class DashComponent implements OnInit, OnDestroy {
   appVersion = environment.appVersion
 
   constructor(
-    @Inject(DOCUMENT) public document: Document,
-    private router: Router
+    @Inject(DOCUMENT) public document: Document
   ) { }
 
   ngOnInit(): void {

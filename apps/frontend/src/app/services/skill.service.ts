@@ -37,7 +37,7 @@ export class SkillService {
   }
 
   postProgressSkill(item) {
-    return this.http.post(`${environment.url}/progress/insert`,item)
+    return this.http.post(`${environment.url}/progress/insert`, { user: { id: +localStorage.getItem('user') }, progress: item })
   }
 
   getOptions(): Observable<Option[]> {
@@ -45,6 +45,6 @@ export class SkillService {
   }
 
   getProgress(): Observable<Progress>{
-    return this.http.get<Progress>(`${environment.url}/progress`)
+    return this.http.post<Progress>(`${environment.url}/progress`, { id: +localStorage.getItem('user') })
   }
 }

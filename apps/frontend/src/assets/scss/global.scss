@@ -30,6 +30,10 @@ a {
     &.bg {
         padding: 12px 18px;
     }
+    &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
 }
 
 // Primary buttons [outline]

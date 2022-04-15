@@ -22,10 +22,10 @@ export class SkillComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription()
   questionsForm: FormArray
   skillData: Skill
-  status: number = 0 //! 0 = normal | 1 = correct | 2 = incorrect
+  status = 0 //! 0 = normal | 1 = correct | 2 = incorrect
   saved: number = null
-  progress: number = 0 //! 0% - 100%
-  lasStep: boolean = false
+  progress = 0 //! 0% - 100%
+  lasStep = false
   total_writing = 0;
   total_listening = 0;
   total_speaking = 0; 
@@ -54,7 +54,7 @@ export class SkillComponent implements OnInit, OnDestroy {
       //* generate array form
       this.subscriptions.add(this.skillService.getSkill(this.idSession).subscribe(res => {
         this.skillData = res
-        for (let question of this.skillData.question) {
+        for (const question of this.skillData.question) {
           this.questionsForm.push(this.fb.control(null, [Validators.required]))
         }
       }))
@@ -92,18 +92,18 @@ export class SkillComponent implements OnInit, OnDestroy {
 
   onAddCheckboxChange(iQuestion: string, option_question: OptionQuestion) {
     if (!this.getQuestionForm(iQuestion).value) { 
-      let array = []
+      const array = []
       array.push(option_question)
       this.getQuestionForm(iQuestion).setValue(array)
     } else {
-      let array = this.getQuestionForm(iQuestion).value
+      const array = this.getQuestionForm(iQuestion).value
       array.push(option_question)
       this.getQuestionForm(iQuestion).setValue(array)
     }
   }
 
   onDelCheckboxChange(iQuestion: string, iOption: string) {
-    let array = this.getQuestionForm(iQuestion).value as OptionQuestion[]
+    const array = this.getQuestionForm(iQuestion).value as OptionQuestion[]
     array.splice(+iOption, 1)
     this.getQuestionForm(iQuestion).setValue(array)
 
@@ -117,27 +117,29 @@ export class SkillComponent implements OnInit, OnDestroy {
     this.getQuestionForm(iQuestion).value.time=(this.timerGlobal - this.time);
     this.getQuestionForm(iQuestion).value.status = 'CORRECTO';
 
-    let question = this.skillData.question[iQuestion] as Question
+    const question = this.skillData.question[iQuestion] as Question
 
-    let tiempo_inicial = (this.timerGlobal) * 1000;
-    let puntaje_inicial = 10;
-    let puntaje_x_tiempo_inicial = puntaje_inicial / tiempo_inicial;
-    let tiempo_final = (this.time)*1000;   
+    const tiempo_inicial = (this.timerGlobal) * 1000;
+    const puntaje_inicial = 10;
+    const puntaje_x_tiempo_inicial = puntaje_inicial / tiempo_inicial;
+    const tiempo_final = (this.time)*1000;   
     this.timeTotal += (this.timerGlobal - this.time);
 
     switch (question.type) {
       case 2:
         this.total_writing += (puntaje_x_tiempo_inicial*tiempo_final);
+        break;
       case 5:
         this.total_listening += (puntaje_x_tiempo_inicial*tiempo_final);
-      case 7:
+        break;
+      case 7: {
         let correct = true;
         if (this.getQuestionForm(iQuestion).value.length !== question.option_question.filter(v => v.flag_estado === 1).length) {
           this.status = 2 //* incorrect
           this.getQuestionForm(iQuestion).value.status = 'INCORRECTO';
           correct = false;
         } else {
-          let value2 = this.getQuestionForm(iQuestion).value as OptionQuestion[]
+          const value2 = this.getQuestionForm(iQuestion).value as OptionQuestion[]
           for (let i = 0; i < value2.length; i++) {
             if (value2[i].flag_estado === 0 || value2[i].order != i + 1) {
               this.status = 2 //* incorrect
@@ -150,29 +152,33 @@ export class SkillComponent implements OnInit, OnDestroy {
         if(correct){
           this.total_speaking += (puntaje_x_tiempo_inicial*tiempo_final);
         }
-
         break;
+      }
       case 1:
         this.total_writing += (puntaje_x_tiempo_inicial*tiempo_final);
+        break;
       case 3:
         this.total_writing += (puntaje_x_tiempo_inicial*tiempo_final);
+        break;
       case 4:
         this.total_writing += (puntaje_x_tiempo_inicial*tiempo_final);
-      case 6:
-        let value4 = this.getQuestionForm(iQuestion).value as OptionQuestion
+        break;
+      case 6: {
+        const value4 = this.getQuestionForm(iQuestion).value as OptionQuestion
         if (value4.flag_estado === 0) {
           this.status = 2 //* incorrect
           this.getQuestionForm(iQuestion).value.status = 'INCORRECTO';
-        }else{
+        } else {
           this.total_listening += (puntaje_x_tiempo_inicial*tiempo_final);
         }
         break;
+      }
       default:
         break;
     }
 
     //* play sound
-    let audio = new Audio()
+    const audio = new Audio()
     this.status === 1? audio.src = '../../../assets/mp3/correct.mp3' : audio.src = '../../../assets/mp3/incorrect.mp3'
     audio.load()
     audio.play()
@@ -193,7 +199,7 @@ export class SkillComponent implements OnInit, OnDestroy {
     if (this.lasStep) {
       let valid = true
       this.questionsForm.controls.forEach((val, i) => {
-        let question = this.skillData.question[i] as Question
+        const question = this.skillData.question[i] as Question
         switch (question.type) {
           case 2:
           case 5:
@@ -201,7 +207,7 @@ export class SkillComponent implements OnInit, OnDestroy {
             if (this.getQuestionForm(i.toString()).value.length !== question.option_question.filter(v => v.flag_estado === 1).length) {
               valid = false
             } else {
-              let value2 = this.getQuestionForm(i.toString()).value as OptionQuestion[]
+              const value2 = this.getQuestionForm(i.toString()).value as OptionQuestion[]
               value2.forEach((value, index) => {
                 if (value.flag_estado === 0 && value.order !== index + 1) valid = false
               })
@@ -211,10 +217,11 @@ export class SkillComponent implements OnInit, OnDestroy {
           case 1:
           case 3:
           case 4:
-          case 6:
-            let value4 = this.getQuestionForm(i.toString()).value as OptionQuestion
+          case 6: {
+            const value4 = this.getQuestionForm(i.toString()).value as OptionQuestion
             if (value4.flag_estado === 0) valid = false //* incorrect
             break
+          }
     
           default:
             break
@@ -223,9 +230,9 @@ export class SkillComponent implements OnInit, OnDestroy {
       //* Save progress or show failed message
       if (valid) {
         this.saved = 1
-        let total_questions = this.skillData.question.length;
+        const total_questions = this.skillData.question.length;
         //!servicio para guardar el progreso equisdé
-        let progress ={
+        const progress ={
           session:{
               id: this.idSession
           },
@@ -246,7 +253,7 @@ export class SkillComponent implements OnInit, OnDestroy {
 
   //* método que convierte texto a voz
   textToVoiceEn(text: string) {
-    let msg = new SpeechSynthesisUtterance()
+    const msg = new SpeechSynthesisUtterance()
     msg.lang = 'en-US'
     msg.text = text
     msg.volume = 100
@@ -254,7 +261,7 @@ export class SkillComponent implements OnInit, OnDestroy {
   }
 
   textToVoiceEs(text: string) {
-    let msg = new SpeechSynthesisUtterance()
+    const msg = new SpeechSynthesisUtterance()
     msg.lang = 'es-MX'
     msg.text = text
     msg.volume = 100
@@ -265,6 +272,7 @@ export class SkillComponent implements OnInit, OnDestroy {
     ModalResultsComponent.prototype.data = this.questionsForm.value;
     ModalResultsComponent.prototype.dataSkill = this.skillData.question;
     this.modalService.open(ModalResultsComponent,{windowClass: 'modal-holder', centered: true, size: 'lg', backdrop: 'static'}).result.then((result) => {
+      console.log(result);
     });
   }
   

@@ -3,8 +3,11 @@
 
   <div class="actions">
     <ng-container>
-      <button (click)="generateUser()" class="button primary-outline">
+      <button *ngIf="!loading" (click)="generateUser()" class="button primary-outline">
         Ingresar
+      </button>
+      <button *ngIf="loading" class="button primary-outline" disabled>
+        Ingresando...
       </button>
     </ng-container>
   </div>

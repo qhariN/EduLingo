@@ -8,7 +8,7 @@ export class ProgressService {
 
     constructor(@InjectRepository(Progress) private readonly repo: Repository<Progress>) { }
 
-    public async setProgress(progress: Progress,_id:number): Promise<any> {
+    public async setProgress(progress: Progress, _id: number) {
         return await this.repo.createQueryBuilder('progress')
             .insert()
             .into(Progress)
@@ -24,13 +24,13 @@ export class ProgressService {
             .execute();
     }
 
-    public async getProgress(_id:number){        
+    public async getProgress(_id: number){        
         const progress = await this.repo.createQueryBuilder('progress')
         .where("status = 1")
         .andWhere('userId = :id',{ id: _id })
         .getMany();
 
-        let size = progress.length;
+        const size = progress.length;
         let sum_writing = 0;
         let sum_speaking = 0;
         let sum_listening = 0;
@@ -41,7 +41,7 @@ export class ProgressService {
             sum_listening += data.points_listening;
         });
 
-        let data = {
+        const data = {
             points_writing : size > 0 ? (sum_writing/size) : 0 ,
             points_listening : size > 0 ? (sum_listening/size) : 0,
             points_speaking : size > 0 ? (sum_speaking/size) : 0

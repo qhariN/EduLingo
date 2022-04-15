@@ -1,4 +1,5 @@
-import { Controller, Get, Request, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import { User } from '../../model/user';
 import { UnitService } from './unit.service';
 
 @Controller('unit')
@@ -12,9 +13,9 @@ export class UnitController {
     }
 
     // @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Get('all/user')
-    public async getAllUser(@Request() request) {
-        return await this.service.getAllUser(request.user);
+    @Post('all/user')
+    public async getAllUser(@Body() { id }: User) {
+        return await this.service.getAllUser(id);
     }
 
     @Get('evaluation/:id')

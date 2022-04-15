@@ -14,7 +14,7 @@ export class UnitService {
   constructor(private http: HttpClient) { }
   
   getUnits(): Observable<Unit[]> {
-    return this.http.get<Unit[]>(`${environment.url}/unit/all/user`);
+    return this.http.post<Unit[]>(`${environment.url}/unit/all/user`, { id: +localStorage.getItem('user') });
   }
 
   getUnitsNoUser(): Observable<Unit[]> {
