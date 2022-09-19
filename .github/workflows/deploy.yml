@@ -22,7 +22,7 @@ jobs:
       run: npm ci
     
     - name: Build app
-      run: ng build backend --prod
+      run: npm run build-backend
       
     - name: Copy build to host
       uses: appleboy/scp-action@master
@@ -32,7 +32,7 @@ jobs:
         key: ${{ secrets.KEY }}
         rm: true
         source: './,!node_modules'
-        target: '~/github/${{ github.event.repository.name }}'  
+        target: '~/github/edulingo-api'
         strip_components: 1
     
     - name: Execute deploy script
@@ -41,4 +41,4 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         key: ${{ secrets.KEY }}
-        script: 'cd ~/github && sh deploy.sh ${{ github.event.repository.name }}'
+        script: 'cd ~/github && sh deploy.sh edulingo-api'
